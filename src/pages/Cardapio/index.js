@@ -11,12 +11,19 @@ import {
   CardapioDescription,
 } from './styles';
 
+import entrada from '../../../assets/images/entrada.png';
+import proteico from '../../../assets/images/proteico.png';
+import opcao from '../../../assets/images/opcao.png';
+import acompanhamento from '../../../assets/images/acompanhamento.png';
+import guarnicao from '../../../assets/images/guarnicao.png';
+import sobremesa from '../../../assets/images/sobremesa.png';
+
 export default function Cardapio() {
   return (
     <Container>
       <Title>15/02/2020 - Almoço</Title>
       <CardapioItem style={styles.shadow}>
-        <CardapioImage />
+        <CardapioImage resizeMode="contain" source={entrada} />
         <CardapioTextContainer>
           <CardapioTitle>Tomate Berinjela ao Vinagrete</CardapioTitle>
           <CardapioDescription>Entrada</CardapioDescription>
@@ -24,7 +31,7 @@ export default function Cardapio() {
       </CardapioItem>
 
       <CardapioItem style={styles.shadow}>
-        <CardapioImage />
+        <CardapioImage source={proteico} />
         <CardapioTextContainer>
           <CardapioTitle>Bife de Frango Empanado</CardapioTitle>
           <CardapioDescription>Prato Proteico</CardapioDescription>
@@ -32,7 +39,7 @@ export default function Cardapio() {
       </CardapioItem>
 
       <CardapioItem style={styles.shadow}>
-        <CardapioImage />
+        <CardapioImage source={opcao} />
         <CardapioTextContainer>
           <CardapioTitle>Ovo Frito</CardapioTitle>
           <CardapioDescription>Opção</CardapioDescription>
@@ -40,7 +47,7 @@ export default function Cardapio() {
       </CardapioItem>
 
       <CardapioItem style={styles.shadow}>
-        <CardapioImage />
+        <CardapioImage source={acompanhamento} />
         <CardapioTextContainer>
           <CardapioTitle>Arroz e Feijão</CardapioTitle>
           <CardapioDescription>Acompanhamento</CardapioDescription>
@@ -48,7 +55,7 @@ export default function Cardapio() {
       </CardapioItem>
 
       <CardapioItem style={styles.shadow}>
-        <CardapioImage />
+        <CardapioImage source={guarnicao} />
         <CardapioTextContainer>
           <CardapioTitle>Purê de Batata</CardapioTitle>
           <CardapioDescription>Guarnição</CardapioDescription>
@@ -56,7 +63,7 @@ export default function Cardapio() {
       </CardapioItem>
 
       <CardapioItem style={styles.shadow}>
-        <CardapioImage />
+        <CardapioImage source={sobremesa} />
         <CardapioTextContainer>
           <CardapioTitle>Mamão</CardapioTitle>
           <CardapioDescription>Sobremesa</CardapioDescription>
