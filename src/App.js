@@ -37,7 +37,7 @@ const theme = {
 const App = () => {
   return (
     <PaperProvider theme={theme}>
-      <StatusBar content="ligh-content" backgroundColor="#009ee2" />
+      <StatusBar content="ligh-content" backgroundColor="#426696" />
       <Routes />
     </PaperProvider>
   );

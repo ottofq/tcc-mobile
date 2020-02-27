@@ -8,6 +8,8 @@ import {Text} from 'react-native';
 import Cardapio from './pages/Cardapio';
 import Info from './pages/Info';
 
+import Form from './pages/Forms/Main';
+
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
@@ -41,9 +43,20 @@ function BottomTabs() {
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Questionário">
         <Stack.Screen
           options={{
+            headerLeft: null,
+            headerTitleAlign: 'center',
+            headerTitleStyle: {fontSize: 22, color: '#fff', fontWeight: 'bold'},
+            headerStyle: {backgroundColor: '#004B82'},
+          }}
+          name="Questionario"
+          component={Form}
+        />
+        <Stack.Screen
+          options={{
+            headerLeft: null,
             headerTitleAlign: 'center',
             headerTitleStyle: {fontSize: 18, color: '#fff', fontWeight: 'bold'},
             headerStyle: {backgroundColor: '#004B82'},

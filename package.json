@@ -16,6 +16,7 @@
     "@react-navigation/stack": "^5.0.9",
     "install": "^0.13.0",
     "react": "16.9.0",
+    "react-hook-form": "^4.9.8",
     "react-native": "0.61.5",
     "react-native-gesture-handler": "^1.6.0",
     "react-native-paper": "^3.6.0",
