@@ -43,17 +43,7 @@ function BottomTabs() {
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Questionário">
-        <Stack.Screen
-          options={{
-            headerLeft: null,
-            headerTitleAlign: 'center',
-            headerTitleStyle: {fontSize: 22, color: '#fff', fontWeight: 'bold'},
-            headerStyle: {backgroundColor: '#004B82'},
-          }}
-          name="Questionario"
-          component={Form}
-        />
+      <Stack.Navigator initialRouteName="Questionario">
         <Stack.Screen
           options={{
             headerLeft: null,
@@ -63,6 +53,21 @@ export default function Routes() {
           }}
           name="Cardapio RU - CCA UFES"
           component={BottomTabs}
+        />
+
+        <Stack.Screen
+          options={{
+            headerLeft: null,
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontSize: 22,
+              color: '#fff',
+              fontWeight: 'bold',
+            },
+            headerStyle: {backgroundColor: '#004B82'},
+          }}
+          name="Questionario"
+          component={Form}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,10 +1,20 @@
 import React from 'react';
-import {useForm} from 'react-hook-form';
-import {TextInput, Button} from 'react-native-paper';
+import {Text} from 'react-native';
+import {useForm, Controller} from 'react-hook-form';
+import {Button, RadioButton} from 'react-native-paper';
+
+import {
+  Container,
+  TitleRadioGroup,
+  ContainerRadioButton,
+  ContainerRadioButtonItem,
+  ContainerButton,
+} from './styles';
 
 export default function Step2({route, navigation}) {
-  const {register, handleSubmit, setValue, errors} = useForm();
+  const {register, handleSubmit, setValue, control, errors} = useForm();
   const {nome} = route.params;
+
   function handleButtonNext(data) {
     const obj = {nome, ...data};
     console.log(obj);
@@ -17,24 +27,119 @@ export default function Step2({route, navigation}) {
   }
 
   return (
-    <>
-      <TextInput
-        label="Matricula"
-        ref={register('matricula', {
-          required: true,
-          minLength: 10,
-          maxLength: 10,
-        })}
-        onChangeText={text => setValue('matricula', text)}
-        keyboardType="number-pad"
-        type="outlined"
-      />
-      <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
-        Next
-      </Button>
-      <Button mode="contained" onPress={handleButtonPrev}>
-        Prev
-      </Button>
-    </>
+    <Container>
+      <TitleRadioGroup>
+        Com qual frequência você realiza suas refeições no RU.
+      </TitleRadioGroup>
+      <ContainerRadioButton>
+        <Controller
+          as={
+            <RadioButton.Group onValueChange={value => setValue('sexo', value)}>
+              <ContainerRadioButtonItem>
+                <RadioButton
+                  label="Todos os dias"
+                  color="#004B82"
+                  value="Todos os dias"
+                />
+                <Text>Todos os Dias</Text>
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton
+                  color="#004B82"
+                  value="Pelo menos 3 vezes na semana"
+                />
+                <Text>Pelo menos 3 vezes na semana</Text>
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton
+                  color="#004B82"
+                  value="Pelo menos 1 vez na semana"
+                />
+                <Text>Pelo menos 1 vez na semana </Text>
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton color="#004B82" value="Raramente" />
+                <Text>Raramente </Text>
+              </ContainerRadioButtonItem>
+            </RadioButton.Group>
+          }
+          name="sexo"
+          control={control}
+          onChange={value => setValue('sexo', value)}
+          rules={{required: true}}
+          defaultValue=""
+        />
+      </ContainerRadioButton>
+
+      <TitleRadioGroup>
+        Qual tipo de refeição você costuma realizar no RU?
+      </TitleRadioGroup>
+      <ContainerRadioButton>
+        <Controller
+          as={
+            <RadioButton.Group onValueChange={value => setValue('sexo', value)}>
+              <ContainerRadioButtonItem>
+                <RadioButton color="#004B82" value="masculino" />
+                <Text>Almoço</Text>
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton color="#004B82" value="feminino" />
+                <Text>Jantar</Text>
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton color="#004B82" value="feminino" />
+                <Text>Almoço e Jantar</Text>
+              </ContainerRadioButtonItem>
+            </RadioButton.Group>
+          }
+          name="sexo"
+          control={control}
+          onChange={value => setValue('sexo', value)}
+          rules={{required: true}}
+          defaultValue=""
+        />
+      </ContainerRadioButton>
+      <TitleRadioGroup>
+        Como você se considera de acordo com o seu nível de atividade física?
+      </TitleRadioGroup>
+      <ContainerRadioButton>
+        <Controller
+          as={
+            <RadioButton.Group onValueChange={value => setValue('sexo', value)}>
+              <ContainerRadioButtonItem>
+                <RadioButton color="#004B82" value="masculino" />
+                <Text>Sedentário</Text>
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton color="#004B82" value="feminino" />
+                <Text>Leve</Text>
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton color="#004B82" value="feminino" />
+                <Text>Moderado</Text>
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton color="#004B82" value="feminino" />
+                <Text>Ativo</Text>
+              </ContainerRadioButtonItem>
+            </RadioButton.Group>
+          }
+          name="sexo"
+          control={control}
+          onChange={value => setValue('sexo', value)}
+          rules={{required: true}}
+          defaultValue=""
+        />
+      </ContainerRadioButton>
+
+      <ContainerButton>
+        <Button mode="contained" onPress={handleButtonPrev}>
+          Voltar
+        </Button>
+        <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
+          Próximo
+        </Button>
+      </ContainerButton>
+    </Container>
   );
 }
