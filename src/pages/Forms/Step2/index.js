@@ -9,14 +9,15 @@ import {
   ContainerRadioButton,
   ContainerRadioButtonItem,
   ContainerButton,
+  styles,
 } from './styles';
 
 export default function Step2({route, navigation}) {
   const {register, handleSubmit, setValue, control, errors} = useForm();
-  const {nome} = route.params;
+  const params = route.params;
 
   function handleButtonNext(data) {
-    const obj = {nome, ...data};
+    const obj = {...params, ...data};
     console.log(obj);
     navigation.navigate('Questionário passo 3', {
       data: obj,
@@ -34,38 +35,41 @@ export default function Step2({route, navigation}) {
       <ContainerRadioButton>
         <Controller
           as={
-            <RadioButton.Group onValueChange={value => setValue('sexo', value)}>
+            <RadioButton.Group
+              onValueChange={value => setValue('frequencia_ru', value)}>
               <ContainerRadioButtonItem>
-                <RadioButton
+                <RadioButton.Item
                   label="Todos os dias"
-                  color="#004B82"
                   value="Todos os dias"
+                  style={styles.radioItem}
                 />
-                <Text>Todos os Dias</Text>
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
-                <RadioButton
-                  color="#004B82"
+                <RadioButton.Item
+                  label="Pelo menos 3 vezes na semana"
                   value="Pelo menos 3 vezes na semana"
+                  style={styles.radioItem}
                 />
-                <Text>Pelo menos 3 vezes na semana</Text>
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
-                <RadioButton
-                  color="#004B82"
+                <RadioButton.Item
+                  label="Pelo menos 1 vez na semana"
                   value="Pelo menos 1 vez na semana"
+                  style={styles.radioItem}
                 />
-                <Text>Pelo menos 1 vez na semana </Text>
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="Raramente" />
-                <Text>Raramente </Text>
+                <RadioButton.Item
+                  label="Raramente"
+                  value="Raramente"
+                  style={styles.radioItem}
+                />
               </ContainerRadioButtonItem>
             </RadioButton.Group>
           }
-          name="sexo"
+          name="frequencia_ru"
           control={control}
-          onChange={value => setValue('sexo', value)}
+          onChange={value => setValue('frequencia_ru', value)}
           rules={{required: true}}
           defaultValue=""
         />
@@ -77,24 +81,34 @@ export default function Step2({route, navigation}) {
       <ContainerRadioButton>
         <Controller
           as={
-            <RadioButton.Group onValueChange={value => setValue('sexo', value)}>
+            <RadioButton.Group
+              onValueChange={value => setValue('tipo_refeicao', value)}>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="masculino" />
-                <Text>Almoço</Text>
+                <RadioButton.Item
+                  label="Almoço"
+                  value="almoco"
+                  style={styles.radioItem}
+                />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="feminino" />
-                <Text>Jantar</Text>
+                <RadioButton.Item
+                  label="Jantar"
+                  value="jantar"
+                  style={styles.radioItem}
+                />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="feminino" />
-                <Text>Almoço e Jantar</Text>
+                <RadioButton.Item
+                  label="Almoço e Jantar"
+                  value="almoco e jantar"
+                  style={styles.radioItem}
+                />
               </ContainerRadioButtonItem>
             </RadioButton.Group>
           }
-          name="sexo"
+          name="tipo_refeicao"
           control={control}
-          onChange={value => setValue('sexo', value)}
+          onChange={value => setValue('tipo_refeicao', value)}
           rules={{required: true}}
           defaultValue=""
         />
@@ -105,28 +119,41 @@ export default function Step2({route, navigation}) {
       <ContainerRadioButton>
         <Controller
           as={
-            <RadioButton.Group onValueChange={value => setValue('sexo', value)}>
+            <RadioButton.Group
+              onValueChange={value => setValue('atividade_fisica', value)}>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="masculino" />
-                <Text>Sedentário</Text>
+                <RadioButton.Item
+                  label="Sedentário"
+                  value="sendetario"
+                  style={styles.radioItem}
+                />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="feminino" />
-                <Text>Leve</Text>
+                <RadioButton.Item
+                  label="Leve"
+                  value="leve"
+                  style={styles.radioItem}
+                />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="feminino" />
-                <Text>Moderado</Text>
+                <RadioButton.Item
+                  label="Moderado"
+                  value="moderado"
+                  style={styles.radioItem}
+                />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="feminino" />
-                <Text>Ativo</Text>
+                <RadioButton.Item
+                  label="Ativo"
+                  value="ativo"
+                  style={styles.radioItem}
+                />
               </ContainerRadioButtonItem>
             </RadioButton.Group>
           }
-          name="sexo"
+          name="atividade_fisica"
           control={control}
-          onChange={value => setValue('sexo', value)}
+          onChange={value => setValue('atividade_fisica', value)}
           rules={{required: true}}
           defaultValue=""
         />

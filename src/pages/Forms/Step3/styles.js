@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
+import {TextInput} from 'react-native-paper';
 
 export const Container = styled.View`
   flex: 1;
@@ -35,3 +36,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 });
+
+export const ContainerCheckbox = styled.View`
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid red;
+`;
+
+export const Input = styled(TextInput)`
+  margin-bottom: 10px;
+  height: 50px;
+`;

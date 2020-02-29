@@ -12,6 +12,8 @@ import {
   ContainerRadioButtonBolsa,
   Input,
   TitleRadioGroup,
+  TextError,
+  styles,
 } from './styles';
 
 export default function Step1({navigation}) {
@@ -21,9 +23,8 @@ export default function Step1({navigation}) {
     navigation.navigate('Questionário passo 2');
   }
   function onSubmit(data) {
-    console.log(data);
     navigation.navigate('Questionário passo 2', {
-      nome: data.nome,
+      ...data,
     });
   }
 
@@ -32,35 +33,33 @@ export default function Step1({navigation}) {
       <Input
         label="Nome"
         type="outlined"
-        ref={register('nome', {required: true})}
+        ref={register('nome')}
         onChangeText={text => setValue('nome', text)}
       />
-      {errors.nome && <Text>Campo Obrigatório</Text>}
+      {errors.nome && <TextError>Campo Obrigatório</TextError>}
       <Input
         label="Data de Nascimento"
         type="outlined"
         keyboardType="number-pad"
-        ref={register('data_nascimento', {required: true})}
+        ref={register('data_nascimento')}
         onChangeText={text => setValue('data_nascimento', text)}
       />
-      {errors.data_nascimento && <Text>Campo Obrigatório</Text>}
+      {errors.data_nascimento && <TextError>Campo Obrigatório</TextError>}
       <Input
         label="Curso"
         type="outlined"
-        ref={register('curso', {required: true})}
+        ref={register('curso')}
         onChangeText={text => setValue('curso', text)}
       />
-      {errors.curso && <Text>Campo Obrigatório</Text>}
+      {errors.curso && <TextError>Campo Obrigatório</TextError>}
       <Input
         label="Ano de Ingresso"
         type="outlined"
         keyboardType="number-pad"
-        ref={register('ano_ingresso', {
-          required: true,
-        })}
+        ref={register('ano_ingresso')}
         onChangeText={text => setValue('ano_ingresso', text)}
       />
-      {errors.ano_ingresso && <Text>Campo Obrigatório</Text>}
+      {errors.ano_ingresso && <TextError>Campo Obrigatório</TextError>}
 
       <TitleRadioGroup>Sexo:</TitleRadioGroup>
       <ContainerRadioButton>
@@ -68,12 +67,18 @@ export default function Step1({navigation}) {
           as={
             <RadioButton.Group onValueChange={value => setValue('sexo', value)}>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="masculino" />
-                <Text>Masculino</Text>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Masculino"
+                  value="masculino"
+                />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
-                <RadioButton color="#004B82" value="feminino" />
-                <Text>Feminino</Text>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Feminino"
+                  value="feminino"
+                />
               </ContainerRadioButtonItem>
             </RadioButton.Group>
           }
@@ -92,22 +97,31 @@ export default function Step1({navigation}) {
             <RadioButton.Group
               onValueChange={value => setValue('bolsista', value)}>
               <ContainerRadioButtonItemBolsa>
-                <RadioButton color="#004B82" value="Não sou bolsista" />
-                <Text>Não sou bolsista</Text>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Não sou Bolsista"
+                  value="Não sou bolsista"
+                />
               </ContainerRadioButtonItemBolsa>
               <ContainerRadioButtonItemBolsa>
-                <RadioButton color="#004B82" value="Bolsa Parcial" />
-                <Text>Bolsa Parcial</Text>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Bolsa Parcial"
+                  value="Bolsa Parcial"
+                />
               </ContainerRadioButtonItemBolsa>
               <ContainerRadioButtonItemBolsa>
-                <RadioButton color="#004B82" value="Bolsa Integral" />
-                <Text>Bolsa Integral (almoço e janta)</Text>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Bolsa Integral"
+                  value="Bolsa Integral"
+                />
               </ContainerRadioButtonItemBolsa>
             </RadioButton.Group>
           }
           name="bolsista"
           control={control}
-          onChange={value => setValue('sexo', value)}
+          onChange={value => setValue('bolsa', value)}
           rules={{required: true}}
           defaultValue=""
         />
