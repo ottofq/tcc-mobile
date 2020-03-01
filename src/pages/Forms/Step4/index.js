@@ -11,17 +11,19 @@ import {
   styles,
 } from './styles';
 
-export default function Step2({route, navigation}) {
+export default function Step4({navigation, route}) {
   const {handleSubmit, setValue, control, errors} = useForm();
+
   const params = route.params;
 
   function handleButtonNext(data) {
     const obj = {...params, ...data};
     console.log(obj);
-    navigation.navigate('Questionário passo 3', {
-      ...obj,
+    navigation.navigate('Questionário passo 5', {
+      data: obj,
     });
   }
+
   function handleButtonPrev() {
     navigation.goBack();
   }
@@ -29,126 +31,144 @@ export default function Step2({route, navigation}) {
   return (
     <Container>
       <TitleRadioGroup>
-        Com qual frequência você realiza suas refeições no RU.
+        Costuma adicionar sal nos alimentos prontos e saladas (você faz uso do
+        saleiro à mesa)?
       </TitleRadioGroup>
       <ContainerRadioButton>
         <Controller
           as={
             <RadioButton.Group
-              onValueChange={value => setValue('frequencia_ru', value)}>
+              onValueChange={value => setValue('adiciona_sal', value)}>
               <ContainerRadioButtonItem>
                 <RadioButton.Item
-                  label="Todos os dias"
-                  value="Todos os dias"
                   style={styles.radioItem}
+                  label="Sim"
+                  value="sim"
                 />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
                 <RadioButton.Item
-                  label="Pelo menos 3 vezes na semana"
-                  value="Pelo menos 3 vezes na semana"
                   style={styles.radioItem}
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  label="Pelo menos 1 vez na semana"
-                  value="Pelo menos 1 vez na semana"
-                  style={styles.radioItem}
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  label="Raramente"
-                  value="Raramente"
-                  style={styles.radioItem}
+                  label="Não"
+                  value="nao"
                 />
               </ContainerRadioButtonItem>
             </RadioButton.Group>
           }
-          name="frequencia_ru"
+          name="adiciona_sal"
           control={control}
           rules={{required: true}}
           defaultValue=""
         />
       </ContainerRadioButton>
+      <TitleRadioGroup>
+        Você utiliza o óleo composto que fica no balcão de distribuição de
+        refeições?
+      </TitleRadioGroup>
 
-      <TitleRadioGroup>
-        Qual tipo de refeição você costuma realizar no RU?
-      </TitleRadioGroup>
       <ContainerRadioButton>
         <Controller
           as={
             <RadioButton.Group
-              onValueChange={value => setValue('tipo_refeicao', value)}>
+              onValueChange={value => setValue('utiliza_oleo_composto', value)}>
               <ContainerRadioButtonItem>
                 <RadioButton.Item
-                  label="Almoço"
-                  value="almoco"
                   style={styles.radioItem}
+                  label="Sim"
+                  value="sim"
                 />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
                 <RadioButton.Item
-                  label="Jantar"
-                  value="jantar"
                   style={styles.radioItem}
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  label="Almoço e Jantar"
-                  value="almoco e jantar"
-                  style={styles.radioItem}
+                  label="Não"
+                  value="nao"
                 />
               </ContainerRadioButtonItem>
             </RadioButton.Group>
           }
-          name="tipo_refeicao"
+          name="utiliza_oleo_composto"
           control={control}
           rules={{required: true}}
           defaultValue=""
         />
       </ContainerRadioButton>
-      <TitleRadioGroup>
-        Como você se considera de acordo com o seu nível de atividade física?
-      </TitleRadioGroup>
+      <TitleRadioGroup>Você consome bebidas alcoólicas?</TitleRadioGroup>
+
       <ContainerRadioButton>
         <Controller
           as={
             <RadioButton.Group
-              onValueChange={value => setValue('atividade_fisica', value)}>
+              onValueChange={value =>
+                setValue('consome_bebida_alcoolica', value)
+              }>
               <ContainerRadioButtonItem>
                 <RadioButton.Item
-                  label="Sedentário"
-                  value="sendetario"
                   style={styles.radioItem}
+                  label="Sim, Diariamente"
+                  value="diariamente"
                 />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
                 <RadioButton.Item
-                  label="Leve"
-                  value="leve"
                   style={styles.radioItem}
+                  label="Sim, de 3-6 vezes na semana"
+                  value="3-6 vezes na semana"
                 />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
                 <RadioButton.Item
-                  label="Moderado"
-                  value="moderado"
                   style={styles.radioItem}
+                  label="Sim, de 1-2 vezes na semana "
+                  value="1-2 vezes na semana"
                 />
               </ContainerRadioButtonItem>
               <ContainerRadioButtonItem>
                 <RadioButton.Item
-                  label="Ativo"
-                  value="ativo"
                   style={styles.radioItem}
+                  label="Sim, Raramente"
+                  value="raramente"
+                />
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Não Consumo"
+                  value="nao"
                 />
               </ContainerRadioButtonItem>
             </RadioButton.Group>
           }
-          name="atividade_fisica"
+          name="consome_bebida_alcoolica"
+          control={control}
+          rules={{required: true}}
+          defaultValue=""
+        />
+      </ContainerRadioButton>
+      <TitleRadioGroup>Você é tabagista?</TitleRadioGroup>
+
+      <ContainerRadioButton>
+        <Controller
+          as={
+            <RadioButton.Group
+              onValueChange={value => setValue('tabagista', value)}>
+              <ContainerRadioButtonItem>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Sim"
+                  value="true"
+                />
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Não"
+                  value="false"
+                />
+              </ContainerRadioButtonItem>
+            </RadioButton.Group>
+          }
+          name="tabagista"
           control={control}
           rules={{required: true}}
           defaultValue=""

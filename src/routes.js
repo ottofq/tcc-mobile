@@ -7,6 +7,7 @@ import {Text} from 'react-native';
 
 import Cardapio from './pages/Cardapio';
 import Info from './pages/Info';
+import Avaliacao from './pages/Avaliacao';
 
 import Form from './pages/Forms/Main';
 
@@ -19,6 +20,7 @@ function BottomTabs() {
       initialRouteName="Cardapio"
       barStyle={{backgroundColor: '#004B82'}}>
       <Tab.Screen
+        inactiveColor="#eee"
         options={{
           tabBarIcon: () => (
             <Icon name="restaurant-menu" size={24} color="#fff" />
@@ -27,6 +29,14 @@ function BottomTabs() {
         }}
         name="Cardapio"
         component={Cardapio}
+      />
+      <Tab.Screen
+        name="Avaliar"
+        component={Avaliacao}
+        options={{
+          tabBarIcon: () => <Icon name="star" size={24} color="#fff" />,
+          tabBarLabel: <Text style={{fontSize: 14}}>Avaliar</Text>,
+        }}
       />
       <Tab.Screen
         name="Info"
@@ -43,7 +53,7 @@ function BottomTabs() {
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Questionario">
+      <Stack.Navigator initialRouteName="Cardapio RU - CCA UFES">
         <Stack.Screen
           options={{
             headerLeft: null,
@@ -58,6 +68,7 @@ export default function Routes() {
         <Stack.Screen
           options={{
             headerLeft: null,
+            headerTitle: 'Questionário',
             headerTitleAlign: 'center',
             headerTitleStyle: {
               fontSize: 22,

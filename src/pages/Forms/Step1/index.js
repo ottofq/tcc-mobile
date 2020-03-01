@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text} from 'react-native';
-import {TextInput, Button, RadioButton} from 'react-native-paper';
+import {Button, RadioButton} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
 import {KeyboardAvoidingView} from 'react-native';
 
@@ -19,9 +18,6 @@ import {
 export default function Step1({navigation}) {
   const {register, handleSubmit, setValue, errors, control} = useForm();
 
-  function handleButton() {
-    navigation.navigate('Questionário passo 2');
-  }
   function onSubmit(data) {
     navigation.navigate('Questionário passo 2', {
       ...data,
@@ -84,7 +80,6 @@ export default function Step1({navigation}) {
           }
           name="sexo"
           control={control}
-          onChange={value => setValue('sexo', value)}
           rules={{required: true}}
           defaultValue=""
         />
@@ -121,7 +116,6 @@ export default function Step1({navigation}) {
           }
           name="bolsista"
           control={control}
-          onChange={value => setValue('bolsa', value)}
           rules={{required: true}}
           defaultValue=""
         />

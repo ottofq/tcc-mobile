@@ -1,11 +1,13 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {StatusBar} from 'react-native';
+import {enableScreens} from 'react-native-screens';
 import {
   configureFonts,
   DefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
+enableScreens();
 import Routes from '../src/routes';
 
 const fontConfig = {

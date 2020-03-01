@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
+import {TextInput} from 'react-native-paper';
 
 export const Container = styled.View`
   flex: 1;
@@ -20,7 +21,7 @@ export const ContainerRadioButtonItem = styled.View`
 export const TitleRadioGroup = styled.Text`
   margin-top: 5px;
   margin-left: 5px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
 `;
 export const ContainerButton = styled.View`
@@ -31,8 +32,19 @@ export const ContainerButton = styled.View`
 export const styles = StyleSheet.create({
   radioItem: {
     flexDirection: 'row-reverse',
-    height: 32,
+    height: 42,
     width: '100%',
     justifyContent: 'flex-end',
   },
 });
+
+export const ContainerCheckbox = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: 5px;
+`;
+
+export const Input = styled(TextInput)`
+  margin-bottom: 5px;
+  height: 50px;
+`;

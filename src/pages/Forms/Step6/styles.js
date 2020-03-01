@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import {StyleSheet} from 'react-native';
 import {TextInput} from 'react-native-paper';
 
 export const Container = styled.View`
@@ -7,36 +6,23 @@ export const Container = styled.View`
   padding: 5px 5px;
   justify-content: space-between;
 `;
-export const ContainerRadioButton = styled.View`
-  align-items: flex-start;
-`;
 
-export const ContainerRadioButtonItem = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-right: 5px;
-`;
-
-export const TitleRadioGroup = styled.Text`
+export const TitleCheckboxGroup = styled.Text`
   margin-top: 5px;
   margin-left: 5px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
 `;
+
+export const TitleCheckbox = styled.Text`
+  font-size: 16px;
+`;
+
 export const ContainerButton = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 5px;
 `;
-export const styles = StyleSheet.create({
-  radioItem: {
-    flexDirection: 'row-reverse',
-    height: 32,
-    width: '100%',
-    justifyContent: 'flex-end',
-  },
-});
 
 export const ContainerCheckbox = styled.View`
   flex-direction: row;
@@ -47,4 +33,9 @@ export const ContainerCheckbox = styled.View`
 export const Input = styled(TextInput)`
   margin-bottom: 5px;
   height: 50px;
+`;
+
+export const TitleInput = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
 `;

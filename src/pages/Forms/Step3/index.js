@@ -33,8 +33,11 @@ export default function Step3({navigation, route}) {
   const params = route.params;
 
   function handleButtonNext(data) {
-    //navigation.navigate('Cardapio RU - CCA UFES');
-    console.log(data);
+    const obj = {...params, ...data};
+    console.log(obj);
+    navigation.navigate('Questionário passo 4', {
+      ...obj,
+    });
   }
   function handlerCheckbox(field, state, setState) {
     if (!alergia) {
@@ -160,9 +163,52 @@ export default function Step3({navigation, route}) {
         onChangeText={text => setValue('outras_alergias', text)}
       />
 
+      <TitleRadioGroup>Você é vegetariano ou vegano?</TitleRadioGroup>
+      <ContainerRadioButton>
+        <Controller
+          as={
+            <RadioButton.Group
+              onValueChange={value => setValue('vegano_vegetariano', value)}>
+              <ContainerRadioButtonItem>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Não sou vegano ou vegetariano"
+                  value="nao sou vegano"
+                />
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Ovolactovegetariano"
+                  value="ovolactovegetariano"
+                />
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Vegetariano restrito – alimentação"
+                  value="vegetariano restrito"
+                />
+              </ContainerRadioButtonItem>
+              <ContainerRadioButtonItem>
+                <RadioButton.Item
+                  style={styles.radioItem}
+                  label="Vegano"
+                  value="vegano"
+                />
+              </ContainerRadioButtonItem>
+            </RadioButton.Group>
+          }
+          name="vegano_vegetariano"
+          control={control}
+          rules={{required: true}}
+          defaultValue=""
+        />
+      </ContainerRadioButton>
+
       <ContainerButton>
         <Button mode="contained" onPress={handleButtonPrev}>
-          Prev
+          Voltar
         </Button>
         <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
           Próximo
