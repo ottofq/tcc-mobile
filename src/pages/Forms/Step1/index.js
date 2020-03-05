@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button, RadioButton} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
-import {KeyboardAvoidingView} from 'react-native';
 
 import {
   Container,

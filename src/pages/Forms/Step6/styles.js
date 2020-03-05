@@ -1,10 +1,16 @@
 import styled from 'styled-components/native';
 import {TextInput} from 'react-native-paper';
+import {KeyboardAvoidingView} from 'react-native';
 
-export const Container = styled.View`
+export const Container = styled(KeyboardAvoidingView).attrs({
+  behavior: 'position',
+  contentContainerStyle: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+})`
   flex: 1;
   padding: 5px 5px;
-  justify-content: space-between;
 `;
 
 export const TitleCheckboxGroup = styled.Text`

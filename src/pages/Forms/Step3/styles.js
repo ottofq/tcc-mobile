@@ -1,12 +1,18 @@
 import styled from 'styled-components/native';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, KeyboardAvoidingView} from 'react-native';
 import {TextInput} from 'react-native-paper';
 
-export const Container = styled.View`
+export const Container = styled(KeyboardAvoidingView).attrs({
+  behavior: 'position',
+  contentContainerStyle: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+})`
   flex: 1;
   padding: 5px 5px;
-  justify-content: space-between;
 `;
+
 export const ContainerRadioButton = styled.View`
   align-items: flex-start;
 `;
