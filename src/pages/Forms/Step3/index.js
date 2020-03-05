@@ -158,7 +158,7 @@ export default function Step3({navigation, route}) {
       <Input
         disabled={alergia}
         label="Outro"
-        type="outlined"
+        mode="outlined"
         ref={register('outras_alergias')}
         onChangeText={text => setValue('outras_alergias', text)}
       />

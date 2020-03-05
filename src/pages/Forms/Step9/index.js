@@ -186,7 +186,7 @@ export default function Step9({navigation, route}) {
 
       <Input
         label="Outras"
-        type="outlined"
+        mode="outlined"
         ref={register('outras_melhorias')}
         onChangeText={text => setValue('outras_melhorias', text)}
       />

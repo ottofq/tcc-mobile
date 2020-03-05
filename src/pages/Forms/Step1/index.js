@@ -28,14 +28,14 @@ export default function Step1({navigation}) {
     <Container>
       <Input
         label="Nome"
-        type="outlined"
+        mode="outlined"
         ref={register('nome')}
         onChangeText={text => setValue('nome', text)}
       />
       {errors.nome && <TextError>Campo Obrigatório</TextError>}
       <Input
         label="Data de Nascimento"
-        type="outlined"
+        mode="outlined"
         keyboardType="number-pad"
         ref={register('data_nascimento')}
         onChangeText={text => setValue('data_nascimento', text)}
@@ -43,14 +43,14 @@ export default function Step1({navigation}) {
       {errors.data_nascimento && <TextError>Campo Obrigatório</TextError>}
       <Input
         label="Curso"
-        type="outlined"
+        mode="outlined"
         ref={register('curso')}
         onChangeText={text => setValue('curso', text)}
       />
       {errors.curso && <TextError>Campo Obrigatório</TextError>}
       <Input
         label="Ano de Ingresso"
-        type="outlined"
+        mode="outlined"
         keyboardType="number-pad"
         ref={register('ano_ingresso')}
         onChangeText={text => setValue('ano_ingresso', text)}

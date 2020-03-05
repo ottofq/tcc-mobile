@@ -202,7 +202,7 @@ export default function Step5({navigation, route}) {
       <Input
         disabled={doenca}
         label="Outras Doenças"
-        type="outlined"
+        mode="outlined"
         ref={register('outras_doencas')}
         onChangeText={text => setValue('outras_doencas', text)}
       />

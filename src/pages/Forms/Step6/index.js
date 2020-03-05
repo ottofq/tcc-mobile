@@ -206,7 +206,7 @@ export default function Step6({navigation, route}) {
       <Input
         disabled={doenca}
         label="Outras Doenças"
-        type="outlined"
+        mode="outlined"
         ref={register('fam_outras_doencas')}
         onChangeText={text => setValue('fam_outras_doencas', text)}
       />
@@ -216,7 +216,7 @@ export default function Step6({navigation, route}) {
       </TitleInput>
       <Input
         label="Medicamentos"
-        type="outlined"
+        mode="outlined"
         ref={register('medicamentos')}
         onChangeText={text => setValue('medicamentos', text)}
       />
