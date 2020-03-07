@@ -8,7 +8,7 @@ import {
   Provider as PaperProvider,
 } from 'react-native-paper';
 enableScreens();
-import Routes from '../src/routes';
+import Routes from './Routes';
 
 const fontConfig = {
   default: {

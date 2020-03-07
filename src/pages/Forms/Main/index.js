@@ -15,7 +15,15 @@ const Stack = createStackNavigator();
 
 export default function Main() {
   return (
-    <Stack.Navigator headerMode="none" initialRouteName="Questionario passo 1">
+    <Stack.Navigator
+      screenOptions={{
+        headerLeft: null,
+        headerTitleAlign: 'center',
+        title: 'Questionário',
+        headerTitleStyle: {fontSize: 18, color: '#fff', fontWeight: 'bold'},
+        headerStyle: {backgroundColor: '#004B82'},
+      }}
+      initialRouteName="Questionario passo 1">
       <Stack.Screen name="Questionario passo 1" component={Step1} />
       <Stack.Screen name="Questionário passo 2" component={Step2} />
       <Stack.Screen name="Questionário passo 3" component={Step3} />
