@@ -1,31 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import Form from '../pages/Forms/Main';
-import BottomNavigator from './BottomNavigator';
+import StackNavigator from './StackNavigator';
 
-const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-
-function StackNav() {
-  return (
-    <Stack.Navigator initialRouteName="Cardapio RU - CCA UFES">
-      <Stack.Screen
-        options={{
-          headerLeft: null,
-          headerTitleAlign: 'center',
-          headerTitleStyle: {fontSize: 18, color: '#fff', fontWeight: 'bold'},
-          headerStyle: {backgroundColor: '#004B82'},
-        }}
-        name="Cardapio RU - CCA UFES"
-        component={BottomNavigator}
-      />
-    </Stack.Navigator>
-  );
-}
 
 export default function Routes() {
   return (
@@ -53,7 +34,7 @@ export default function Routes() {
             ),
           }}
           name="Cardapio RU - CCA UFES"
-          component={StackNav}
+          component={StackNavigator}
         />
         <Drawer.Screen
           options={{
