@@ -19,7 +19,7 @@ export const Title = styled.Text`
 `;
 
 export const CardapioItem = styled.View`
-  background-color: #d9deea;
+  background-color: #e2e2e2;
   flex-direction: row;
   align-items: center;
 `;
@@ -40,12 +40,12 @@ export const CardapioTitle = styled.Text`
   align-self: flex-start;
   font-size: 18px;
   font-weight: bold;
-  color: #101113;
+  color: #111111;
 `;
 
 export const CardapioDescription = styled.Text`
   align-self: flex-start;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 200;
-  color: #2c2c2c;
+  color: #4a4a4a;
 `;
