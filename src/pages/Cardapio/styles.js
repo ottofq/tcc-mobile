@@ -28,7 +28,6 @@ export const CardapioImage = styled.Image`
   width: 40px;
   height: 40px;
   margin: 5px;
-  border-radius: 20px;
 `;
 
 export const CardapioTextContainer = styled.View`
