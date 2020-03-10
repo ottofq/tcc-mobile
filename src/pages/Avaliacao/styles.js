@@ -1,16 +1,17 @@
 import styled from 'styled-components/native';
-import {TextInput} from 'react-native';
+
 export const Container = styled.View`
   flex: 1;
   justify-content: space-between;
+  font-family: 'PT Sans';
 `;
 
 export const Title = styled.Text`
   font-size: 45px;
   color: #004b82;
-  font-weight: bold;
   text-align: center;
   margin-top: 10px;
+  font-family: 'PTSans-Bold';
 `;
 
 export const ContainerComentario = styled.View`

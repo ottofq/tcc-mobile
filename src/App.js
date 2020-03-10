@@ -8,7 +8,7 @@ import {
   DefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
-import Routes from './Routes';
+import Routes from './Routes/Main';
 
 const fontConfig = {
   default: {
