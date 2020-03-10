@@ -1,11 +1,12 @@
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Text} from 'react-native';
 
 import Cardapio from '../../pages/Cardapio';
 import Info from '../../pages/Info';
 import Avaliacao from '../../pages/Avaliacao';
+
+import {Title} from './styles';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -23,7 +24,7 @@ export default function BottomNavigator() {
             ) : (
               <Icon name="restaurant-menu" size={24} color="#bebebe" />
             ),
-          tabBarLabel: <Text style={{fontSize: 14}}>Cardapio</Text>,
+          tabBarLabel: <Title>Cardápio</Title>,
         }}
         name="Cardapio"
         component={Cardapio}
@@ -38,7 +39,7 @@ export default function BottomNavigator() {
             ) : (
               <Icon name="star" size={24} color="#bebebe" />
             ),
-          tabBarLabel: <Text style={{fontSize: 14}}>Avaliar</Text>,
+          tabBarLabel: <Title>Avaliar</Title>,
         }}
       />
       <Tab.Screen
@@ -51,7 +52,7 @@ export default function BottomNavigator() {
             ) : (
               <Icon name="info-outline" size={24} color="#bebebe" />
             ),
-          tabBarLabel: <Text style={{fontSize: 14}}>Info</Text>,
+          tabBarLabel: <Title>Info</Title>,
         }}
       />
     </Tab.Navigator>

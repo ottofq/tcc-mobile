@@ -20,7 +20,11 @@ export default function Main() {
         headerLeft: null,
         headerTitleAlign: 'center',
         title: 'Questionário',
-        headerTitleStyle: {fontSize: 18, color: '#fff', fontWeight: 'bold'},
+        headerTitleStyle: {
+          fontSize: 24,
+          color: '#fff',
+          fontFamily: 'PTSans-Bold',
+        },
         headerStyle: {backgroundColor: '#004B82'},
       }}
       initialRouteName="Questionario passo 1">
