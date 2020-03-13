@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import Form from '../../pages/Forms/Main';
+import InfoNavigator from '../../pages/Info';
 import StackNavigator from '../StackNavigator';
 
 import {Title} from './styles';
@@ -35,6 +36,13 @@ export default function Routes() {
           }}
           name="Questionário"
           component={Form}
+        />
+        <Drawer.Screen
+          options={{
+            drawerLabel: () => <Title>Informações Gerais</Title>,
+          }}
+          name="Info"
+          component={InfoNavigator}
         />
       </Drawer.Navigator>
     </NavigationContainer>
