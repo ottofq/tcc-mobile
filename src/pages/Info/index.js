@@ -1,21 +1,12 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Table, Row, Rows} from 'react-native-table-component';
 import {View} from 'react-native';
 
-import {
-  ButtonLeft,
-  Title,
-  Container,
-  TitleInfo,
-  InfoDescription,
-  styles,
-} from './styles';
+import Header from '../../components/Header';
 
-const Stack = createStackNavigator();
+import {Title, Container, TitleInfo, InfoDescription, styles} from './styles';
 
-function Info() {
+export default function Info({navigation}) {
   const tableHead = [
     'Categoria de usuário',
     'Valor pago R$',
@@ -52,6 +43,10 @@ function Info() {
 
   return (
     <Container>
+      <Header
+        handleMenu={() => navigation.openDrawer()}
+        title="INFORMAÇÕES GERAIS"
+      />
       <Title>Horário de funcionamento</Title>
       <TitleInfo>Dias de atendimento:</TitleInfo>
       <InfoDescription>
@@ -80,35 +75,5 @@ Jantar: 17h30min às 19h00min - (Alegre)
         </Table>
       </View>
     </Container>
-  );
-}
-
-export default function InfoNavigator({navigation}) {
-  function handleButton() {
-    navigation.openDrawer();
-  }
-
-  return (
-    <Stack.Navigator initialRouteName="Cardapio RU - CCA UFES">
-      <Stack.Screen
-        options={{
-          headerLeft: () => (
-            <ButtonLeft onPress={handleButton}>
-              <Icon name="menu" size={36} color="#fff" />
-            </ButtonLeft>
-          ),
-          headerTitleAlign: 'center',
-          headerTitle: 'Informações Gerais',
-          headerTitleStyle: {
-            fontSize: 24,
-            color: '#fff',
-            fontFamily: 'PTSans-Bold',
-          },
-          headerStyle: {backgroundColor: '#004B82'},
-        }}
-        name="Info"
-        component={Info}
-      />
-    </Stack.Navigator>
   );
 }
