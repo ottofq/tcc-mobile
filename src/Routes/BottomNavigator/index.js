@@ -3,7 +3,7 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Cardapio from '../../pages/Cardapio';
-import Info from '../../pages/Info';
+import Avisos from '../../pages/Avisos';
 import Avaliacao from '../../pages/Avaliacao';
 
 import {Title} from './styles';
@@ -44,7 +44,7 @@ export default function BottomNavigator() {
       />
       <Tab.Screen
         name="Info"
-        component={Info}
+        component={Avisos}
         options={{
           tabBarIcon: ({focused}) =>
             focused ? (
@@ -52,7 +52,7 @@ export default function BottomNavigator() {
             ) : (
               <Icon name="info-outline" size={24} color="#bebebe" />
             ),
-          tabBarLabel: <Title>Info</Title>,
+          tabBarLabel: <Title>Avisos</Title>,
         }}
       />
     </Tab.Navigator>
