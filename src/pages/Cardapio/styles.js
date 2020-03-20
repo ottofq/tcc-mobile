@@ -25,6 +25,7 @@ export const CardapioItem = styled.View`
 `;
 
 export const CardapioImage = styled.Image`
+  resize-mode: contain;
   width: 40px;
   height: 40px;
   margin: 5px;

@@ -23,7 +23,7 @@ export default function Cardapio() {
     <Container>
       <Title>15/02/2020 - Almoço</Title>
       <CardapioItem style={styles.shadow}>
-        <CardapioImage resizeMode="contain" source={entrada} />
+        <CardapioImage source={entrada} />
         <CardapioTextContainer>
           <CardapioTitle>Tomate Berinjela ao Vinagrete</CardapioTitle>
           <CardapioDescription>Entrada</CardapioDescription>
