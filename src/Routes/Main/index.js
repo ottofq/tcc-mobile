@@ -5,12 +5,16 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
+import {enableScreens} from 'react-native-screens';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Form from '../../pages/Forms/Main';
 import InfoNavigator from '../../pages/Info';
-import StackNavigator from '../StackNavigator';
+import BottomNavigator from '../BottomNavigator';
 import logo from '../../../assets/images/logo.png';
+
+enableScreens();
 
 import {Container, Title, Logo, Divider} from './styles';
 
@@ -49,7 +53,7 @@ export default function Routes() {
             ),
           }}
           name="Cardapio RU - CCA UFES"
-          component={StackNavigator}
+          component={BottomNavigator}
         />
         <Drawer.Screen
           options={{
