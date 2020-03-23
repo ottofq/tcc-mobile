@@ -20,19 +20,9 @@ export const TitleCheckboxGroup = styled.Text`
   font-weight: bold;
 `;
 
-export const TitleCheckbox = styled.Text`
-  font-size: 16px;
-`;
-
 export const ContainerButton = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 5px;
-`;
-
-export const ContainerCheckbox = styled.View`
-  flex-direction: row;
-  align-items: center;
   margin-top: 5px;
 `;
 

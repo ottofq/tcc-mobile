@@ -1,18 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import {Text} from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
 import {useForm, Controller} from 'react-hook-form';
-import {Button, RadioButton} from 'react-native-paper';
+import {Button, RadioButton, HelperText} from 'react-native-paper';
+
+import RadioButtonItem from '../../../components/RadioButton';
+import CheckBoxItem from '../../../components/Checkbox';
 
 import {
   Container,
   TitleRadioGroup,
   ContainerRadioButton,
-  ContainerRadioButtonItem,
+  ContainerTitle,
   ContainerButton,
-  ContainerCheckbox,
   Input,
-  styles,
 } from './styles';
 
 export default function Step3({navigation, route}) {
@@ -61,100 +60,103 @@ export default function Step3({navigation, route}) {
 
   return (
     <Container>
-      <TitleRadioGroup>
-        Você se considera dentro do peso ideal para a sua idade e sexo?
-      </TitleRadioGroup>
-      <ContainerRadioButton>
-        <Controller
-          as={
-            <RadioButton.Group
-              onValueChange={value => setValue('peso_ideal', value)}>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Sim"
-                  value="sim"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Não"
-                  value="nao"
-                />
-              </ContainerRadioButtonItem>
-            </RadioButton.Group>
-          }
-          name="peso_ideal"
-          control={control}
-          rules={{required: true}}
-          defaultValue=""
-        />
-      </ContainerRadioButton>
+      <Controller
+        as={
+          <RadioButton.Group
+            onValueChange={value => setValue('peso_ideal', value)}>
+            <ContainerRadioButton>
+              <ContainerTitle>
+                <TitleRadioGroup error={errors.peso_ideal}>
+                  Você se considera dentro do peso ideal para a sua idade e
+                  sexo?
+                </TitleRadioGroup>
+                {errors.peso_ideal && (
+                  <HelperText padding="none" type="error">
+                    * Campo Obrigatório
+                  </HelperText>
+                )}
+              </ContainerTitle>
+
+              <RadioButtonItem
+                label="Sim"
+                value="sim"
+                handlePress={() => setValue('peso_ideal', 'sim')}
+              />
+
+              <RadioButtonItem
+                label="Não"
+                value="nao"
+                handlePress={() => setValue('peso_ideal', 'nao')}
+              />
+            </ContainerRadioButton>
+          </RadioButton.Group>
+        }
+        name="peso_ideal"
+        control={control}
+        rules={{required: true}}
+        defaultValue=""
+      />
 
       <TitleRadioGroup>
         Você possui algum tipo de alergia ou intolerância alimentar?
       </TitleRadioGroup>
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
-          handlerCheckbox('alergia_gluten', gluten, setGluten)
-        }>
-        <CheckBox
-          disabled={alergia ? true : false}
-          ref={register({name: 'alergia_gluten'})}
-          value={gluten ? true : false}
-          onValueChange={() =>
-            handlerCheckbox('alergia_gluten', gluten, setGluten)
-          }
-        />
-        <Text>Alergia ao Gluten</Text>
-      </ContainerCheckbox>
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
-          handlerCheckbox('intolerancia_lactose', lactose, setLactose)
-        }>
-        <CheckBox
-          disabled={alergia ? true : false}
-          ref={register({name: 'intolerancia_lactose'})}
-          value={lactose ? true : false}
-          onValueChange={() =>
-            handlerCheckbox('intolerancia_lactose', lactose, setLactose)
-          }
-        />
-        <Text>Intolerância a lactose</Text>
-      </ContainerCheckbox>
 
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
+      <CheckBoxItem
+        label="Alergia ao Gluten"
+        status={
+          alergia
+            ? 'indeterminate'
+            : 'unchecked' && gluten
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() => handlerCheckbox('alergia_gluten', gluten, setGluten)}
+      />
+
+      <CheckBoxItem
+        label="Intolerância a lactose"
+        status={
+          alergia
+            ? 'indeterminate'
+            : 'unchecked' && lactose
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() =>
+          handlerCheckbox('intolerancia_lactose', lactose, setLactose)
+        }
+      />
+
+      <CheckBoxItem
+        label="Alergia à proteína do leite de vaca"
+        status={
+          alergia
+            ? 'indeterminate'
+            : 'unchecked' && proteinaLeite
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() =>
           handlerCheckbox(
             'proteina_leite_vaca',
             proteinaLeite,
             setProteinaLeite,
           )
-        }>
-        <CheckBox
-          disabled={alergia ? true : false}
-          ref={register({name: 'proteina_leite_vaca'})}
-          value={proteinaLeite ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'proteina_leite_vaca',
-              proteinaLeite,
-              setProteinaLeite,
-            )
-          }
-        />
-        <Text>Alergia à proteína do leite de vaca</Text>
-      </ContainerCheckbox>
-      <ContainerCheckbox
-        onStartShouldSetResponder={() => handlerCheckboxAlergia()}>
-        <CheckBox
-          disabled={gluten || lactose || proteinaLeite}
-          ref={register({name: 'alergia'})}
-          value={alergia ? true : false}
-        />
-        <Text>Não possuo alergias</Text>
-      </ContainerCheckbox>
+        }
+      />
+
+      <CheckBoxItem
+        label="Não possuo alergias"
+        status={
+          gluten || lactose || proteinaLeite
+            ? 'indeterminate'
+            : 'unchecked' && alergia
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() => handlerCheckboxAlergia()}
+      />
+
       <Input
         disabled={alergia}
         label="Outro"
@@ -163,48 +165,59 @@ export default function Step3({navigation, route}) {
         onChangeText={text => setValue('outras_alergias', text)}
       />
 
-      <TitleRadioGroup>Você é vegetariano ou vegano?</TitleRadioGroup>
-      <ContainerRadioButton>
-        <Controller
-          as={
-            <RadioButton.Group
-              onValueChange={value => setValue('vegano_vegetariano', value)}>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Não sou vegano ou vegetariano"
-                  value="nao sou vegano"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Ovolactovegetariano"
-                  value="ovolactovegetariano"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Vegetariano restrito – alimentação"
-                  value="vegetariano restrito"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Vegano"
-                  value="vegano"
-                />
-              </ContainerRadioButtonItem>
-            </RadioButton.Group>
-          }
-          name="vegano_vegetariano"
-          control={control}
-          rules={{required: true}}
-          defaultValue=""
-        />
-      </ContainerRadioButton>
+      <Controller
+        as={
+          <RadioButton.Group
+            onValueChange={value => setValue('vegano_vegetariano', value)}>
+            <ContainerRadioButton>
+              <ContainerTitle>
+                <TitleRadioGroup error={errors.vegano_vegetariano}>
+                  Você é vegetariano ou vegano?
+                </TitleRadioGroup>
+                {errors.vegano_vegetariano && (
+                  <HelperText padding="none" type="error">
+                    * Campo Obrigatório
+                  </HelperText>
+                )}
+              </ContainerTitle>
+
+              <RadioButtonItem
+                label="Não sou vegano ou vegetariano"
+                value="nao sou vegano"
+                handlePress={() =>
+                  setValue('vegano_vegetariano', 'nao sou vegano')
+                }
+              />
+
+              <RadioButtonItem
+                label="Ovolactovegetariano"
+                value="ovolactovegetariano"
+                handlePress={() =>
+                  setValue('vegano_vegetariano', 'ovolactovegetariano')
+                }
+              />
+
+              <RadioButtonItem
+                label="Vegetariano restrito – alimentação"
+                value="vegetariano restrito"
+                handlePress={() =>
+                  setValue('vegano_vegetariano', 'vegetariano restrito')
+                }
+              />
+
+              <RadioButtonItem
+                label="Vegano"
+                value="vegano"
+                handlePress={() => setValue('vegano_vegetariano', 'vegano')}
+              />
+            </ContainerRadioButton>
+          </RadioButton.Group>
+        }
+        name="vegano_vegetariano"
+        control={control}
+        rules={{required: true}}
+        defaultValue=""
+      />
 
       <ContainerButton>
         <Button mode="contained" onPress={handleButtonPrev}>

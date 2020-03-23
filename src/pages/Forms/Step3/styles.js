@@ -1,12 +1,12 @@
 import styled from 'styled-components/native';
-import {StyleSheet, KeyboardAvoidingView} from 'react-native';
 import {TextInput} from 'react-native-paper';
+import {KeyboardAvoidingView} from 'react-native';
 
 export const Container = styled(KeyboardAvoidingView).attrs({
   behavior: 'position',
   contentContainerStyle: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
 })`
   flex: 1;
@@ -14,43 +14,25 @@ export const Container = styled(KeyboardAvoidingView).attrs({
 `;
 
 export const ContainerRadioButton = styled.View`
-  align-items: flex-start;
+  justify-content: space-around;
 `;
 
-export const ContainerRadioButtonItem = styled.View`
+export const ContainerTitle = styled.View`
+  margin-bottom: 5px;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-right: 5px;
+  flex-wrap: wrap;
 `;
 
 export const TitleRadioGroup = styled.Text`
-  margin-top: 5px;
-  margin-left: 5px;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 18px;
+  font-family: 'PTSans-Bold';
+  color: ${props => (props.error ? '#B00020' : 'black')};
 `;
+
 export const ContainerButton = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 5px;
 `;
-export const styles = StyleSheet.create({
-  radioItem: {
-    flexDirection: 'row-reverse',
-    height: 32,
-    width: '100%',
-    justifyContent: 'flex-end',
-  },
-});
 
-export const ContainerCheckbox = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-top: 5px;
-`;
-
-export const Input = styled(TextInput)`
-  margin-bottom: 5px;
-  height: 50px;
-`;
+export const Input = styled(TextInput)``;

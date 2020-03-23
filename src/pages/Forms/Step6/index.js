@@ -1,20 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import CheckBox from '@react-native-community/checkbox';
 import {useForm} from 'react-hook-form';
 import {Button} from 'react-native-paper';
+
+import CheckBoxItem from '../../../components/Checkbox';
 
 import {
   Container,
   TitleCheckboxGroup,
   ContainerButton,
-  ContainerCheckbox,
   Input,
-  TitleCheckbox,
   TitleInput,
 } from './styles';
 
 export default function Step6({navigation, route}) {
-  const {register, handleSubmit, setValue, errors} = useForm();
+  const {register, handleSubmit, setValue} = useForm();
   const [doencaCardiovascular, setDoencaCardiovascular] = useState(false);
   const [hipertensaoArterial, setHipertensaoArterial] = useState(false);
   const [obesidade, setObesidade] = useState(false);
@@ -51,7 +50,7 @@ export default function Step6({navigation, route}) {
     }
   }
 
-  function handlerCheckboxAlergia() {
+  function handlerCheckboxDoenca() {
     setDoenca(!doenca);
     setValue('fam_doenca_cardiovascular', true);
     setValue('fam_hipertensao_arterial', false);
@@ -72,137 +71,116 @@ export default function Step6({navigation, route}) {
         Há histórico de presença, de alguma das patologias abaixo, na sua
         família? Se sim, quais?
       </TitleCheckboxGroup>
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
+      <CheckBoxItem
+        label="Doença cardiovascular"
+        status={
+          doenca
+            ? 'indeterminate'
+            : 'unchecked' && doencaCardiovascular
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() =>
           handlerCheckbox(
             'fam_doenca_cardiovascular',
             doencaCardiovascular,
             setDoencaCardiovascular,
           )
-        }>
-        <CheckBox
-          disabled={doenca ? true : false}
-          ref={register({name: 'fam_doenca_cardiovascular'})}
-          value={doencaCardiovascular ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'fam_doenca_cardiovascular',
-              doencaCardiovascular,
-              setDoencaCardiovascular,
-            )
-          }
-        />
-        <TitleCheckbox>Doença cardiovascular</TitleCheckbox>
-      </ContainerCheckbox>
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
+        }
+      />
+
+      <CheckBoxItem
+        label="Hipertensão arterial"
+        status={
+          doenca
+            ? 'indeterminate'
+            : 'unchecked' && hipertensaoArterial
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() =>
           handlerCheckbox(
             'fam_hipertensao_arterial',
             hipertensaoArterial,
             setHipertensaoArterial,
           )
-        }>
-        <CheckBox
-          disabled={doenca ? true : false}
-          ref={register({name: 'fam_hipertensao_arterial'})}
-          value={hipertensaoArterial ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'fam_hipertensao_arterial',
-              hipertensaoArterial,
-              setHipertensaoArterial,
-            )
-          }
-        />
-        <TitleCheckbox>Hipertensão arterial</TitleCheckbox>
-      </ContainerCheckbox>
+        }
+      />
 
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
+      <CheckBoxItem
+        label="Obesidade"
+        status={
+          doenca
+            ? 'indeterminate'
+            : 'unchecked' && obesidade
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() =>
           handlerCheckbox('fam_obesidade', obesidade, setObesidade)
-        }>
-        <CheckBox
-          disabled={doenca ? true : false}
-          ref={register({name: 'fam_obesidade'})}
-          value={obesidade ? true : false}
-          onValueChange={() =>
-            handlerCheckbox('fam_obesidade', obesidade, setObesidade)
-          }
-        />
-        <TitleCheckbox>Obesidade</TitleCheckbox>
-      </ContainerCheckbox>
+        }
+      />
 
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
+      <CheckBoxItem
+        label="Dislipidemias"
+        status={
+          doenca
+            ? 'indeterminate'
+            : 'unchecked' && dislipidemias
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() =>
           handlerCheckbox('fam_dislipidemias', dislipidemias, setDislipidemias)
-        }>
-        <CheckBox
-          disabled={doenca ? true : false}
-          ref={register({name: 'fam_dislipidemias'})}
-          value={dislipidemias ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'fam_dislipidemias',
-              dislipidemias,
-              setDislipidemias,
-            )
-          }
-        />
-        <TitleCheckbox>Dislipidemias</TitleCheckbox>
-      </ContainerCheckbox>
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
+        }
+      />
+
+      <CheckBoxItem
+        label="Diabetes"
+        status={
+          doenca
+            ? 'indeterminate'
+            : 'unchecked' && diabetes
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() => handlerCheckbox('fam_diabetes', diabetes, setDiabetes)}
+      />
+
+      <CheckBoxItem
+        label="Doença Arterial Coronariana"
+        status={
+          doenca
+            ? 'indeterminate'
+            : 'unchecked' && doencaArterialCoronariana
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() =>
           handlerCheckbox(
             'fam_doenca_arterial_coronariana',
             doencaArterialCoronariana,
             setDoencaArterialCoronariana,
           )
-        }>
-        <CheckBox
-          disabled={doenca ? true : false}
-          ref={register({name: 'fam_doenca_arterial_coronariana'})}
-          value={doencaArterialCoronariana ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'fam_doenca_arterial_coronariana',
-              doencaArterialCoronariana,
-              setDoencaArterialCoronariana,
-            )
-          }
-        />
-        <TitleCheckbox>Diabetes</TitleCheckbox>
-      </ContainerCheckbox>
+        }
+      />
 
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
-          handlerCheckbox('fam_diabetes', diabetes, setDiabetes)
-        }>
-        <CheckBox
-          disabled={doenca ? true : false}
-          ref={register({name: 'fam_diabetes'})}
-          value={diabetes ? true : false}
-          onValueChange={() =>
-            handlerCheckbox('fam_diabetes', diabetes, setDiabetes)
-          }
-        />
-        <TitleCheckbox>Diabetes</TitleCheckbox>
-      </ContainerCheckbox>
-
-      <ContainerCheckbox
-        onStartShouldSetResponder={() => handlerCheckboxAlergia()}>
-        <CheckBox
-          disabled={
-            doencaCardiovascular ||
-            hipertensaoArterial ||
-            obesidade ||
-            dislipidemias ||
-            doencaArterialCoronariana
-          }
-          ref={register({name: 'fam_doencas'})}
-          value={doenca ? true : false}
-        />
-        <TitleCheckbox>Não há histórico de doenças</TitleCheckbox>
-      </ContainerCheckbox>
+      <CheckBoxItem
+        label="Não possuo doenças"
+        status={
+          doencaCardiovascular ||
+          hipertensaoArterial ||
+          obesidade ||
+          dislipidemias ||
+          doencaArterialCoronariana ||
+          diabetes
+            ? 'indeterminate'
+            : 'unchecked' && doenca
+            ? 'checked'
+            : 'unchecked'
+        }
+        onPress={() => handlerCheckboxDoenca()}
+      />
       <Input
         disabled={doenca}
         label="Outras Doenças"

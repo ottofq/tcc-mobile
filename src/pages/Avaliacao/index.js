@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
-import {Button} from 'react-native-paper';
 import {AirbnbRating} from 'react-native-ratings';
 
-import {Container, Title, ContainerComentario, InputComentario} from './styles';
+import {
+  Container,
+  Title,
+  ContainerComentario,
+  InputComentario,
+  ButtonSubmit,
+} from './styles';
 
 export default function Avaliacão() {
   const [nota, setNota] = useState(0);
@@ -17,24 +22,16 @@ export default function Avaliacão() {
         onFinishRating={setNota}
         count={5}
         reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
-        defaultRating={0}
+        defaultRating={3}
         size={70}
       />
 
       <ContainerComentario>
         <InputComentario />
       </ContainerComentario>
-      <Button
-        onPress={handleButton}
-        style={{
-          marginBottom: 5,
-          marginHorizontal: 15,
-          height: 50,
-          justifyContent: 'center',
-        }}
-        mode="contained">
+      <ButtonSubmit onPress={handleButton} mode="contained">
         Enviar Avaliação
-      </Button>
+      </ButtonSubmit>
     </Container>
   );
 }

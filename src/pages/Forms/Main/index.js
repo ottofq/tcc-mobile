@@ -19,7 +19,7 @@ export default function Main() {
       screenOptions={{
         headerLeft: null,
         headerTitleAlign: 'center',
-        title: 'Questionário',
+        title: 'QUESTIONÁRIO',
         headerTitleStyle: {
           fontSize: 24,
           color: '#fff',
