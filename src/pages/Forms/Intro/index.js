@@ -1,14 +1,15 @@
 import React from 'react';
 
-import icon from '../../../../assets/images/icon.png';
+import animation from '../../../../assets/animation.json';
+
 import {
   Container,
   ContainerLogo,
+  Animation,
   ContainerDescription,
   Title,
   TitleLogo,
   Description,
-  Logo,
   ButtonNext,
 } from './styles';
 
@@ -19,7 +20,13 @@ export default function Intro({navigation}) {
   return (
     <Container>
       <ContainerLogo>
-        <Logo source={icon} />
+        <Animation
+          loop={false}
+          resizeMode="center"
+          autoPlay
+          source={animation}
+        />
+
         <TitleLogo>CARDÁPIO RU CCA UFES</TitleLogo>
       </ContainerLogo>
       <ContainerDescription>

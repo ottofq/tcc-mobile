@@ -30,7 +30,7 @@ export default function Step9({navigation, route}) {
   function handleButtonNext(data) {
     const obj = {...params, ...data};
     console.log(obj);
-    navigation.navigate('Cardapio RU - CCA UFES', {
+    navigation.navigate('Done', {
       ...obj,
     });
   }

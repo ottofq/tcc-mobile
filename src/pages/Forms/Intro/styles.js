@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {Button} from 'react-native-paper';
+import Lottie from 'lottie-react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -10,10 +11,12 @@ export const Container = styled.View`
 `;
 
 export const ContainerLogo = styled.View`
-  justify-content: center;
   align-items: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+`;
+
+export const Animation = styled(Lottie).attrs({})`
+  height: 250px;
+  width: 250px;
 `;
 
 export const ContainerDescription = styled.View`
@@ -24,7 +27,7 @@ export const ContainerDescription = styled.View`
 export const Title = styled.Text`
   font-family: 'PTSans-Bold';
   color: #fff;
-  font-size: 30px;
+  font-size: 32px;
   margin-bottom: 5px;
 `;
 
@@ -46,7 +49,7 @@ export const Logo = styled.Image`
 export const TitleLogo = styled.Text`
   font-family: 'PTSans-Bold';
   color: #fff;
-  font-size: 30px;
+  font-size: 35px;
   padding: 10px;
 `;
 
