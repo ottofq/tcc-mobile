@@ -40,12 +40,12 @@ export default function Step4({navigation, route}) {
                 <TitleRadioGroup error={errors.adiciona_sal}>
                   Costuma adicionar sal nos alimentos prontos e saladas (você
                   faz uso do saleiro à mesa)?
+                  {errors.adiciona_sal && (
+                    <HelperText padding="none" type="error">
+                      * Campo Obrigatório
+                    </HelperText>
+                  )}
                 </TitleRadioGroup>
-                {errors.adiciona_sal && (
-                  <HelperText padding="none" type="error">
-                    * Campo Obrigatório
-                  </HelperText>
-                )}
               </ContainerTitle>
 
               <RadioButtonItem
@@ -77,12 +77,12 @@ export default function Step4({navigation, route}) {
                 <TitleRadioGroup error={errors.utiliza_oleo_composto}>
                   Você utiliza o óleo composto que fica no balcão de
                   distribuição de refeições?
+                  {errors.utiliza_oleo_composto && (
+                    <HelperText padding="none" type="error">
+                      * Campo Obrigatório
+                    </HelperText>
+                  )}
                 </TitleRadioGroup>
-                {errors.utiliza_oleo_composto && (
-                  <HelperText padding="none" type="error">
-                    * Campo Obrigatório
-                  </HelperText>
-                )}
               </ContainerTitle>
 
               <RadioButtonItem

@@ -1,22 +1,46 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {AirbnbRating} from 'react-native-ratings';
+import {Keyboard, KeyboardAvoidingView} from 'react-native';
 
 import {
   Container,
   Title,
-  ContainerComentario,
+  ContainerSubmit,
   InputComentario,
   ButtonSubmit,
 } from './styles';
 
-export default function Avaliacão() {
+export default function Avaliacão({navigation}) {
   const [nota, setNota] = useState(0);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', keyboardDidHide);
+
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
+      console.log('componente unmount, listener removido');
+    };
+  }, []);
+
+  const keyboardDidShow = () => {
+    setKeyboardVisible(true);
+    console.log('teclado aberto');
+  };
+
+  const keyboardDidHide = () => {
+    setKeyboardVisible(false);
+    console.log('teclado fechado');
+  };
 
   function handleButton() {
+    Keyboard.dismiss();
     console.log('a nota é', nota);
   }
   return (
-    <Container>
+    <Container keyboardShouldPersistTaps="always">
       <Title>Avalie o cardápio</Title>
       <AirbnbRating
         onFinishRating={setNota}
@@ -26,12 +50,12 @@ export default function Avaliacão() {
         size={70}
       />
 
-      <ContainerComentario>
+      <ContainerSubmit keyboardVisible={keyboardVisible}>
         <InputComentario />
-      </ContainerComentario>
-      <ButtonSubmit onPress={handleButton} mode="contained">
-        Enviar Avaliação
-      </ButtonSubmit>
+        <ButtonSubmit onPress={handleButton} mode="contained">
+          Enviar Avaliação
+        </ButtonSubmit>
+      </ContainerSubmit>
     </Container>
   );
 }

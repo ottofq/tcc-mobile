@@ -1,13 +1,8 @@
 import styled from 'styled-components/native';
 import {Button} from 'react-native-paper';
-import {KeyboardAvoidingView} from 'react-native';
 
-export const Container = styled(KeyboardAvoidingView).attrs({
-  behavior: 'padding',
-})`
+export const Container = styled.ScrollView`
   flex: 1;
-  justify-content: space-around;
-  font-family: 'PT Sans';
 `;
 
 export const Title = styled.Text`
@@ -18,11 +13,8 @@ export const Title = styled.Text`
   font-family: 'PTSans-Bold';
 `;
 
-export const ContainerComentario = styled.View`
-  border: 1px solid #004b82;
-  padding: 5px;
-  margin: 0px 15px;
-  margin-bottom: 70px;
+export const ContainerSubmit = styled.View`
+  margin-top: ${props => (props.keyboardVisible ? '0px' : '200px')};
 `;
 
 export const InputComentario = styled.TextInput.attrs({
@@ -32,6 +24,8 @@ export const InputComentario = styled.TextInput.attrs({
   numberOfLines: 4,
   multiline: true,
 })`
+  border: 1px solid #004b82;
+  margin: 0px 15px;
   font-size: 18px;
   padding: 5px;
   text-align-vertical: top;
@@ -39,8 +33,7 @@ export const InputComentario = styled.TextInput.attrs({
 `;
 
 export const ButtonSubmit = styled(Button)`
-  margin-bottom: 5px;
-  margin: 0px 15px;
+  margin: 5px 15px;
   height: 50px;
   justify-content: center;
 `;

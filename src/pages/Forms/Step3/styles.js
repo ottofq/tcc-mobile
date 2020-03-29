@@ -1,15 +1,7 @@
 import styled from 'styled-components/native';
 import {TextInput} from 'react-native-paper';
-import {KeyboardAvoidingView} from 'react-native';
 
-export const Container = styled(KeyboardAvoidingView).attrs({
-  behavior: 'position',
-  contentContainerStyle: {
-    flex: 1,
-    justifyContent: 'space-around',
-  },
-})`
-  flex: 1;
+export const Container = styled.ScrollView`
   padding: 5px 5px;
 `;
 
@@ -18,7 +10,6 @@ export const ContainerRadioButton = styled.View`
 `;
 
 export const ContainerTitle = styled.View`
-  margin-bottom: 5px;
   flex-direction: row;
   flex-wrap: wrap;
 `;
@@ -35,4 +26,6 @@ export const ContainerButton = styled.View`
   margin-top: 5px;
 `;
 
-export const Input = styled(TextInput)``;
+export const Input = styled(TextInput)`
+  margin-bottom: ${props => (props.keyboardShow ? '20px' : '0px')};
+`;

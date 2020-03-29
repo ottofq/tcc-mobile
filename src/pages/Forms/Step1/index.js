@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, RadioButton, HelperText} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format} from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import {Keyboard} from 'react-native';
 
 import RadioButtonItem from '../../../components/RadioButton';
 
@@ -23,8 +24,6 @@ export default function Step1({navigation}) {
 
   const [date, setDate] = useState();
   const [show, setShow] = useState(false);
-
-  let i = 0;
 
   function formatDate(dateValue) {
     return format(dateValue, 'dd/MM/yyyy', {

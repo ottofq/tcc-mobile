@@ -140,7 +140,7 @@ export default function Step7({navigation, route}) {
                 label="Bom"
                 value="bom"
                 handlePress={() =>
-                  setValue('aavaliacao_coloracao_cardapio', 'bom')
+                  setValue('avaliacao_coloracao_cardapio', 'bom')
                 }
               />
 
