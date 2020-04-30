@@ -14,7 +14,7 @@ export const Title = styled.Text`
 `;
 
 export const ContainerSubmit = styled.View`
-  margin-top: ${props => (props.keyboardVisible ? '0px' : '200px')};
+  margin-top: ${props => (props.keyboardVisible ? '0px' : '140px')};
 `;
 
 export const InputComentario = styled.TextInput.attrs({
