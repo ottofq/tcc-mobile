@@ -963,11 +963,6 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@react-native-community/checkbox@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/checkbox/-/checkbox-0.3.0.tgz#378c43caa7da7d6971e8b1d072d43c42f2d637aa"
-  integrity sha512-O/H/I9r+9Hn91oO6rS0IWnaUAtuUg1wuLM4U+MWogW1JzUrFxz+fWRnCl1g5zX1rLbHb4m1bZkBHSJM2dOBZpw==
-
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"
@@ -1058,6 +1053,13 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
     ws "^1.1.0"
+
+"@react-native-community/datetimepicker@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-2.3.0.tgz#fd3e430ef608a92af77f841f2a4593d8f03693c4"
+  integrity sha512-kEmhnvkVm0/WJxle2Oze1Wu5pSO65jeP6vdVJzglgQDI3X9bHUlId0JTKZPpDAB9nFUM8cp5X5RSR0KW0SbFsA==
+  dependencies:
+    invariant "^2.2.4"
 
 "@react-native-community/eslint-config@^0.0.7":
   version "0.0.7"
@@ -2268,6 +2270,11 @@ data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+date-fns@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.11.0.tgz#ec2b44977465b9dcb370021d5e6c019b19f36d06"
+  integrity sha512-8P1cDi8ebZyDxUyUprBXwidoEtiQAawYPGvpfb+Dg0G6JrQ+VozwOmm91xYC0vAv1+0VmLehEPb+isg4BGUFfA==
+
 dayjs@^1.8.15:
   version "1.8.20"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.20.tgz#724a5cb6ad1f6fc066b0bd9a800dedcc7886f19e"
@@ -2301,6 +2308,11 @@ decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+
+dedent@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/dedent/-/dedent-0.6.0.tgz#0e6da8f0ce52838ef5cec5c8f9396b0c1b64a3cb"
+  integrity sha1-Dm2o8M5Sg471zsXI+TlrDBtko8s=
 
 deep-is@~0.1.3:
   version "0.1.3"
@@ -3444,7 +3456,7 @@ install@^0.13.0:
   resolved "https://registry.yarnpkg.com/install/-/install-0.13.0.tgz#6af6e9da9dd0987de2ab420f78e60d9c17260776"
   integrity sha512-zDml/jzr2PKU9I8J/xyZBQn8rPCAY//UOYNmR01XwNwyfhEWObo2SWfSl1+0tm1u6PhxLwDnfsT/6jB7OUxqFA==
 
-invariant@^2.2.4:
+invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -4484,6 +4496,21 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1, loose-envify@^1.4
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
+
+lottie-ios@^3.1.3:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/lottie-ios/-/lottie-ios-3.1.6.tgz#e70481f161666caf9f7ed9dba5ac715bc7ad8908"
+  integrity sha512-pnwkPpM3e6CiHY/Mc1eXlDEfvv/CW9jx/TNsX/JWABVF0RiyEidQd8uXBiu5GUxY813pZJN53+k+/cOiAufE5A==
+
+lottie-react-native@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/lottie-react-native/-/lottie-react-native-3.3.2.tgz#de832d4d3207e4e5c92a55ec4cf0ce0fd03e02f3"
+  integrity sha512-FS8sXDL7s7TUj3Aq0raAZKNOJUO7tuqqOAv5r5yzsZgc0t7Oo4QDxCREsaO2oqSGtTyJKlLlF6/e2g+J5XFSAQ==
+  dependencies:
+    invariant "^2.2.2"
+    lottie-ios "^3.1.3"
+    prop-types "^15.5.10"
+    react-native-safe-modules "^1.0.0"
 
 lru-cache@^4.0.1:
   version "4.1.5"
@@ -5688,6 +5715,13 @@ react-native-safe-area-view@^0.14.6:
   integrity sha512-MtRSIcZNstxv87Jet+UsPhEd1tpGe8cVskDXlP657x6rHpSrbrc+y13ZNXrwAgGNNhqQNX7UJT68ZIq//ZRmvw==
   dependencies:
     hoist-non-react-statics "^2.3.1"
+
+react-native-safe-modules@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-safe-modules/-/react-native-safe-modules-1.0.0.tgz#10a918adf97da920adb1e33e0c852b1e80123b65"
+  integrity sha512-ShT8duWBT30W4OFcltZl+UvpPDikZFURvLDQqAsrvbyy6HzWPGJDCpdqM+6GqzPPs4DPEW31YfMNmdJcZ6zI2w==
+  dependencies:
+    dedent "^0.6.0"
 
 react-native-screens@^2.3.0:
   version "2.3.0"

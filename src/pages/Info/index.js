@@ -42,38 +42,40 @@ export default function Info({navigation}) {
   ];
 
   return (
-    <Container>
+    <View style={{flex: 1}}>
       <Header
         handleMenu={() => navigation.openDrawer()}
         title="INFORMAÇÕES GERAIS"
       />
-      <Title>Horário de funcionamento</Title>
-      <TitleInfo>Dias de atendimento:</TitleInfo>
-      <InfoDescription>
-        De 2ª a 6ª feira, exceto feriados, paralisações e recessos acadêmicos.
-      </InfoDescription>
+      <Container>
+        <Title>Horário de funcionamento</Title>
+        <TitleInfo>Dias de atendimento:</TitleInfo>
+        <InfoDescription>
+          De 2ª a 6ª feira, exceto feriados, paralisações e recessos acadêmicos.
+        </InfoDescription>
 
-      <TitleInfo>Horários:</TitleInfo>
+        <TitleInfo>Horários:</TitleInfo>
 
-      <InfoDescription>
-        {`Almoço: 11h00min às 13h30min - (Alegre) 
+        <InfoDescription>
+          {`Almoço: 11h00min às 13h30min - (Alegre) 
                                 11h30min às 13h00min - (Jerônimo Monteiro)
 Jantar: 17h30min às 19h00min - (Alegre)
         `}
-      </InfoDescription>
+        </InfoDescription>
 
-      <Title>Valores e Identificação para Acesso</Title>
+        <Title>Valores e Identificação para Acesso</Title>
 
-      <View style={styles.container}>
-        <Table borderStyle={styles.borderTable}>
-          <Row
-            data={tableHead}
-            style={styles.head}
-            textStyle={styles.titleHead}
-          />
-          <Rows data={tableData} textStyle={styles.textRow} />
-        </Table>
-      </View>
-    </Container>
+        <View style={styles.container}>
+          <Table borderStyle={styles.borderTable}>
+            <Row
+              data={tableHead}
+              style={styles.head}
+              textStyle={styles.titleHead}
+            />
+            <Rows data={tableData} textStyle={styles.textRow} />
+          </Table>
+        </View>
+      </Container>
+    </View>
   );
 }

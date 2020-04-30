@@ -1,14 +1,15 @@
 import React from 'react';
 import {useForm, Controller} from 'react-hook-form';
-import {Button, RadioButton} from 'react-native-paper';
+import {Button, RadioButton, HelperText} from 'react-native-paper';
+
+import RadioButtonItem from '../../../components/RadioButton';
 
 import {
   Container,
   TitleRadioGroup,
   ContainerRadioButton,
-  ContainerRadioButtonItem,
+  ContainerTitle,
   ContainerButton,
-  styles,
 } from './styles';
 
 export default function Step8({navigation, route}) {
@@ -30,117 +31,137 @@ export default function Step8({navigation, route}) {
 
   return (
     <Container>
-      <TitleRadioGroup>
-        Como você avalia a refeição servida no RU, quanto a textura das
-        preparações
-      </TitleRadioGroup>
+      <Controller
+        as={
+          <RadioButton.Group
+            onValueChange={value =>
+              setValue('avaliacao_textura_preparacao', value)
+            }>
+            <ContainerRadioButton>
+              <ContainerTitle>
+                <TitleRadioGroup error={errors.avaliacao_textura_preparacao}>
+                  Como você avalia a refeição servida no RU, quanto a textura
+                  das preparações
+                </TitleRadioGroup>
+                {errors.avaliacao_textura_preparacao && (
+                  <HelperText padding="none" type="error">
+                    * Campo Obrigatório
+                  </HelperText>
+                )}
+              </ContainerTitle>
+              <RadioButtonItem
+                label="Muito Ruim"
+                value="muito ruim"
+                handlePress={() =>
+                  setValue('avaliacao_textura_preparacao', 'muito ruim')
+                }
+              />
 
-      <ContainerRadioButton>
-        <Controller
-          as={
-            <RadioButton.Group
-              onValueChange={value =>
-                setValue('avaliacao_textura_preparacao', value)
-              }>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Muito Ruim"
-                  value="muito ruim"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Ruim"
-                  value="ruim"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Regular"
-                  value="regular"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Bom"
-                  value="bom"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Muito Bom"
-                  value="muito bom"
-                />
-              </ContainerRadioButtonItem>
-            </RadioButton.Group>
-          }
-          name="avaliacao_textura_preparacao"
-          control={control}
-          rules={{required: true}}
-          defaultValue=""
-        />
-      </ContainerRadioButton>
+              <RadioButtonItem
+                label="Ruim"
+                value="ruim"
+                handlePress={() =>
+                  setValue('avaliacao_textura_preparacao', 'ruim')
+                }
+              />
 
-      <TitleRadioGroup>
-        Como você avalia a refeição servida no RU, quanto ao sabor das
-        preparações
-      </TitleRadioGroup>
+              <RadioButtonItem
+                label="Regular"
+                value="regular"
+                handlePress={() =>
+                  setValue('avaliacao_textura_preparacao', 'regular')
+                }
+              />
 
-      <ContainerRadioButton>
-        <Controller
-          as={
-            <RadioButton.Group
-              onValueChange={value =>
-                setValue('avaliacao_sabor_preparacao', value)
-              }>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Muito Ruim"
-                  value="muito ruim"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Ruim"
-                  value="ruim"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Regular"
-                  value="regular"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Bom"
-                  value="bom"
-                />
-              </ContainerRadioButtonItem>
-              <ContainerRadioButtonItem>
-                <RadioButton.Item
-                  style={styles.radioItem}
-                  label="Muito Bom"
-                  value="muito bom"
-                />
-              </ContainerRadioButtonItem>
-            </RadioButton.Group>
-          }
-          name="avaliacao_sabor_preparacao"
-          control={control}
-          rules={{required: true}}
-          defaultValue=""
-        />
-      </ContainerRadioButton>
+              <RadioButtonItem
+                label="Bom"
+                value="bom"
+                handlePress={() =>
+                  setValue('avaliacao_textura_preparacao', 'bom')
+                }
+              />
+
+              <RadioButtonItem
+                label="Muito Bom"
+                value="muito bom"
+                handlePress={() =>
+                  setValue('avaliacao_textura_preparacao', 'muito bom')
+                }
+              />
+            </ContainerRadioButton>
+          </RadioButton.Group>
+        }
+        name="avaliacao_textura_preparacao"
+        control={control}
+        rules={{required: true}}
+        defaultValue=""
+      />
+
+      <Controller
+        as={
+          <RadioButton.Group
+            onValueChange={value =>
+              setValue('avaliacao_sabor_preparacao', value)
+            }>
+            <ContainerRadioButton>
+              <ContainerTitle>
+                <TitleRadioGroup error={errors.avaliacao_sabor_preparacao}>
+                  Como você avalia a refeição servida no RU, quanto ao sabor das
+                  preparações
+                </TitleRadioGroup>
+                {errors.avaliacao_sabor_preparacao && (
+                  <HelperText padding="none" type="error">
+                    * Campo Obrigatório
+                  </HelperText>
+                )}
+              </ContainerTitle>
+              <RadioButtonItem
+                label="Muito Ruim"
+                value="muito ruim"
+                handlePress={() =>
+                  setValue('avaliacao_sabor_preparacao', 'muito ruim')
+                }
+              />
+
+              <RadioButtonItem
+                label="Ruim"
+                value="ruim"
+                handlePress={() =>
+                  setValue('avaliacao_sabor_preparacao', 'ruim')
+                }
+              />
+
+              <RadioButtonItem
+                label="Regular"
+                value="regular"
+                handlePress={() =>
+                  setValue('avaliacao_sabor_preparacao', 'regular')
+                }
+              />
+
+              <RadioButtonItem
+                label="Bom"
+                value="bom"
+                handlePress={() =>
+                  setValue('avaliacao_sabor_preparacao', 'bom')
+                }
+              />
+
+              <RadioButtonItem
+                label="Muito Bom"
+                value="muito bom"
+                handlePress={() =>
+                  setValue('avaliacao_sabor_preparacao', 'muito bom')
+                }
+              />
+            </ContainerRadioButton>
+          </RadioButton.Group>
+        }
+        name="avaliacao_sabor_preparacao"
+        control={control}
+        rules={{required: true}}
+        defaultValue=""
+      />
 
       <ContainerButton>
         <Button mode="contained" onPress={handleButtonPrev}>

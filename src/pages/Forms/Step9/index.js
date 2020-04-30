@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import CheckBox from '@react-native-community/checkbox';
 import {useForm} from 'react-hook-form';
 import {Button} from 'react-native-paper';
+import {KeyboardAvoidingView} from 'react-native';
+
+import CheckBoxItem from '../../../components/Checkbox';
 
 import {
   Container,
+  ContainerCheckbox,
   TitleCheckboxGroup,
   ContainerButton,
-  ContainerCheckbox,
   Input,
-  TitleCheckbox,
 } from './styles';
 
 export default function Step9({navigation, route}) {
@@ -36,7 +37,7 @@ export default function Step9({navigation, route}) {
   function handleButtonNext(data) {
     const obj = {...params, ...data};
     console.log(obj);
-    navigation.navigate('Cardapio RU - CCA UFES', {
+    navigation.navigate('Done', {
       ...obj,
     });
   }
@@ -50,155 +51,102 @@ export default function Step9({navigation, route}) {
   }
 
   return (
-    <Container>
-      <TitleCheckboxGroup>
-        O que você acha que deveria ser melhorado no RU?
-      </TitleCheckboxGroup>
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
-          handlerCheckbox(
-            'melhorias_cardapio',
-            melhoriaCardapio,
-            setMelhoriaCardapio,
-          )
-        }>
-        <CheckBox
-          ref={register({name: 'melhoria_cardapio'})}
-          value={melhoriaCardapio ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'melhorias_cardapio',
-              melhoriaCardapio,
-              setMelhoriaCardapio,
-            )
-          }
-        />
-        <TitleCheckbox>Cardápio</TitleCheckbox>
-      </ContainerCheckbox>
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
-          handlerCheckbox(
-            'melhoria_sabor_preparacao',
-            melhoriaSaborPreparacao,
-            setMelhoriaSaborPreparacao,
-          )
-        }>
-        <CheckBox
-          ref={register({name: 'melhoria_sabor_preparacao'})}
-          value={melhoriaSaborPreparacao ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'melhoria_sabor_preparacao',
-              melhoriaSaborPreparacao,
-              setMelhoriaSaborPreparacao,
-            )
-          }
-        />
-        <TitleCheckbox>Sabor das preparações</TitleCheckbox>
-      </ContainerCheckbox>
+    <KeyboardAvoidingView style={{flex: 1}}>
+      <Container>
+        <TitleCheckboxGroup>
+          O que você acha que deveria ser melhorado no RU?
+        </TitleCheckboxGroup>
 
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
-          handlerCheckbox(
-            'melhoria_opcoes_vegana',
-            melhoriaOpcoesVegana,
-            setMelhoriaOpcoesVegana,
-          )
-        }>
-        <CheckBox
-          ref={register({name: 'melhoria_opcoes_vegana'})}
-          value={melhoriaOpcoesVegana ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'melhoria_mais_opcoes_vegana',
-              melhoriaOpcoesVegana,
-              setMelhoriaOpcoesVegana,
-            )
-          }
-        />
-        <TitleCheckbox>Mais opções veganas</TitleCheckbox>
-      </ContainerCheckbox>
+        <ContainerCheckbox>
+          <CheckBoxItem
+            label="Cardápio"
+            status={melhoriaCardapio ? 'checked' : 'unchecked'}
+            onPress={() =>
+              handlerCheckbox(
+                'melhorias_cardapio',
+                melhoriaCardapio,
+                setMelhoriaCardapio,
+              )
+            }
+          />
 
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
-          handlerCheckbox(
-            'melhoria_estrutura_fisica',
-            melhoriaEstruturaFisica,
-            setMelhoriaEstruturaFisica,
-          )
-        }>
-        <CheckBox
-          ref={register({name: 'melhoria_estrutura_fisica'})}
-          value={melhoriaEstruturaFisica ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'melhoria_estrutura_fisica',
-              melhoriaEstruturaFisica,
-              setMelhoriaEstruturaFisica,
-            )
-          }
-        />
-        <TitleCheckbox>Estrutura física</TitleCheckbox>
-      </ContainerCheckbox>
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
-          handlerCheckbox(
-            'melhoria_tempo_espera_fila',
-            melhoriaTempoEsperaFila,
-            setMelhoriaTempoEsperaFila,
-          )
-        }>
-        <CheckBox
-          ref={register({name: 'melhoria_tempo_espera_fila'})}
-          value={melhoriaTempoEsperaFila ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'melhoria_tempo_espera_fila',
-              melhoriaTempoEsperaFila,
-              setMelhoriaTempoEsperaFila,
-            )
-          }
-        />
-        <TitleCheckbox>Tempo de espera na fila</TitleCheckbox>
-      </ContainerCheckbox>
+          <CheckBoxItem
+            label="Sabor das preparações"
+            status={melhoriaSaborPreparacao ? 'checked' : 'unchecked'}
+            onPress={() =>
+              handlerCheckbox(
+                'melhoria_sabor_preparacao',
+                melhoriaSaborPreparacao,
+                setMelhoriaSaborPreparacao,
+              )
+            }
+          />
 
-      <ContainerCheckbox
-        onStartShouldSetResponder={() =>
-          handlerCheckbox(
-            'melhoria_preco_ticket',
-            melhoriaPrecoTicket,
-            setMelhoriaPrecoTicket,
-          )
-        }>
-        <CheckBox
-          ref={register({name: 'melhoria_preco_ticket'})}
-          value={melhoriaPrecoTicket ? true : false}
-          onValueChange={() =>
-            handlerCheckbox(
-              'melhoria_preco_ticket',
-              melhoriaPrecoTicket,
-              setMelhoriaPrecoTicket,
-            )
-          }
+          <CheckBoxItem
+            label="Mais opções veganas"
+            status={melhoriaOpcoesVegana ? 'checked' : 'unchecked'}
+            onPress={() =>
+              handlerCheckbox(
+                'melhoria_mais_opcoes_vegana',
+                melhoriaOpcoesVegana,
+                setMelhoriaOpcoesVegana,
+              )
+            }
+          />
+
+          <CheckBoxItem
+            label="Estrutura física"
+            status={melhoriaEstruturaFisica ? 'checked' : 'unchecked'}
+            onPress={() =>
+              handlerCheckbox(
+                'melhoria_estrutura_fisica',
+                melhoriaEstruturaFisica,
+                setMelhoriaEstruturaFisica,
+              )
+            }
+          />
+
+          <CheckBoxItem
+            label="Tempo de espera na fila"
+            status={melhoriaTempoEsperaFila ? 'checked' : 'unchecked'}
+            onPress={() =>
+              handlerCheckbox(
+                'melhoria_tempo_espera_fila',
+                melhoriaTempoEsperaFila,
+                setMelhoriaTempoEsperaFila,
+              )
+            }
+          />
+
+          <CheckBoxItem
+            label="Preço do ticket"
+            status={melhoriaPrecoTicket ? 'checked' : 'unchecked'}
+            onPress={() =>
+              handlerCheckbox(
+                'melhoria_preco_ticket',
+                melhoriaPrecoTicket,
+                setMelhoriaPrecoTicket,
+              )
+            }
+          />
+        </ContainerCheckbox>
+
+        <Input
+          label="Outras"
+          mode="outlined"
+          ref={register('outras_melhorias')}
+          onChangeText={text => setValue('outras_melhorias', text)}
         />
-        <TitleCheckbox>Preço do ticket</TitleCheckbox>
-      </ContainerCheckbox>
 
-      <Input
-        label="Outras"
-        mode="outlined"
-        ref={register('outras_melhorias')}
-        onChangeText={text => setValue('outras_melhorias', text)}
-      />
-
-      <ContainerButton>
-        <Button mode="contained" onPress={handleButtonPrev}>
-          Voltar
-        </Button>
-        <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
-          Próximo
-        </Button>
-      </ContainerButton>
-    </Container>
+        <ContainerButton>
+          <Button mode="contained" onPress={handleButtonPrev}>
+            Voltar
+          </Button>
+          <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
+            Próximo
+          </Button>
+        </ContainerButton>
+      </Container>
+    </KeyboardAvoidingView>
   );
 }

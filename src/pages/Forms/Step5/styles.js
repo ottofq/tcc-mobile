@@ -1,41 +1,26 @@
 import styled from 'styled-components/native';
 import {TextInput} from 'react-native-paper';
-import {KeyboardAvoidingView} from 'react-native';
 
-export const Container = styled(KeyboardAvoidingView).attrs({
-  behavior: 'position',
-  contentContainerStyle: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-})`
+export const Container = styled.ScrollView`
   flex: 1;
   padding: 5px 5px;
 `;
-export const TitleCheckboxGroup = styled.Text`
-  margin-top: 5px;
-  margin-left: 5px;
-  font-size: 20px;
-  font-weight: bold;
-`;
 
-export const TitleCheckbox = styled.Text`
-  font-size: 18px;
+export const ContainerCheckbox = styled.View`
+  flex: 1;
+  height: 480px;
+  justify-content: space-around;
+`;
+export const TitleCheckboxGroup = styled.Text`
+  font-size: 20px;
+  font-family: 'PTSans-Bold';
 `;
 
 export const ContainerButton = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 5px;
-`;
-
-export const ContainerCheckbox = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-top: 5px;
 `;
 
 export const Input = styled(TextInput)`
-  margin-bottom: 5px;
-  height: 50px;
+  margin-bottom: 15px;
 `;

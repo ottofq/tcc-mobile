@@ -1,56 +1,49 @@
 import styled from 'styled-components/native';
 import {TextInput} from 'react-native-paper';
-import {StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 
-export const Container = styled(KeyboardAvoidingView).attrs({
-  behavior: 'padding',
-})`
+export const Container = styled.ScrollView`
   flex: 1;
   padding: 5px 5px;
-  margin-bottom: 10px;
-  justify-content: space-between;
 `;
+
+export const ContainerInput = styled.View`
+  flex: 1;
+`;
+
+export const ContainerInputItem = styled.View`
+  height: 80px;
+`;
+
 export const ContainerRadioButton = styled.View`
-  flex-direction: row;
+  justify-content: space-around;
 `;
 
-export const ContainerRadioButtonItem = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-right: 5px;
-`;
-
-export const ContainerRadioButtonBolsa = styled.View`
-  align-items: flex-start;
+export const ContainerTitle = styled.View`
   margin-bottom: 5px;
-`;
-
-export const ContainerRadioButtonItemBolsa = styled.View`
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-right: 5px;
 `;
 
-export const Input = styled(TextInput)`
-  margin-bottom: 10px;
-  height: 50px;
+export const Input = styled(TextInput)``;
+
+export const DateInput = styled(TouchableOpacity)`
+  border-width: 1px;
+  border: ${props => (props.error ? '2px solid #B00020' : '1px solid #7a7a7a')};
+  height: 60px;
+  border-radius: 5px;
+  justify-content: center;
+  padding-left: 10px;
+  margin-top: 5px;
 `;
 
 export const TitleRadioGroup = styled.Text`
-  margin-top: 5px;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 18px;
+  font-family: 'PTSans-Bold';
+  color: ${props => (props.error ? '#B00020' : 'black')};
 `;
 
-export const TextError = styled.Text`
-  font-size: 10px;
-  color: #ff0025;
+export const PlaceholderDate = styled.Text`
+  font-size: 15px;
+  font-family: 'PTSans-Regular';
+  color: ${props => (props.error ? '#B00020' : '#7a7a7a')};
 `;
-
-export const styles = StyleSheet.create({
-  radioItem: {
-    flexDirection: 'row-reverse',
-  },
-});

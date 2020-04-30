@@ -1,9 +1,8 @@
 import styled from 'styled-components/native';
+import {Button} from 'react-native-paper';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
-  justify-content: space-between;
-  font-family: 'PT Sans';
 `;
 
 export const Title = styled.Text`
@@ -14,10 +13,8 @@ export const Title = styled.Text`
   font-family: 'PTSans-Bold';
 `;
 
-export const ContainerComentario = styled.View`
-  border: 1px solid #004b82;
-  padding: 5px;
-  margin: 0px 15px;
+export const ContainerSubmit = styled.View`
+  margin-top: ${props => (props.keyboardVisible ? '0px' : '140px')};
 `;
 
 export const InputComentario = styled.TextInput.attrs({
@@ -27,7 +24,16 @@ export const InputComentario = styled.TextInput.attrs({
   numberOfLines: 4,
   multiline: true,
 })`
+  border: 1px solid #004b82;
+  margin: 0px 15px;
   font-size: 18px;
-  text-align: center;
+  padding: 5px;
+  text-align-vertical: top;
   height: 150px;
+`;
+
+export const ButtonSubmit = styled(Button)`
+  margin: 5px 15px;
+  height: 50px;
+  justify-content: center;
 `;
