@@ -1,8 +1,19 @@
 import styled from 'styled-components/native';
 import {Button} from 'react-native-paper';
+import Lottie from 'lottie-react-native';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex: 1;
+`;
+
+export const ScrollViewAvaliacao = styled.ScrollView`
+  flex: 1;
+`;
+
+export const ContainerAnimacao = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Title = styled.Text`
@@ -36,4 +47,9 @@ export const ButtonSubmit = styled(Button)`
   margin: 5px 15px;
   height: 50px;
   justify-content: center;
+`;
+
+export const Animation = styled(Lottie)`
+  width: 400px;
+  height: 400px;
 `;

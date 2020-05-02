@@ -27,3 +27,12 @@ export const InfoContent = styled.Text`
   font-size: 14px;
   color: #111111;
 `;
+
+export const LoadingShimmer = styled.View`
+  background-color: #969696;
+  border-radius: ${props => props.radius}px;
+  height: ${props => props.height}px;
+  width: ${props => props.width}px;
+  align-self: flex-start;
+  margin: 5px;
+`;

@@ -1,17 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {AirbnbRating} from 'react-native-ratings';
-import {Keyboard, View, KeyboardAvoidingView} from 'react-native';
-import Lottie from 'lottie-react-native';
+import {Keyboard} from 'react-native';
 import {useForm} from 'react-hook-form';
 
 import animation from '../../../assets/animation-rating.json';
+import api from '../../services/api';
 
 import {
   Container,
+  ScrollViewAvaliacao,
+  ContainerAnimacao,
   Title,
   ContainerSubmit,
   InputComentario,
   ButtonSubmit,
+  Animation,
 } from './styles';
 
 export default function Avaliacão({navigation}) {
@@ -55,9 +58,9 @@ export default function Avaliacão({navigation}) {
   }
 
   return (
-    <Container keyboardShouldPersistTaps="always">
+    <Container>
       {showAnimation === false ? (
-        <View style={{flex: 1}}>
+        <ScrollViewAvaliacao keyboardShouldPersistTaps="always">
           <Title>Avalie o cardápio</Title>
           <AirbnbRating
             onFinishRating={setNota}
@@ -76,17 +79,16 @@ export default function Avaliacão({navigation}) {
               Enviar Avaliação
             </ButtonSubmit>
           </ContainerSubmit>
-        </View>
+        </ScrollViewAvaliacao>
       ) : (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Lottie
+        <ContainerAnimacao>
+          <Animation
             onAnimationFinish={finishAnimation}
             autoPlay
             loop={false}
-            style={{width: 800, height: 800}}
             source={animation}
           />
-        </View>
+        </ContainerAnimacao>
       )}
     </Container>
   );
