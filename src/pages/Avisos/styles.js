@@ -1,9 +1,18 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.ScrollView`
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+})`
   padding: 5px;
   flex: 1;
   margin-bottom: 5px;
+`;
+
+export const ContainerLoading = styled.View`
+  flex: 1;
+  justify-content: space-around;
 `;
 
 export const InfoCard = styled.View`
@@ -34,5 +43,5 @@ export const LoadingShimmer = styled.View`
   height: ${props => props.height}px;
   width: ${props => props.width}px;
   align-self: flex-start;
-  margin: 5px;
+  margin-bottom: 5px;
 `;
