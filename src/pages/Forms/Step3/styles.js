@@ -1,7 +1,12 @@
 import styled from 'styled-components/native';
 import {TextInput} from 'react-native-paper';
 
-export const Container = styled.ScrollView`
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
+  },
+})`
   padding: 5px 5px;
 `;
 

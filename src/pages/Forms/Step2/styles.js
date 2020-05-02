@@ -12,9 +12,10 @@ export const ContainerRadioButton = styled.View`
   justify-content: space-around;
 `;
 
-export const ContainerTitle = styled.View``;
-
-export const Input = styled(TextInput)``;
+export const ContainerTitle = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
 
 export const TitleRadioGroup = styled.Text`
   font-size: 18px;

@@ -32,17 +32,55 @@ export default function Step2({route, navigation}) {
       <Controller
         as={
           <RadioButton.Group
+            onValueChange={value => setValue('bolsista', value)}>
+            <ContainerRadioButton>
+              <ContainerTitle>
+                <TitleRadioGroup error={errors.bolsista}>
+                  Você é Bolsista do RU ?
+                  {errors.bolsista && (
+                    <HelperText padding="none" type="error">
+                      * Campo Obrigatório
+                    </HelperText>
+                  )}
+                </TitleRadioGroup>
+              </ContainerTitle>
+              <RadioButtonItem
+                label="Não sou bolsista"
+                value="false"
+                handlePress={() => setValue('bolsista', 'false')}
+              />
+              <RadioButtonItem
+                label="Bolsa Parcial"
+                value="bolsa parcial"
+                handlePress={() => setValue('bolsista', 'bolsa parcial')}
+              />
+              <RadioButtonItem
+                label="Bolsa Integral"
+                value="bolsa integral"
+                handlePress={() => setValue('bolsista', 'bolsa integral')}
+              />
+            </ContainerRadioButton>
+          </RadioButton.Group>
+        }
+        name="bolsista"
+        control={control}
+        rules={{required: true}}
+        defaultValue=""
+      />
+      <Controller
+        as={
+          <RadioButton.Group
             onValueChange={value => setValue('frequencia_ru', value)}>
             <ContainerRadioButton>
               <ContainerTitle>
                 <TitleRadioGroup error={errors.frequencia_ru}>
                   Com qual frequência você realiza suas refeições no RU.{' '}
+                  {errors.frequencia_ru && (
+                    <HelperText padding="none" type="error">
+                      * Campo Obrigatório
+                    </HelperText>
+                  )}
                 </TitleRadioGroup>
-                {errors.frequencia_ru && (
-                  <HelperText padding="none" type="error">
-                    * Campo Obrigatório
-                  </HelperText>
-                )}
               </ContainerTitle>
               <RadioButtonItem
                 label="Todos os dias"
@@ -87,13 +125,13 @@ export default function Step2({route, navigation}) {
             <ContainerRadioButton>
               <ContainerTitle>
                 <TitleRadioGroup error={errors.tipo_refeicao}>
-                  Qual tipo de refeição você costuma realizar no RU?{' '}
+                  Qual tipo de refeição você costuma realizar no RU?
+                  {errors.tipo_refeicao && (
+                    <HelperText padding="none" type="error">
+                      * Campo Obrigatório
+                    </HelperText>
+                  )}
                 </TitleRadioGroup>
-                {errors.tipo_refeicao && (
-                  <HelperText padding="none" type="error">
-                    * Campo Obrigatório
-                  </HelperText>
-                )}
               </ContainerTitle>
               <RadioButtonItem
                 label="Almoço"
@@ -129,13 +167,13 @@ export default function Step2({route, navigation}) {
               <ContainerTitle>
                 <TitleRadioGroup error={errors.atividade_fisica}>
                   Como você se considera de acordo com o seu nível de atividade
-                  física?{' '}
+                  física?
+                  {errors.atividade_fisica && (
+                    <HelperText padding="none" type="error">
+                      * Campo Obrigatório
+                    </HelperText>
+                  )}
                 </TitleRadioGroup>
-                {errors.atividade_fisica && (
-                  <HelperText padding="none" type="error">
-                    * Campo Obrigatório
-                  </HelperText>
-                )}
               </ContainerTitle>
               <RadioButtonItem
                 label="Sedentário"

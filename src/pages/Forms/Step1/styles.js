@@ -2,21 +2,26 @@ import styled from 'styled-components/native';
 import {TextInput} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native';
 
-export const Container = styled.ScrollView`
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+})`
   flex: 1;
   padding: 5px 5px;
 `;
 
 export const ContainerInput = styled.View`
   flex: 1;
+  justify-content: space-around;
 `;
 
 export const ContainerInputItem = styled.View`
-  height: 80px;
+  justify-content: space-around;
 `;
 
 export const ContainerRadioButton = styled.View`
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 export const ContainerTitle = styled.View`
@@ -37,7 +42,7 @@ export const DateInput = styled(TouchableOpacity)`
 `;
 
 export const TitleRadioGroup = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   font-family: 'PTSans-Bold';
   color: ${props => (props.error ? '#B00020' : 'black')};
 `;
