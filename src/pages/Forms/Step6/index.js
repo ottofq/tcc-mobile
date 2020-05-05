@@ -27,13 +27,13 @@ export default function Step6({navigation, route}) {
   const [doenca, setDoenca] = useState(false);
 
   useEffect(() => {
-    setValue('fam_doenca_cardiovascular', true);
-    setValue('fam_hipertensao_arterial', false);
-    setValue('fam_obesidade', false);
-    setValue('fam_dislipidemias', false);
-    setValue('fam_diabetes', false);
-    setValue('fam_doenca_arterial_coronariana', false);
-    setValue('fam_outras_doencas', false);
+    setValue('patologias_familia.fam_doenca_cardiovascular', true);
+    setValue('patologias_familia.fam_hipertensao_arterial', false);
+    setValue('patologias_familia.fam_obesidade', false);
+    setValue('patologias_familia.fam_dislipidemias', false);
+    setValue('patologias_familia.fam_diabetes', false);
+    setValue('patologias_familia.fam_doenca_arterial_coronariana', false);
+    setValue('patologias_familia.patologias_familia_outras', false);
   }, [setValue]);
 
   const params = route.params;
@@ -54,13 +54,13 @@ export default function Step6({navigation, route}) {
 
   function handlerCheckboxDoenca() {
     setDoenca(!doenca);
-    setValue('fam_doenca_cardiovascular', true);
-    setValue('fam_hipertensao_arterial', false);
-    setValue('fam_obesidade', false);
-    setValue('fam_dislipidemias', false);
-    setValue('fam_diabetes', false);
-    setValue('fam_doenca_arterial_coronariana', false);
-    setValue('fam_outras_doencas', false);
+    setValue('patologias_familia.fam_doenca_cardiovascular', true);
+    setValue('patologias_familia.fam_hipertensao_arterial', false);
+    setValue('patologias_familia.fam_obesidade', false);
+    setValue('patologias_familia.fam_dislipidemias', false);
+    setValue('patologias_familia.fam_diabetes', false);
+    setValue('patologias_familia.fam_doenca_arterial_coronariana', false);
+    setValue('patologias_familia.patologias_familia_outras', false);
   }
 
   function handleButtonPrev() {
@@ -84,9 +84,10 @@ export default function Step6({navigation, route}) {
                 ? 'checked'
                 : 'unchecked'
             }
+            ref={register('patologias_familia.fam_doenca_cardiovascular')}
             onPress={() =>
               handlerCheckbox(
-                'fam_doenca_cardiovascular',
+                'patologias_familia.fam_doenca_cardiovascular',
                 doencaCardiovascular,
                 setDoencaCardiovascular,
               )
@@ -102,9 +103,10 @@ export default function Step6({navigation, route}) {
                 ? 'checked'
                 : 'unchecked'
             }
+            ref={register('patologias_familia.fam_hipertensao_arterial')}
             onPress={() =>
               handlerCheckbox(
-                'fam_hipertensao_arterial',
+                'patologias_familia.fam_hipertensao_arterial',
                 hipertensaoArterial,
                 setHipertensaoArterial,
               )
@@ -120,8 +122,13 @@ export default function Step6({navigation, route}) {
                 ? 'checked'
                 : 'unchecked'
             }
+            ref={register('patologias_familia.fam_obesidade')}
             onPress={() =>
-              handlerCheckbox('fam_obesidade', obesidade, setObesidade)
+              handlerCheckbox(
+                'patologias_familia.fam_obesidade',
+                obesidade,
+                setObesidade,
+              )
             }
           />
 
@@ -134,9 +141,10 @@ export default function Step6({navigation, route}) {
                 ? 'checked'
                 : 'unchecked'
             }
+            ref={register('patologias_familia.fam_dislipidemias')}
             onPress={() =>
               handlerCheckbox(
-                'fam_dislipidemias',
+                'patologias_familia.fam_dislipidemias',
                 dislipidemias,
                 setDislipidemias,
               )
@@ -152,8 +160,13 @@ export default function Step6({navigation, route}) {
                 ? 'checked'
                 : 'unchecked'
             }
+            ref={register('patologias_familia.fam_diabetes')}
             onPress={() =>
-              handlerCheckbox('fam_diabetes', diabetes, setDiabetes)
+              handlerCheckbox(
+                'patologias_familia.fam_diabetes',
+                diabetes,
+                setDiabetes,
+              )
             }
           />
 
@@ -166,9 +179,10 @@ export default function Step6({navigation, route}) {
                 ? 'checked'
                 : 'unchecked'
             }
+            ref={register('patologias_familia.fam_doenca_arterial_coronariana')}
             onPress={() =>
               handlerCheckbox(
-                'fam_doenca_arterial_coronariana',
+                'patologias_familia.fam_doenca_arterial_coronariana',
                 doencaArterialCoronariana,
                 setDoencaArterialCoronariana,
               )
@@ -196,8 +210,10 @@ export default function Step6({navigation, route}) {
           disabled={doenca}
           label="Outras Doenças"
           mode="outlined"
-          ref={register('fam_outras_doencas')}
-          onChangeText={text => setValue('fam_outras_doencas', text)}
+          ref={register('patologias_familia.patologias_familia_outras')}
+          onChangeText={text =>
+            setValue('patologias_familia.patologias_familia_outras', text)
+          }
         />
 
         <TitleInput>
@@ -206,8 +222,8 @@ export default function Step6({navigation, route}) {
         <Input
           label="Medicamentos"
           mode="outlined"
-          ref={register('medicamentos')}
-          onChangeText={text => setValue('medicamentos', text)}
+          ref={register('medicamento_continuo')}
+          onChangeText={text => setValue('medicamento_continuo', text)}
         />
 
         <ContainerButton>

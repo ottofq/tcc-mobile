@@ -24,11 +24,11 @@ export default function Step3({navigation, route}) {
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
-    setValue('alergia', true);
-    setValue('alergia_gluten', false);
-    setValue('intolerancia_lactose', false);
-    setValue('proteina_leite_vaca', false);
-    setValue('outras_alergias', false);
+    setValue('alergias.nenhuma', true);
+    setValue('alergias.alergia_gluten', false);
+    setValue('alergias.intolerancia_lactose', false);
+    setValue('alergias.proteina_leite_vaca', false);
+    setValue('alergias.outras_alergias', false);
   }, [setValue]);
 
   useEffect(() => {
@@ -67,11 +67,11 @@ export default function Step3({navigation, route}) {
 
   function handlerCheckboxAlergia() {
     setAlergia(!alergia);
-    setValue('alergia', false);
-    setValue('alergia_gluten', false);
-    setValue('intolerancia_lactose', false);
-    setValue('proteina_leite_vaca', false);
-    setValue('outras_alergias', false);
+    setValue('alergias.nenhuma', false);
+    setValue('alergias.alergia_gluten', false);
+    setValue('alergias.intolerancia_lactose', false);
+    setValue('alergias.proteina_leite_vaca', false);
+    setValue('alergias.outras_alergias', false);
   }
 
   function handleButtonPrev() {
@@ -131,7 +131,10 @@ export default function Step3({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
-          onPress={() => handlerCheckbox('alergia_gluten', gluten, setGluten)}
+          ref={register('alergias.alergia_gluten')}
+          onPress={() =>
+            handlerCheckbox('alergias.alergia_gluten', gluten, setGluten)
+          }
         />
 
         <CheckBoxItem
@@ -143,8 +146,13 @@ export default function Step3({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
+          ref={register('alergias.intolerancia_lactose')}
           onPress={() =>
-            handlerCheckbox('intolerancia_lactose', lactose, setLactose)
+            handlerCheckbox(
+              'alergias.intolerancia_lactose',
+              lactose,
+              setLactose,
+            )
           }
         />
 
@@ -157,9 +165,10 @@ export default function Step3({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
+          ref={register('alergias.proteina_leite_vaca')}
           onPress={() =>
             handlerCheckbox(
-              'proteina_leite_vaca',
+              'alergias.proteina_leite_vaca',
               proteinaLeite,
               setProteinaLeite,
             )
@@ -175,6 +184,7 @@ export default function Step3({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
+          ref={register('alergias.nenhuma')}
           onPress={() => handlerCheckboxAlergia()}
         />
 
@@ -183,8 +193,8 @@ export default function Step3({navigation, route}) {
           keyboardShow={keyboardVisible}
           label="Outro"
           mode="outlined"
-          ref={register('outras_alergias')}
-          onChangeText={text => setValue('outras_alergias', text)}
+          ref={register('alergias.outras_alergias')}
+          onChangeText={text => setValue('alergias.outras_alergias', text)}
         />
 
         <Controller

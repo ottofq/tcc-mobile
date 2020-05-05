@@ -31,7 +31,7 @@ export default function Step1({navigation}) {
   }
 
   function onSubmit(data) {
-    data.data_nascimento = formatDate(data.data_nascimento);
+    //data.data_nascimento = formatDate(data.data_nascimento);
     console.log(data);
     navigation.navigate('Questionário passo 2', {
       ...data,

@@ -6,7 +6,9 @@ export const Container = styled.View`
   flex: 1;
 `;
 
-export const ScrollViewAvaliacao = styled.ScrollView`
+export const ScrollViewAvaliacao = styled.ScrollView.attrs({
+  contentContainerStyle: {flexGrow: 1, justifyContent: 'space-between'},
+})`
   flex: 1;
 `;
 

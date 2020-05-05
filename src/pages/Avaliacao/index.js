@@ -44,11 +44,34 @@ export default function Avaliacão({navigation}) {
     console.log('teclado fechado');
   };
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
     console.log('data', data);
     console.log('a nota é', nota);
-    Keyboard.dismiss();
-    setShowAnimation(true);
+    try {
+      const user_id = Math.random() * 9;
+      const result = await api.get('cardapio/last');
+      const {_id} = result.data;
+      const result_coment = await api.post(
+        `/cardapio/avaliar/${_id}`,
+        {nota: nota},
+        {
+          headers: {user_id},
+        },
+      );
+      const result_rate = await api.post(
+        `/cardapio/comentar/${_id}`,
+        {comentario: data.comentario},
+        {
+          headers: {user_id},
+        },
+      );
+
+      Keyboard.dismiss();
+      setShowAnimation(true);
+      console.log(result_coment.data, result_rate.data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function finishAnimation() {

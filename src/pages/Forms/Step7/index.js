@@ -1,6 +1,7 @@
 import React from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {Button, RadioButton, HelperText} from 'react-native-paper';
+import {merge} from 'lodash';
 
 import RadioButtonItem from '../../../components/RadioButton';
 
@@ -18,10 +19,10 @@ export default function Step7({navigation, route}) {
   const params = route.params;
 
   function handleButtonNext(data) {
-    const obj = {...params, ...data};
+    const obj = merge(params, data);
     console.log(obj);
     navigation.navigate('Questionário passo 8', {
-      data: obj,
+      ...obj,
     });
   }
 
@@ -34,16 +35,14 @@ export default function Step7({navigation, route}) {
       <Controller
         as={
           <RadioButton.Group
-            onValueChange={value =>
-              setValue('avaliacao_aroma_refeicao', value)
-            }>
+            onValueChange={value => setValue('avaliacao_RU.aroma', value)}>
             <ContainerRadioButton>
               <ContainerTitle>
-                <TitleRadioGroup error={errors.avaliacao_aroma_refeicao}>
+                <TitleRadioGroup error={errors?.avaliacao_RU?.aroma}>
                   Como você avalia a refeição servida no RU, quanto ao aroma das
                   preparações
                 </TitleRadioGroup>
-                {errors.avaliacao_aroma_refeicao && (
+                {errors?.avaliacao_RU?.aroma && (
                   <HelperText padding="none" type="error">
                     * Campo Obrigatório
                   </HelperText>
@@ -53,42 +52,36 @@ export default function Step7({navigation, route}) {
               <RadioButtonItem
                 label="Muito Ruim"
                 value="muito ruim"
-                handlePress={() =>
-                  setValue('avaliacao_aroma_refeicao', 'muito ruim')
-                }
+                handlePress={() => setValue('avaliacao_RU.aroma', 'muito ruim')}
               />
 
               <RadioButtonItem
                 label="Ruim"
                 value="ruim"
-                handlePress={() => setValue('avaliacao_aroma_refeicao', 'ruim')}
+                handlePress={() => setValue('avaliacao_RU.aroma', 'ruim')}
               />
 
               <RadioButtonItem
                 label="Regular"
                 value="regular"
-                handlePress={() =>
-                  setValue('avaliacao_aroma_refeicao', 'regular')
-                }
+                handlePress={() => setValue('avaliacao_RU.aroma', 'regular')}
               />
 
               <RadioButtonItem
                 label="Bom"
                 value="bom"
-                handlePress={() => setValue('avaliacao_aroma_refeicao', 'bom')}
+                handlePress={() => setValue('avaliacao_RU.aroma', 'bom')}
               />
 
               <RadioButtonItem
                 label="Muito Bom"
                 value="muito bom"
-                handlePress={() =>
-                  setValue('avaliacao_aroma_refeicao', 'muito bom')
-                }
+                handlePress={() => setValue('avaliacao_RU.aroma', 'muito bom')}
               />
             </ContainerRadioButton>
           </RadioButton.Group>
         }
-        name="avaliacao_aroma_refeicao"
+        name="avaliacao_RU.aroma"
         control={control}
         rules={{required: true}}
         defaultValue=""
@@ -98,15 +91,16 @@ export default function Step7({navigation, route}) {
         as={
           <RadioButton.Group
             onValueChange={value =>
-              setValue('avaliacao_coloracao_cardapio', value)
+              setValue('avaliacao_RU.coloracao_cardapio', value)
             }>
             <ContainerRadioButton>
               <ContainerTitle>
-                <TitleRadioGroup error={errors.avaliacao_coloracao_cardapio}>
+                <TitleRadioGroup
+                  error={errors?.avaliacao_RU?.coloracao_cardapio}>
                   Como você avalia a refeição servida no RU, quanto a coloração
                   do cardápio
                 </TitleRadioGroup>
-                {errors.avaliacao_coloracao_cardapio && (
+                {errors?.avaliacao_RU?.coloracao_cardapio && (
                   <HelperText padding="none" type="error">
                     * Campo Obrigatório
                   </HelperText>
@@ -116,7 +110,7 @@ export default function Step7({navigation, route}) {
                 label="Muito Ruim"
                 value="muito ruim"
                 handlePress={() =>
-                  setValue('avaliacao_coloracao_cardapio', 'muito ruim')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'muito ruim')
                 }
               />
 
@@ -124,7 +118,7 @@ export default function Step7({navigation, route}) {
                 label="Ruim"
                 value="ruim"
                 handlePress={() =>
-                  setValue('avaliacao_coloracao_cardapio', 'ruim')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'ruim')
                 }
               />
 
@@ -132,7 +126,7 @@ export default function Step7({navigation, route}) {
                 label="Regular"
                 value="regular"
                 handlePress={() =>
-                  setValue('avaliacao_coloracao_cardapio', 'regular')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'regular')
                 }
               />
 
@@ -140,7 +134,7 @@ export default function Step7({navigation, route}) {
                 label="Bom"
                 value="bom"
                 handlePress={() =>
-                  setValue('avaliacao_coloracao_cardapio', 'bom')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'bom')
                 }
               />
 
@@ -148,13 +142,13 @@ export default function Step7({navigation, route}) {
                 label="Muito Bom"
                 value="muito bom"
                 handlePress={() =>
-                  setValue('avaliacao_coloracao_cardapio', 'muito bom')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'muito bom')
                 }
               />
             </ContainerRadioButton>
           </RadioButton.Group>
         }
-        name="avaliacao_coloracao_cardapio"
+        name="avaliacao_RU.coloracao_cardapio"
         control={control}
         rules={{required: true}}
         defaultValue=""

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {Button} from 'react-native-paper';
 import {KeyboardAvoidingView} from 'react-native';
+import {merge} from 'lodash';
 
 import CheckBoxItem from '../../../components/Checkbox';
 
@@ -23,20 +24,19 @@ export default function Step9({navigation, route}) {
   const [melhoriaPrecoTicket, setMelhoriaPrecoTicket] = useState(false);
 
   useEffect(() => {
-    setValue('melhoria_cardapio', false);
-    setValue('melhoria_sabor_preparacao', false);
-    setValue('melhoria_opcoes_vegana', false);
-    setValue('melhoria_estrutura_fisica', false);
-    setValue('melhoria_tempo_espera_fila', false);
-    setValue('melhoria_preco_ticket', false);
-    setValue('melhorias_outras', false);
+    setValue('melhorias_RU.cardapio', false);
+    setValue('melhorias_RU.melhoria_sabor_preparacao', false);
+    setValue('melhorias_RU.opcao_vegetariana', false);
+    setValue('melhorias_RU.estrutura_fisica', false);
+    setValue('melhorias_RU.espera_fila', false);
+    setValue('melhorias_RU.preco_ticket', false);
+    setValue('melhorias_RU.melhoria_outros', false);
   }, [setValue]);
 
   const params = route.params;
 
   function handleButtonNext(data) {
-    const obj = {...params, ...data};
-    console.log(obj);
+    const obj = merge(params, data);
     navigation.navigate('Done', {
       ...obj,
     });
@@ -61,9 +61,10 @@ export default function Step9({navigation, route}) {
           <CheckBoxItem
             label="Cardápio"
             status={melhoriaCardapio ? 'checked' : 'unchecked'}
+            ref={register('melhorias_RU.cardapio')}
             onPress={() =>
               handlerCheckbox(
-                'melhorias_cardapio',
+                'melhorias_RU.cardapio',
                 melhoriaCardapio,
                 setMelhoriaCardapio,
               )
@@ -73,9 +74,10 @@ export default function Step9({navigation, route}) {
           <CheckBoxItem
             label="Sabor das preparações"
             status={melhoriaSaborPreparacao ? 'checked' : 'unchecked'}
+            ref={register('melhorias_RU.melhoria_sabor_preparacao')}
             onPress={() =>
               handlerCheckbox(
-                'melhoria_sabor_preparacao',
+                'melhorias_RU.melhoria_sabor_preparacao',
                 melhoriaSaborPreparacao,
                 setMelhoriaSaborPreparacao,
               )
@@ -85,9 +87,10 @@ export default function Step9({navigation, route}) {
           <CheckBoxItem
             label="Mais opções veganas"
             status={melhoriaOpcoesVegana ? 'checked' : 'unchecked'}
+            ref={register('melhorias_RU.opcao_vegetariana')}
             onPress={() =>
               handlerCheckbox(
-                'melhoria_mais_opcoes_vegana',
+                'melhorias_RU.opcao_vegetariana',
                 melhoriaOpcoesVegana,
                 setMelhoriaOpcoesVegana,
               )
@@ -97,9 +100,10 @@ export default function Step9({navigation, route}) {
           <CheckBoxItem
             label="Estrutura física"
             status={melhoriaEstruturaFisica ? 'checked' : 'unchecked'}
+            ref={register('melhorias_RU.estrutura_fisica')}
             onPress={() =>
               handlerCheckbox(
-                'melhoria_estrutura_fisica',
+                'melhorias_RU.estrutura_fisica',
                 melhoriaEstruturaFisica,
                 setMelhoriaEstruturaFisica,
               )
@@ -109,9 +113,10 @@ export default function Step9({navigation, route}) {
           <CheckBoxItem
             label="Tempo de espera na fila"
             status={melhoriaTempoEsperaFila ? 'checked' : 'unchecked'}
+            ref={register('melhorias_RU.espera_fila')}
             onPress={() =>
               handlerCheckbox(
-                'melhoria_tempo_espera_fila',
+                'melhorias_RU.espera_fila',
                 melhoriaTempoEsperaFila,
                 setMelhoriaTempoEsperaFila,
               )
@@ -121,9 +126,10 @@ export default function Step9({navigation, route}) {
           <CheckBoxItem
             label="Preço do ticket"
             status={melhoriaPrecoTicket ? 'checked' : 'unchecked'}
+            ref={register('melhorias_RU.preco_ticket')}
             onPress={() =>
               handlerCheckbox(
-                'melhoria_preco_ticket',
+                'melhorias_RU.preco_ticket',
                 melhoriaPrecoTicket,
                 setMelhoriaPrecoTicket,
               )
@@ -134,8 +140,8 @@ export default function Step9({navigation, route}) {
         <Input
           label="Outras"
           mode="outlined"
-          ref={register('outras_melhorias')}
-          onChangeText={text => setValue('outras_melhorias', text)}
+          ref={register('melhorias_RU.melhoria_outros')}
+          onChangeText={text => setValue('melhorias_RU.melhoria_outros', text)}
         />
 
         <ContainerButton>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {Button, RadioButton, HelperText} from 'react-native-paper';
+import {merge} from 'lodash';
 
 import RadioButtonItem from '../../../components/RadioButton';
 
@@ -18,10 +19,10 @@ export default function Step8({navigation, route}) {
   const params = route.params;
 
   function handleButtonNext(data) {
-    const obj = {...params, ...data};
-    console.log(obj);
+    const obj = merge(params, data);
+    console.log(params);
     navigation.navigate('Questionário passo 9', {
-      data: obj,
+      ...obj,
     });
   }
 
@@ -35,15 +36,16 @@ export default function Step8({navigation, route}) {
         as={
           <RadioButton.Group
             onValueChange={value =>
-              setValue('avaliacao_textura_preparacao', value)
+              setValue('avaliacao_RU.textura_preparacao', value)
             }>
             <ContainerRadioButton>
               <ContainerTitle>
-                <TitleRadioGroup error={errors.avaliacao_textura_preparacao}>
+                <TitleRadioGroup
+                  error={errors?.avaliacao_RU?.textura_preparacao}>
                   Como você avalia a refeição servida no RU, quanto a textura
                   das preparações
                 </TitleRadioGroup>
-                {errors.avaliacao_textura_preparacao && (
+                {errors?.avaliacao_RU?.textura_preparacao && (
                   <HelperText padding="none" type="error">
                     * Campo Obrigatório
                   </HelperText>
@@ -53,7 +55,7 @@ export default function Step8({navigation, route}) {
                 label="Muito Ruim"
                 value="muito ruim"
                 handlePress={() =>
-                  setValue('avaliacao_textura_preparacao', 'muito ruim')
+                  setValue('avaliacao_RU.textura_preparacao', 'muito ruim')
                 }
               />
 
@@ -61,7 +63,7 @@ export default function Step8({navigation, route}) {
                 label="Ruim"
                 value="ruim"
                 handlePress={() =>
-                  setValue('avaliacao_textura_preparacao', 'ruim')
+                  setValue('avaliacao_RU.textura_preparacao', 'ruim')
                 }
               />
 
@@ -69,7 +71,7 @@ export default function Step8({navigation, route}) {
                 label="Regular"
                 value="regular"
                 handlePress={() =>
-                  setValue('avaliacao_textura_preparacao', 'regular')
+                  setValue('avaliacao_RU.textura_preparacao', 'regular')
                 }
               />
 
@@ -77,7 +79,7 @@ export default function Step8({navigation, route}) {
                 label="Bom"
                 value="bom"
                 handlePress={() =>
-                  setValue('avaliacao_textura_preparacao', 'bom')
+                  setValue('avaliacao_RU.textura_preparacao', 'bom')
                 }
               />
 
@@ -85,13 +87,13 @@ export default function Step8({navigation, route}) {
                 label="Muito Bom"
                 value="muito bom"
                 handlePress={() =>
-                  setValue('avaliacao_textura_preparacao', 'muito bom')
+                  setValue('avaliacao_RU.textura_preparacao', 'muito bom')
                 }
               />
             </ContainerRadioButton>
           </RadioButton.Group>
         }
-        name="avaliacao_textura_preparacao"
+        name="avaliacao_RU.textura_preparacao"
         control={control}
         rules={{required: true}}
         defaultValue=""
@@ -101,15 +103,15 @@ export default function Step8({navigation, route}) {
         as={
           <RadioButton.Group
             onValueChange={value =>
-              setValue('avaliacao_sabor_preparacao', value)
+              setValue('avaliacao_RU.sabor_preparacao', value)
             }>
             <ContainerRadioButton>
               <ContainerTitle>
-                <TitleRadioGroup error={errors.avaliacao_sabor_preparacao}>
+                <TitleRadioGroup error={errors?.avaliacao_RU?.sabor_preparacao}>
                   Como você avalia a refeição servida no RU, quanto ao sabor das
                   preparações
                 </TitleRadioGroup>
-                {errors.avaliacao_sabor_preparacao && (
+                {errors?.avaliacao_RU?.sabor_preparacao && (
                   <HelperText padding="none" type="error">
                     * Campo Obrigatório
                   </HelperText>
@@ -119,7 +121,7 @@ export default function Step8({navigation, route}) {
                 label="Muito Ruim"
                 value="muito ruim"
                 handlePress={() =>
-                  setValue('avaliacao_sabor_preparacao', 'muito ruim')
+                  setValue('avaliacao_RU.sabor_preparacao', 'muito ruim')
                 }
               />
 
@@ -127,7 +129,7 @@ export default function Step8({navigation, route}) {
                 label="Ruim"
                 value="ruim"
                 handlePress={() =>
-                  setValue('avaliacao_sabor_preparacao', 'ruim')
+                  setValue('avaliacao_RU.sabor_preparacao', 'ruim')
                 }
               />
 
@@ -135,7 +137,7 @@ export default function Step8({navigation, route}) {
                 label="Regular"
                 value="regular"
                 handlePress={() =>
-                  setValue('avaliacao_sabor_preparacao', 'regular')
+                  setValue('avaliacao_RU.sabor_preparacao', 'regular')
                 }
               />
 
@@ -143,7 +145,7 @@ export default function Step8({navigation, route}) {
                 label="Bom"
                 value="bom"
                 handlePress={() =>
-                  setValue('avaliacao_sabor_preparacao', 'bom')
+                  setValue('avaliacao_RU.sabor_preparacao', 'bom')
                 }
               />
 
@@ -151,13 +153,13 @@ export default function Step8({navigation, route}) {
                 label="Muito Bom"
                 value="muito bom"
                 handlePress={() =>
-                  setValue('avaliacao_sabor_preparacao', 'muito bom')
+                  setValue('avaliacao_RU.sabor_preparacao', 'muito bom')
                 }
               />
             </ContainerRadioButton>
           </RadioButton.Group>
         }
-        name="avaliacao_sabor_preparacao"
+        name="avaliacao_RU.sabor_preparacao"
         control={control}
         rules={{required: true}}
         defaultValue=""

@@ -19,9 +19,21 @@ export default function Step4({navigation, route}) {
 
   function handleButtonNext(data) {
     const obj = {...params, ...data};
+    StringToBoolean(obj);
     console.log(obj);
     navigation.navigate('Questionário passo 5', {
-      data: obj,
+      ...obj,
+    });
+  }
+
+  function StringToBoolean(obj) {
+    Object.keys(obj).forEach(item => {
+      if (obj[item] === 'nao') {
+        obj[item] = false;
+      }
+      if (obj[item] === 'sim') {
+        obj[item] = true;
+      }
     });
   }
 
@@ -157,8 +169,10 @@ export default function Step4({navigation, route}) {
 
               <RadioButtonItem
                 label="Não Consumo"
-                value="nao"
-                handlePress={() => setValue('consome_bebida_alcoolica', 'nao')}
+                value="nao consumo"
+                handlePress={() =>
+                  setValue('consome_bebida_alcoolica', 'nao consumo')
+                }
               />
             </ContainerRadioButton>
           </RadioButton.Group>

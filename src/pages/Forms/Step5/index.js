@@ -25,13 +25,13 @@ export default function Step5({navigation, route}) {
   const [doenca, setDoenca] = useState(false);
 
   useEffect(() => {
-    setValue('doenca_cardiovascular', true);
-    setValue('hipertensao_arterial', false);
-    setValue('obesidade', false);
-    setValue('dislipidemias', false);
-    setValue('diabetes', false);
-    setValue('doenca_arterial_coronariana', false);
-    setValue('outras_doencas', false);
+    setValue('patologias.doenca_cardiovascular', true);
+    setValue('patologias.hipertensao_arterial', false);
+    setValue('patologias.obesidade', false);
+    setValue('patologias.dislipidemias', false);
+    setValue('patologias.diabetes', false);
+    setValue('patologias.doenca_arterial_coronariana', false);
+    setValue('patologias.outras_patologias', false);
   }, [setValue]);
 
   const params = route.params;
@@ -52,13 +52,13 @@ export default function Step5({navigation, route}) {
 
   function handlerCheckboxDoenca() {
     setDoenca(!doenca);
-    setValue('doenca_cardiovascular', true);
-    setValue('hipertensao_arterial', false);
-    setValue('obesidade', false);
-    setValue('dislipidemias', false);
-    setValue('diabetes', false);
-    setValue('doenca_arterial_coronariana', false);
-    setValue('outras_doencas', false);
+    setValue('patologias.doenca_cardiovascular', true);
+    setValue('patologias.hipertensao_arterial', false);
+    setValue('patologias.obesidade', false);
+    setValue('patologias.dislipidemias', false);
+    setValue('patologias.diabetes', false);
+    setValue('patologias.doenca_arterial_coronariana', false);
+    setValue('patologias.outras_patologias', false);
   }
 
   function handleButtonPrev() {
@@ -82,9 +82,10 @@ export default function Step5({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
+          ref={register('patologias.doenca_cardiovascular')}
           onPress={() =>
             handlerCheckbox(
-              'doenca_cardiovascular',
+              'patologias.doenca_cardiovascular',
               doencaCardiovascular,
               setDoencaCardiovascular,
             )
@@ -100,9 +101,10 @@ export default function Step5({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
+          ref={register('patologias.hipertensao_arterial')}
           onPress={() =>
             handlerCheckbox(
-              'hipertensao_arterial',
+              'patologias.hipertensao_arterial',
               hipertensaoArterial,
               setHipertensaoArterial,
             )
@@ -118,7 +120,10 @@ export default function Step5({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
-          onPress={() => handlerCheckbox('obesidade', obesidade, setObesidade)}
+          ref={register('patologias.obesidade')}
+          onPress={() =>
+            handlerCheckbox('patologias.obesidade', obesidade, setObesidade)
+          }
         />
 
         <CheckBoxItem
@@ -130,8 +135,13 @@ export default function Step5({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
+          ref={register('patologias.dislipidemias')}
           onPress={() =>
-            handlerCheckbox('dislipidemias', dislipidemias, setDislipidemias)
+            handlerCheckbox(
+              'patologias.dislipidemias',
+              dislipidemias,
+              setDislipidemias,
+            )
           }
         />
 
@@ -144,7 +154,10 @@ export default function Step5({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
-          onPress={() => handlerCheckbox('diabetes', diabetes, setDiabetes)}
+          ref={register('patologias.diabetes')}
+          onPress={() =>
+            handlerCheckbox('patologias.diabetes', diabetes, setDiabetes)
+          }
         />
 
         <CheckBoxItem
@@ -156,9 +169,10 @@ export default function Step5({navigation, route}) {
               ? 'checked'
               : 'unchecked'
           }
+          ref={register('patologias.doenca_arterial_coronariana')}
           onPress={() =>
             handlerCheckbox(
-              'doenca_arterial_coronariana',
+              'patologias.doenca_arterial_coronariana',
               doencaArterialCoronariana,
               setDoencaArterialCoronariana,
             )
@@ -186,8 +200,8 @@ export default function Step5({navigation, route}) {
         disabled={doenca}
         label="Outras Doenças"
         mode="outlined"
-        ref={register('outras_doencas')}
-        onChangeText={text => setValue('outras_doencas', text)}
+        ref={register('patologias.outras_patologias')}
+        onChangeText={text => setValue('patologias.outras_patologias', text)}
       />
 
       <ContainerButton>
