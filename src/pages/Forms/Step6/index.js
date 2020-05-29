@@ -55,7 +55,7 @@ export default function Step6({navigation, route}) {
   function handlerCheckboxDoenca() {
     setDoenca(!doenca);
     setValue('patologias_familia.fam_doenca_cardiovascular', true);
-    setValue('patologias_familia.fam_hipertensao_arterial', false);
+    setValue('patologias_familia.fam_hipertensao', false);
     setValue('patologias_familia.fam_obesidade', false);
     setValue('patologias_familia.fam_dislipidemias', false);
     setValue('patologias_familia.fam_diabetes', false);
@@ -103,10 +103,10 @@ export default function Step6({navigation, route}) {
                 ? 'checked'
                 : 'unchecked'
             }
-            ref={register('patologias_familia.fam_hipertensao_arterial')}
+            ref={register('patologias_familia.fam_hipertensao')}
             onPress={() =>
               handlerCheckbox(
-                'patologias_familia.fam_hipertensao_arterial',
+                'patologias_familia.fam_hipertensao',
                 hipertensaoArterial,
                 setHipertensaoArterial,
               )

@@ -46,18 +46,18 @@ export default function Step2({route, navigation}) {
               </ContainerTitle>
               <RadioButtonItem
                 label="Não sou bolsista"
-                value="false"
-                handlePress={() => setValue('bolsista', 'false')}
+                value="Não sou bolsista"
+                handlePress={() => setValue('bolsista', 'Não sou bolsista')}
               />
               <RadioButtonItem
                 label="Bolsa Parcial"
-                value="bolsa parcial"
-                handlePress={() => setValue('bolsista', 'bolsa parcial')}
+                value="Bolsa parcial"
+                handlePress={() => setValue('bolsista', 'Bolsa parcial')}
               />
               <RadioButtonItem
                 label="Bolsa Integral"
-                value="bolsa integral"
-                handlePress={() => setValue('bolsista', 'bolsa integral')}
+                value="Bolsa integral"
+                handlePress={() => setValue('bolsista', 'Bolsa integral')}
               />
             </ContainerRadioButton>
           </RadioButton.Group>
@@ -135,21 +135,21 @@ export default function Step2({route, navigation}) {
               </ContainerTitle>
               <RadioButtonItem
                 label="Almoço"
-                value="almoço"
-                handlePress={() => setValue('tipo_refeicao_RU', 'almoço')}
+                value="Almoço"
+                handlePress={() => setValue('tipo_refeicao_RU', 'Almoço')}
               />
 
               <RadioButtonItem
                 label="Jantar"
-                value="jantar"
-                handlePress={() => setValue('tipo_refeicao_RU', 'jantar')}
+                value="Jantar"
+                handlePress={() => setValue('tipo_refeicao_RU', 'Jantar')}
               />
 
               <RadioButtonItem
                 label="Almoço e Jantar"
-                value="almoco e jantar"
+                value="Almoço e Jantar"
                 handlePress={() =>
-                  setValue('tipo_refeicao_RU', 'almoco e jantar')
+                  setValue('tipo_refeicao_RU', 'Almoço e Jantar')
                 }
               />
             </ContainerRadioButton>
@@ -179,26 +179,26 @@ export default function Step2({route, navigation}) {
               </ContainerTitle>
               <RadioButtonItem
                 label="Sedentário"
-                value="sedentario"
-                handlePress={() => setValue('nivel_fisico', 'sedentario')}
+                value="Sedentário"
+                handlePress={() => setValue('nivel_fisico', 'Sedentário')}
               />
 
               <RadioButtonItem
                 label="Leve"
-                value="leve"
-                handlePress={() => setValue('nivel_fisico', 'leve')}
+                value="Leve"
+                handlePress={() => setValue('nivel_fisico', 'Leve')}
               />
 
               <RadioButtonItem
                 label="Moderado"
-                value="moderado"
-                handlePress={() => setValue('nivel_fisico', 'moderado')}
+                value="Moderado"
+                handlePress={() => setValue('nivel_fisico', 'Moderado')}
               />
 
               <RadioButtonItem
                 label="Ativo"
-                value="ativo"
-                handlePress={() => setValue('nivel_fisico', 'ativo')}
+                value="Ativo"
+                handlePress={() => setValue('nivel_fisico', 'Ativo')}
               />
             </ContainerRadioButton>
           </RadioButton.Group>
