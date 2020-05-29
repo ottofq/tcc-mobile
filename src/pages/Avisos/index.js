@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import Shimmer from 'react-native-shimmer';
-import {RefreshControl} from 'react-native';
+import {RefreshControl, StyleSheet} from 'react-native';
+import HTMLView from 'react-native-htmlview';
 
 import {
   Container,
@@ -25,8 +26,9 @@ export default function Avisos() {
 
   async function loadAvisos() {
     try {
-      const result = await api.get('/informacoes');
-      setAvisos(result.data);
+      const result = await api.get('/informacoes?page=1');
+
+      setAvisos(result.data.result);
       setLoading(false);
       setRefreshing(false);
     } catch (error) {
@@ -91,10 +93,40 @@ export default function Avisos() {
             <Title>
               {aviso.data} - {aviso.titulo}
             </Title>
-            <InfoContent>{aviso.descricao}</InfoContent>
+            <HTMLView
+              stylesheet={styles}
+              value={`<div>${aviso.descricao.replace(
+                /(\r\n|\n|\r)/gm,
+                '',
+              )}</div>`}
+            />
           </InfoCard>
         ))
       )}
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  p: {
+    marginTop: 5,
+    marginBottom: 5,
+    lineHeight: 20,
+  },
+  strong: {
+    fontWeight: 'bold',
+  },
+  ul: {
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  li: {
+    marginTop: 5,
+    marginBottom: 5,
+    lineHeight: 20,
+  },
+  ol: {
+    marginTop: 5,
+    marginBottom: 5,
+  },
+});
