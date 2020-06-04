@@ -137,41 +137,44 @@ export default function Step4({navigation, route}) {
 
               <RadioButtonItem
                 label="Sim, Diariamente"
-                value="diariamente"
+                value="Diariamente"
                 handlePress={() =>
-                  setValue('consome_bebida_alcoolica', 'diariamente')
+                  setValue('consome_bebida_alcoolica', 'Diariamente')
                 }
               />
 
               <RadioButtonItem
                 label="Sim, de 3-6 vezes na semana"
-                value="3-6 vezes na semana"
+                value="de 3-6 vezes na semana"
                 handlePress={() =>
-                  setValue('consome_bebida_alcoolica', '3-6 vezes na semana')
+                  setValue('consome_bebida_alcoolica', 'de 3-6 vezes na semana')
                 }
               />
 
               <RadioButtonItem
                 label="Sim, de 1-2 vezes na semana"
-                value="1-2 vezes na semana"
+                value="de 1-2 vezes na semana"
                 handlePress={() =>
-                  setValue('consome_bebida_alcoolica', '1-2 vezes na semana')
+                  setValue('consome_bebida_alcoolica', 'de 1-2 vezes na semana')
                 }
               />
 
               <RadioButtonItem
                 label="Sim, Raramente"
-                value="raramente"
+                value="Raramente"
                 handlePress={() =>
-                  setValue('consome_bebida_alcoolica', 'raramente')
+                  setValue('consome_bebida_alcoolica', 'Raramente')
                 }
               />
 
               <RadioButtonItem
                 label="Não Consumo"
-                value="nao consumo"
+                value="Não consumo bebidas alcoólicas"
                 handlePress={() =>
-                  setValue('consome_bebida_alcoolica', 'nao consumo')
+                  setValue(
+                    'consome_bebida_alcoolica',
+                    'Não consumo bebidas alcoólicas',
+                  )
                 }
               />
             </ContainerRadioButton>

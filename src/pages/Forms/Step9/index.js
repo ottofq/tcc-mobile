@@ -1,21 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import {useForm} from 'react-hook-form';
-import {Button} from 'react-native-paper';
+import {useForm, Controller} from 'react-hook-form';
+import {Button, RadioButton, HelperText} from 'react-native-paper';
 import {KeyboardAvoidingView} from 'react-native';
 import {merge} from 'lodash';
 
 import CheckBoxItem from '../../../components/Checkbox';
+import RadioButtonItem from '../../../components/RadioButton';
 
 import {
   Container,
   ContainerCheckbox,
+  ContainerRadioButton,
+  ContainerTitle,
+  TitleRadioGroup,
   TitleCheckboxGroup,
   ContainerButton,
   Input,
 } from './styles';
 
 export default function Step9({navigation, route}) {
-  const {register, handleSubmit, setValue} = useForm();
+  const {register, handleSubmit, setValue, errors, control} = useForm();
   const [melhoriaCardapio, setMelhoriaCardapio] = useState(false);
   const [melhoriaSaborPreparacao, setMelhoriaSaborPreparacao] = useState(false);
   const [melhoriaOpcoesVegana, setMelhoriaOpcoesVegana] = useState(false);
@@ -28,7 +32,7 @@ export default function Step9({navigation, route}) {
     setValue('melhorias_RU.melhoria_sabor_preparacao', false);
     setValue('melhorias_RU.opcao_vegetariana', false);
     setValue('melhorias_RU.estrutura_fisica', false);
-    setValue('melhorias_RU.espera_fila', false);
+    setValue('melhorias_RU.tempo_fila', false);
     setValue('melhorias_RU.preco_ticket', false);
     setValue('melhorias_RU.melhoria_outros', false);
   }, [setValue]);
@@ -53,6 +57,71 @@ export default function Step9({navigation, route}) {
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <Container>
+        <Controller
+          as={
+            <RadioButton.Group
+              onValueChange={value =>
+                setValue('avaliacao_RU.avaliacao_geral', value)
+              }>
+              <ContainerRadioButton>
+                <ContainerTitle>
+                  <TitleRadioGroup
+                    error={errors?.avaliacao_RU?.avaliacao_geral}>
+                    De modo geral, como você avalia o cardápio do RU?
+                  </TitleRadioGroup>
+                  {errors?.avaliacao_RU?.avaliacao_geral && (
+                    <HelperText padding="none" type="error">
+                      * Campo Obrigatório
+                    </HelperText>
+                  )}
+                </ContainerTitle>
+                <RadioButtonItem
+                  label="Muito ruim"
+                  value="Muito ruim"
+                  handlePress={() =>
+                    setValue('avaliacao_RU.avaliacao_geral', 'Muito ruim')
+                  }
+                />
+
+                <RadioButtonItem
+                  label="Ruim"
+                  value="Ruim"
+                  handlePress={() =>
+                    setValue('avaliacao_RU.avaliacao_geral', 'Ruim')
+                  }
+                />
+
+                <RadioButtonItem
+                  label="Regular"
+                  value="Regular"
+                  handlePress={() =>
+                    setValue('avaliacao_RU.avaliacao_geral', 'Regular')
+                  }
+                />
+
+                <RadioButtonItem
+                  label="Bom"
+                  value="Bom"
+                  handlePress={() =>
+                    setValue('avaliacao_RU.avaliacao_geral', 'Bom')
+                  }
+                />
+
+                <RadioButtonItem
+                  label="Muito bom"
+                  value="Muito bom"
+                  handlePress={() =>
+                    setValue('avaliacao_RU.avaliacao_geral', 'Muito bom')
+                  }
+                />
+              </ContainerRadioButton>
+            </RadioButton.Group>
+          }
+          name="avaliacao_RU.avaliacao_geral"
+          control={control}
+          rules={{required: true}}
+          defaultValue=""
+        />
         <TitleCheckboxGroup>
           O que você acha que deveria ser melhorado no RU?
         </TitleCheckboxGroup>
@@ -113,10 +182,10 @@ export default function Step9({navigation, route}) {
           <CheckBoxItem
             label="Tempo de espera na fila"
             status={melhoriaTempoEsperaFila ? 'checked' : 'unchecked'}
-            ref={register('melhorias_RU.espera_fila')}
+            ref={register('melhorias_RU.tempo_fila')}
             onPress={() =>
               handlerCheckbox(
-                'melhorias_RU.espera_fila',
+                'melhorias_RU.tempo_fila',
                 melhoriaTempoEsperaFila,
                 setMelhoriaTempoEsperaFila,
               )

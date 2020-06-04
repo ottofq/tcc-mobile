@@ -215,9 +215,9 @@ export default function Step3({navigation, route}) {
 
                 <RadioButtonItem
                   label="Não sou vegano ou vegetariano"
-                  value="nao sou vegano"
+                  value="Não sou vegano/vegetariano"
                   handlePress={() =>
-                    setValue('vegano_vegetariano', 'nao sou vegano')
+                    setValue('vegano_vegetariano', 'Não sou vegano/vegetariano')
                   }
                 />
 
@@ -225,22 +225,25 @@ export default function Step3({navigation, route}) {
                   label="Ovolactovegetariano"
                   value="ovolactovegetariano"
                   handlePress={() =>
-                    setValue('vegano_vegetariano', 'ovolactovegetariano')
+                    setValue('vegano_vegetariano', 'Ovolactovegetariano')
                   }
                 />
 
                 <RadioButtonItem
                   label="Vegetariano restrito – alimentação"
-                  value="vegetariano restrito"
+                  value="Vegetariano restrito – alimentação"
                   handlePress={() =>
-                    setValue('vegano_vegetariano', 'vegetariano restrito')
+                    setValue(
+                      'vegano_vegetariano',
+                      'Vegetariano restrito – alimentação',
+                    )
                   }
                 />
 
                 <RadioButtonItem
                   label="Vegano"
-                  value="vegano"
-                  handlePress={() => setValue('vegano_vegetariano', 'vegano')}
+                  value="Vegano"
+                  handlePress={() => setValue('vegano_vegetariano', 'Vegano')}
                 />
               </ContainerRadioButton>
             </RadioButton.Group>

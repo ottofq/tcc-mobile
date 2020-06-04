@@ -50,33 +50,33 @@ export default function Step7({navigation, route}) {
               </ContainerTitle>
 
               <RadioButtonItem
-                label="Muito Ruim"
-                value="muito ruim"
-                handlePress={() => setValue('avaliacao_RU.aroma', 'muito ruim')}
+                label="Muito ruim"
+                value="Muito ruim"
+                handlePress={() => setValue('avaliacao_RU.aroma', 'Muito ruim')}
               />
 
               <RadioButtonItem
                 label="Ruim"
-                value="ruim"
-                handlePress={() => setValue('avaliacao_RU.aroma', 'ruim')}
+                value="Ruim"
+                handlePress={() => setValue('avaliacao_RU.aroma', 'Ruim')}
               />
 
               <RadioButtonItem
                 label="Regular"
-                value="regular"
-                handlePress={() => setValue('avaliacao_RU.aroma', 'regular')}
+                value="Regular"
+                handlePress={() => setValue('avaliacao_RU.aroma', 'Regular')}
               />
 
               <RadioButtonItem
                 label="Bom"
-                value="bom"
-                handlePress={() => setValue('avaliacao_RU.aroma', 'bom')}
+                value="Bom"
+                handlePress={() => setValue('avaliacao_RU.aroma', 'Bom')}
               />
 
               <RadioButtonItem
-                label="Muito Bom"
-                value="muito bom"
-                handlePress={() => setValue('avaliacao_RU.aroma', 'muito bom')}
+                label="Muito bom"
+                value="Muito bom"
+                handlePress={() => setValue('avaliacao_RU.aroma', 'Muito bom')}
               />
             </ContainerRadioButton>
           </RadioButton.Group>
@@ -107,42 +107,42 @@ export default function Step7({navigation, route}) {
                 )}
               </ContainerTitle>
               <RadioButtonItem
-                label="Muito Ruim"
-                value="muito ruim"
+                label="Muito ruim"
+                value="Muito ruim"
                 handlePress={() =>
-                  setValue('avaliacao_RU.coloracao_cardapio', 'muito ruim')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'Muito ruim')
                 }
               />
 
               <RadioButtonItem
                 label="Ruim"
-                value="ruim"
+                value="Ruim"
                 handlePress={() =>
-                  setValue('avaliacao_RU.coloracao_cardapio', 'ruim')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'Ruim')
                 }
               />
 
               <RadioButtonItem
                 label="Regular"
-                value="regular"
+                value="Regular"
                 handlePress={() =>
-                  setValue('avaliacao_RU.coloracao_cardapio', 'regular')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'Regular')
                 }
               />
 
               <RadioButtonItem
                 label="Bom"
-                value="bom"
+                value="Bom"
                 handlePress={() =>
-                  setValue('avaliacao_RU.coloracao_cardapio', 'bom')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'Bom')
                 }
               />
 
               <RadioButtonItem
-                label="Muito Bom"
-                value="muito bom"
+                label="Muito bom"
+                value="Muito bom"
                 handlePress={() =>
-                  setValue('avaliacao_RU.coloracao_cardapio', 'muito bom')
+                  setValue('avaliacao_RU.coloracao_cardapio', 'Muito bom')
                 }
               />
             </ContainerRadioButton>

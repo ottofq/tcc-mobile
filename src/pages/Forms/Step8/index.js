@@ -52,42 +52,42 @@ export default function Step8({navigation, route}) {
                 )}
               </ContainerTitle>
               <RadioButtonItem
-                label="Muito Ruim"
-                value="muito ruim"
+                label="Muito ruim"
+                value="Muito ruim"
                 handlePress={() =>
-                  setValue('avaliacao_RU.textura_preparacao', 'muito ruim')
+                  setValue('avaliacao_RU.textura_preparacao', 'Muito ruim')
                 }
               />
 
               <RadioButtonItem
                 label="Ruim"
-                value="ruim"
+                value="Ruim"
                 handlePress={() =>
-                  setValue('avaliacao_RU.textura_preparacao', 'ruim')
+                  setValue('avaliacao_RU.textura_preparacao', 'Ruim')
                 }
               />
 
               <RadioButtonItem
                 label="Regular"
-                value="regular"
+                value="Regular"
                 handlePress={() =>
-                  setValue('avaliacao_RU.textura_preparacao', 'regular')
+                  setValue('avaliacao_RU.textura_preparacao', 'Regular')
                 }
               />
 
               <RadioButtonItem
                 label="Bom"
-                value="bom"
+                value="Bom"
                 handlePress={() =>
-                  setValue('avaliacao_RU.textura_preparacao', 'bom')
+                  setValue('avaliacao_RU.textura_preparacao', 'Bom')
                 }
               />
 
               <RadioButtonItem
-                label="Muito Bom"
-                value="muito bom"
+                label="Muito bom"
+                value="Muito bom"
                 handlePress={() =>
-                  setValue('avaliacao_RU.textura_preparacao', 'muito bom')
+                  setValue('avaliacao_RU.textura_preparacao', 'Muito bom')
                 }
               />
             </ContainerRadioButton>
@@ -118,42 +118,42 @@ export default function Step8({navigation, route}) {
                 )}
               </ContainerTitle>
               <RadioButtonItem
-                label="Muito Ruim"
-                value="muito ruim"
+                label="Muito ruim"
+                value="Muito ruim"
                 handlePress={() =>
-                  setValue('avaliacao_RU.sabor_preparacao', 'muito ruim')
+                  setValue('avaliacao_RU.sabor_preparacao', 'Muito ruim')
                 }
               />
 
               <RadioButtonItem
                 label="Ruim"
-                value="ruim"
+                value="Ruim"
                 handlePress={() =>
-                  setValue('avaliacao_RU.sabor_preparacao', 'ruim')
+                  setValue('avaliacao_RU.sabor_preparacao', 'Ruim')
                 }
               />
 
               <RadioButtonItem
                 label="Regular"
-                value="regular"
+                value="Regular"
                 handlePress={() =>
-                  setValue('avaliacao_RU.sabor_preparacao', 'regular')
+                  setValue('avaliacao_RU.sabor_preparacao', 'Regular')
                 }
               />
 
               <RadioButtonItem
                 label="Bom"
-                value="bom"
+                value="Bom"
                 handlePress={() =>
-                  setValue('avaliacao_RU.sabor_preparacao', 'bom')
+                  setValue('avaliacao_RU.sabor_preparacao', 'Bom')
                 }
               />
 
               <RadioButtonItem
-                label="Muito Bom"
-                value="muito bom"
+                label="Muito bom"
+                value="Muito bom"
                 handlePress={() =>
-                  setValue('avaliacao_RU.sabor_preparacao', 'muito bom')
+                  setValue('avaliacao_RU.sabor_preparacao', 'Muito bom')
                 }
               />
             </ContainerRadioButton>
