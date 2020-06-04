@@ -9,6 +9,7 @@ import RadioButtonItem from '../../../components/RadioButton';
 
 import {
   Container,
+  Progress,
   ContainerCheckbox,
   ContainerRadioButton,
   ContainerTitle,
@@ -57,6 +58,7 @@ export default function Step9({navigation, route}) {
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <Container>
+        <Progress progress={0.9} />
         <Controller
           as={
             <RadioButton.Group
@@ -67,13 +69,13 @@ export default function Step9({navigation, route}) {
                 <ContainerTitle>
                   <TitleRadioGroup
                     error={errors?.avaliacao_RU?.avaliacao_geral}>
-                    De modo geral, como você avalia o cardápio do RU?
+                    De modo geral, como você avalia o cardápio do RU?{' '}
+                    {errors?.avaliacao_RU?.avaliacao_geral && (
+                      <HelperText padding="none" type="error">
+                        * Campo Obrigatório
+                      </HelperText>
+                    )}
                   </TitleRadioGroup>
-                  {errors?.avaliacao_RU?.avaliacao_geral && (
-                    <HelperText padding="none" type="error">
-                      * Campo Obrigatório
-                    </HelperText>
-                  )}
                 </ContainerTitle>
                 <RadioButtonItem
                   label="Muito ruim"

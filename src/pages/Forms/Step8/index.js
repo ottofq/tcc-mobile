@@ -7,6 +7,7 @@ import RadioButtonItem from '../../../components/RadioButton';
 
 import {
   Container,
+  Progress,
   TitleRadioGroup,
   ContainerRadioButton,
   ContainerTitle,
@@ -32,6 +33,7 @@ export default function Step8({navigation, route}) {
 
   return (
     <Container>
+      <Progress progress={0.8} />
       <Controller
         as={
           <RadioButton.Group
