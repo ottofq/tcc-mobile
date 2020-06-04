@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "adb reverse tcp:5000 tcp:5000 && react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -25,6 +25,7 @@
     "react-native": "0.61.5",
     "react-native-dotenv": "^0.2.0",
     "react-native-gesture-handler": "^1.6.0",
+    "react-native-htmlview": "^0.15.0",
     "react-native-paper": "^3.6.0",
     "react-native-ratings": "^6.5.0",
     "react-native-reanimated": "^1.7.0",
