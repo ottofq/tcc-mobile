@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {Snackbar} from 'react-native-paper';
 import {AirbnbRating} from 'react-native-ratings';
 import {Keyboard} from 'react-native';
 import {useForm} from 'react-hook-form';
@@ -21,6 +22,7 @@ export default function Avaliacão({navigation}) {
   const [nota, setNota] = useState(3);
   const {register, setValue, handleSubmit, reset} = useForm();
   const [showAnimation, setShowAnimation] = useState(false);
+  const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -45,31 +47,23 @@ export default function Avaliacão({navigation}) {
   };
 
   async function onSubmit(data) {
-    console.log('data', data);
-    console.log('a nota é', nota);
     try {
+      const {comentario} = data;
       const user_id = Math.random() * 9;
+      const nome = 'TEST_APP_NAME';
       const result = await api.get('cardapio/last');
       const {_id} = result.data;
-      const result_coment = await api.post(
-        `/cardapio/avaliar/${_id}`,
-        {nota: nota},
-        {
-          headers: {user_id},
-        },
-      );
-      const result_rate = await api.post(
-        `/cardapio/comentar/${_id}`,
-        {comentario: data.comentario},
-        {
-          headers: {user_id},
-        },
-      );
+      const result_coment = await api.post(`/cardapio/avaliar/${_id}`, {
+        nome,
+        comentario,
+        user_id,
+        nota,
+      });
 
       Keyboard.dismiss();
       setShowAnimation(true);
-      console.log(result_coment.data, result_rate.data);
     } catch (error) {
+      setSnackBarVisible(true);
       console.log(error);
     }
   }
@@ -79,6 +73,8 @@ export default function Avaliacão({navigation}) {
     navigation.navigate('Cardapio');
     setShowAnimation(false);
   }
+
+  const _onDismissSnackBar = () => setSnackBarVisible(false);
 
   return (
     <Container>
@@ -92,7 +88,6 @@ export default function Avaliacão({navigation}) {
             defaultRating={3}
             size={70}
           />
-
           <ContainerSubmit keyboardVisible={keyboardVisible}>
             <InputComentario
               onChangeText={text => setValue('comentario', text)}
@@ -102,6 +97,12 @@ export default function Avaliacão({navigation}) {
               Enviar Avaliação
             </ButtonSubmit>
           </ContainerSubmit>
+          <Snackbar
+            onDismiss={_onDismissSnackBar}
+            duration={2000}
+            visible={snackBarVisible}>
+            Erro ao enviar avaliação
+          </Snackbar>
         </ScrollViewAvaliacao>
       ) : (
         <ContainerAnimacao>
