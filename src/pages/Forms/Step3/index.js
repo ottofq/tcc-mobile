@@ -8,6 +8,7 @@ import CheckBoxItem from '../../../components/Checkbox';
 
 import {
   Container,
+  Progress,
   TitleRadioGroup,
   ContainerRadioButton,
   ContainerTitle,
@@ -81,6 +82,7 @@ export default function Step3({navigation, route}) {
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <Container>
+        <Progress progress={0.3} />
         <Controller
           as={
             <RadioButton.Group

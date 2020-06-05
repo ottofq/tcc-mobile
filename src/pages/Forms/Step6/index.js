@@ -7,6 +7,7 @@ import CheckBoxItem from '../../../components/Checkbox';
 
 import {
   Container,
+  Progress,
   ContainerCheckbox,
   TitleCheckboxGroup,
   ContainerButton,
@@ -70,6 +71,7 @@ export default function Step6({navigation, route}) {
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <Container>
+        <Progress progress={0.6} />
         <ContainerCheckbox>
           <TitleCheckboxGroup>
             Há histórico de presença, de alguma das patologias abaixo, na sua

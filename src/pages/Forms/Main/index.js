@@ -19,6 +19,7 @@ export default function Main() {
   return (
     <Stack.Navigator
       screenOptions={{
+        headerMode: 'none',
         headerLeft: null,
         headerTitleAlign: 'center',
         title: 'QUESTIONÁRIO',

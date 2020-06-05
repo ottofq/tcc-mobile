@@ -9,6 +9,7 @@ import RadioButtonItem from '../../../components/RadioButton';
 
 import {
   Container,
+  Progress,
   ContainerInputItem,
   ContainerInput,
   ContainerRadioButton,
@@ -52,6 +53,7 @@ export default function Step1({navigation}) {
 
   return (
     <Container>
+      <Progress progress={0.1} />
       <ContainerInput>
         <ContainerInputItem>
           {errors.nome && (

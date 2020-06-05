@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {TextInput} from 'react-native-paper';
+import {TextInput, ProgressBar} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native';
 
 export const Container = styled.ScrollView.attrs({
@@ -9,6 +9,10 @@ export const Container = styled.ScrollView.attrs({
 })`
   flex: 1;
   padding: 5px 5px;
+`;
+
+export const Progress = styled(ProgressBar)`
+  height: 10px;
 `;
 
 export const ContainerInput = styled.View`
