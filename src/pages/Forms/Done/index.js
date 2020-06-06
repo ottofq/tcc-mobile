@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Lottie from 'lottie-react-native';
+import {Snackbar} from 'react-native-paper';
+import {Text} from 'react-native';
 
 import animation from '../../../../assets/done.json';
 
@@ -7,6 +9,8 @@ import api from '../../../services/api';
 
 export default function Done({navigation, route}) {
   const [loading, setLoading] = useState(true);
+  const [snackBarVisible, setSnackBarVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('Error');
 
   const data = route.params;
 
@@ -18,22 +22,33 @@ export default function Done({navigation, route}) {
         console.log(result.data);
         setLoading(false);
       } catch (error) {
-        console.log(error);
+        setSnackBarVisible(true);
+        setErrorMessage(error);
       }
     }
     postData();
   }, [data]);
+
+  const _onDismissSnackBar = () => setSnackBarVisible(false);
 
   function finish() {
     navigation.navigate('Cardapio RU - CCA UFES');
   }
 
   return (
-    <Lottie
-      onAnimationFinish={finish}
-      autoPlay
-      loop={loading}
-      source={animation}
-    />
+    <>
+      <Lottie
+        onAnimationFinish={finish}
+        autoPlay
+        loop={loading}
+        source={animation}
+      />
+      <Snackbar
+        onDismiss={_onDismissSnackBar}
+        duration={2000}
+        visible={snackBarVisible}>
+        Error
+      </Snackbar>
+    </>
   );
 }

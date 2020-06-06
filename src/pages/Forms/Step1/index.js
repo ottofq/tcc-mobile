@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Button, RadioButton, HelperText} from 'react-native-paper';
-import {StyleSheet} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import {useForm, Controller} from 'react-hook-form';
 import DateTimePicker from '@react-native-community/datetimepicker';

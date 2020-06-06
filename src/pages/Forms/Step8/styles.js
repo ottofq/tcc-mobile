@@ -1,13 +1,15 @@
 import styled from 'styled-components/native';
 import {ProgressBar} from 'react-native-paper';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 export const Container = styled.View`
   flex: 1;
-  padding: 5px 5px;
+  padding: ${hp(1)}px;
   justify-content: space-between;
 `;
 
 export const Progress = styled(ProgressBar)`
-  height: 10px;
+  height: ${hp(2)}px;
 `;
 
 export const ContainerRadioButton = styled.View`
@@ -21,7 +23,7 @@ export const ContainerTitle = styled.View`
 `;
 
 export const TitleRadioGroup = styled.Text`
-  font-size: 18px;
+  font-size: ${hp(2.5)}px;
   font-family: 'PTSans-Bold';
   color: ${props => (props.error ? '#B00020' : 'black')};
 `;
@@ -29,5 +31,5 @@ export const TitleRadioGroup = styled.Text`
 export const ContainerButton = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 5px;
+  margin-top: ${hp(1)}px;
 `;

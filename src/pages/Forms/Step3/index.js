@@ -227,7 +227,7 @@ export default function Step3({navigation, route}) {
                   label="Ovolactovegetariano"
                   value="ovolactovegetariano"
                   handlePress={() =>
-                    setValue('vegano_vegetariano', 'Ovolactovegetariano')
+                    setValue('vegano_vegetariano', 'ovolactovegetariano')
                   }
                 />
 
