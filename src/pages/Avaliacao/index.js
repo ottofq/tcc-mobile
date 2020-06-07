@@ -3,6 +3,7 @@ import {Snackbar} from 'react-native-paper';
 import {AirbnbRating} from 'react-native-ratings';
 import {Keyboard} from 'react-native';
 import {useForm} from 'react-hook-form';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import animation from '../../../assets/animation-rating.json';
 import api from '../../services/api';
@@ -86,7 +87,7 @@ export default function Avaliacão({navigation}) {
             count={5}
             reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
             defaultRating={3}
-            size={70}
+            size={hp(10)}
           />
           <ContainerSubmit keyboardVisible={keyboardVisible}>
             <InputComentario
