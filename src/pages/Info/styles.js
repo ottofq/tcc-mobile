@@ -1,21 +1,25 @@
 import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 export const Container = styled.ScrollView`
-  flex: 1px;
-  padding: 5px;
+  flex: 1;
+  padding: ${hp(1)}px;
 `;
 
 export const Title = styled.Text`
   font-family: 'PTSans-Bold';
-  font-size: 24px;
+  font-size: ${hp(3.2)}px;
   text-align: center;
-  padding: 2px 0;
+  padding: ${hp(1)}px 0;
   color: #004b82;
 `;
 
 export const TitleInfo = styled(Title)`
-  font-size: 16px;
+  font-size: ${hp(3)}px;
 `;
 
 export const InfoDescription = styled.Text`
@@ -24,18 +28,23 @@ export const InfoDescription = styled.Text`
 `;
 
 export const styles = StyleSheet.create({
-  container: {flex: 1, margin: 5, backgroundColor: '#fff', paddingBottom: 40},
+  container: {
+    flex: 1,
+    margin: hp(1),
+    backgroundColor: '#fff',
+    paddingBottom: hp(1),
+  },
   borderTable: {borderWidth: 1, borderColor: '#000'},
-  head: {height: 70, backgroundColor: '#004B82'},
+  head: {height: hp(12), backgroundColor: '#004B82'},
   titleHead: {
-    margin: 7,
+    margin: hp(1),
     color: '#fff',
-    fontSize: 14,
+    fontSize: hp(1.95),
     textAlign: 'center',
     fontFamily: 'PTSans-Bold',
   },
   textRow: {
-    margin: 7,
+    margin: hp(0.5),
     fontFamily: 'PTSans-Regular',
     textAlign: 'center',
   },
