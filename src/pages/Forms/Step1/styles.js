@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import {TextInput, ProgressBar} from 'react-native-paper';
-import {TouchableOpacity, StyleSheet} from 'react-native';
+import {TextInput} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const Container = styled.View`
@@ -9,23 +9,12 @@ export const Container = styled.View`
   justify-content: space-between;
 `;
 
-export const ContainerProgress = styled.View`
-  padding: ${hp(1)}px;
-  align-items: center;
-`;
-
-export const Progress = styled(ProgressBar)`
-  height: ${hp(2)}px;
-`;
-
 export const ContainerInput = styled.View`
   justify-content: space-around;
-  height: ${hp(80)}px;
+  height: ${hp(85)}px;
 `;
 
-export const ContainerInputItem = styled.View`
-  justify-content: space-around;
-`;
+export const ContainerInputItem = styled.View``;
 
 export const ContainerRadioButton = styled.View`
   justify-content: space-between;

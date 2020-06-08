@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {TextInput, ProgressBar} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const Container = styled.ScrollView.attrs({
@@ -9,10 +9,6 @@ export const Container = styled.ScrollView.attrs({
   },
 })`
   padding: ${hp(1)}px;
-`;
-
-export const Progress = styled(ProgressBar)`
-  height: ${hp(2)}px;
 `;
 
 export const ContainerCheckbox = styled.View`

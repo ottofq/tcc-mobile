@@ -5,14 +5,12 @@ import {useForm, Controller} from 'react-hook-form';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format} from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import {View, Text} from 'react-native';
 
 import RadioButtonItem from '../../../components/RadioButton';
+import ProgressBar from '../../../components/ProgressBar';
 
 import {
   Container,
-  ContainerProgress,
-  Progress,
   ContainerInputItem,
   ContainerInput,
   ContainerRadioButton,
@@ -108,7 +106,7 @@ export default function Step1({navigation}) {
   return (
     <Container>
       <ContainerInput>
-        <Progress progress={0.1} />
+        <ProgressBar progress={0.1} />
         <ContainerInputItem>
           {errors.nome && (
             <HelperText padding="none" type="error">

@@ -1,15 +1,10 @@
 import styled from 'styled-components/native';
-import {ProgressBar} from 'react-native-paper';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const Container = styled.View`
   flex: 1;
   padding: ${hp(1)}px;
   justify-content: space-between;
-`;
-
-export const Progress = styled(ProgressBar)`
-  height: ${hp(2)}px;
 `;
 
 export const ContainerRadioButton = styled.View`

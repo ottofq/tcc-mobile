@@ -3,10 +3,10 @@ import {useForm, Controller} from 'react-hook-form';
 import {Button, RadioButton, HelperText} from 'react-native-paper';
 
 import RadioButtonItem from '../../../components/RadioButton';
+import ProgressBar from '../../../components/ProgressBar';
 
 import {
   Container,
-  Progress,
   ContainerRadioButton,
   ContainerTitle,
   TitleRadioGroup,
@@ -19,7 +19,6 @@ export default function Step2({route, navigation}) {
 
   function handleButtonNext(data) {
     const obj = {...params, ...data};
-    //console.log(obj);
     navigation.navigate('Questionário passo 3', {
       ...obj,
     });
@@ -30,7 +29,7 @@ export default function Step2({route, navigation}) {
 
   return (
     <Container>
-      <Progress progress={0.2} />
+      <ProgressBar progress={0.2} />
       <Controller
         as={
           <RadioButton.Group

@@ -5,7 +5,7 @@ import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
     flexGrow: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
 })`
   padding: ${hp(1)}px;
@@ -16,8 +16,8 @@ export const Progress = styled(ProgressBar)`
 `;
 
 export const ContainerRadioButton = styled.View`
-  flex: 1;
-  justify-content: space-evenly;
+  height: ${hp(30)}px;
+  justify-content: space-around;
 `;
 
 export const ContainerTitle = styled.View`
@@ -44,7 +44,6 @@ export const TitleCheckboxGroup = styled.Text`
 export const ContainerButton = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-top: ${hp(1)}px;
 `;
 
 export const Input = styled(TextInput)``;

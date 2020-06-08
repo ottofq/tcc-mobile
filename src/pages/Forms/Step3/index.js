@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {Button, RadioButton, HelperText} from 'react-native-paper';
-import {Keyboard, KeyboardAvoidingView} from 'react-native';
+import {KeyboardAvoidingView} from 'react-native';
 
 import RadioButtonItem from '../../../components/RadioButton';
 import CheckBoxItem from '../../../components/Checkbox';
+import ProgressBar from '../../../components/ProgressBar';
 
 import {
   Container,
-  Progress,
   TitleRadioGroup,
   ContainerRadioButton,
   ContainerTitle,
@@ -22,7 +22,6 @@ export default function Step3({navigation, route}) {
   const [lactose, setLactose] = useState(false);
   const [proteinaLeite, setProteinaLeite] = useState(false);
   const [alergia, setAlergia] = useState(false);
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
     setValue('alergias.nenhuma', true);
@@ -31,24 +30,6 @@ export default function Step3({navigation, route}) {
     setValue('alergias.proteina_leite_vaca', false);
     setValue('alergias.outras_alergias', false);
   }, [setValue]);
-
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', function() {
-      console.log('teclado aberto');
-      setKeyboardVisible(true);
-    });
-    Keyboard.addListener('keyboardDidHide', function() {
-      console.log('teclado fechado');
-      setKeyboardVisible(false);
-    });
-
-    return () => {
-      Keyboard.removeAllListeners('keyboardDidShow');
-      Keyboard.removeAllListeners('keyboardDidHide');
-      setKeyboardVisible(false);
-      console.log('remove listener');
-    };
-  }, []);
 
   const params = route.params;
 
@@ -82,7 +63,7 @@ export default function Step3({navigation, route}) {
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <Container>
-        <Progress progress={0.3} />
+        <ProgressBar progress={0.3} />
         <Controller
           as={
             <RadioButton.Group
@@ -115,6 +96,63 @@ export default function Step3({navigation, route}) {
             </RadioButton.Group>
           }
           name="peso_ideal"
+          control={control}
+          rules={{required: true}}
+          defaultValue=""
+        />
+
+        <Controller
+          as={
+            <RadioButton.Group
+              onValueChange={value => setValue('vegano_vegetariano', value)}>
+              <ContainerRadioButton>
+                <ContainerTitle>
+                  <TitleRadioGroup error={errors.vegano_vegetariano}>
+                    Você é vegetariano ou vegano?
+                  </TitleRadioGroup>
+                  {errors.vegano_vegetariano && (
+                    <HelperText padding="none" type="error">
+                      * Campo Obrigatório
+                    </HelperText>
+                  )}
+                </ContainerTitle>
+
+                <RadioButtonItem
+                  label="Não sou vegano ou vegetariano"
+                  value="Não sou vegano/vegetariano"
+                  handlePress={() =>
+                    setValue('vegano_vegetariano', 'Não sou vegano/vegetariano')
+                  }
+                />
+
+                <RadioButtonItem
+                  label="Ovolactovegetariano"
+                  value="ovolactovegetariano"
+                  handlePress={() =>
+                    setValue('vegano_vegetariano', 'ovolactovegetariano')
+                  }
+                />
+
+                <RadioButtonItem
+                  label="Vegetariano restrito – alimentação"
+                  value="Vegetariano restrito – alimentação"
+                  handlePress={() =>
+                    setValue(
+                      'vegano_vegetariano',
+                      'Vegetariano restrito – alimentação',
+                    )
+                  }
+                />
+
+                <RadioButtonItem
+                  label="Vegano"
+                  value="Vegano"
+                  handlePress={() => setValue('vegano_vegetariano', 'Vegano')}
+                />
+              </ContainerRadioButton>
+            </RadioButton.Group>
+          }
+          name="vegano_vegetariano"
           control={control}
           rules={{required: true}}
           defaultValue=""
@@ -192,68 +230,10 @@ export default function Step3({navigation, route}) {
 
         <Input
           disabled={alergia}
-          keyboardShow={keyboardVisible}
           label="Outro"
           mode="outlined"
           ref={register('alergias.outras_alergias')}
           onChangeText={text => setValue('alergias.outras_alergias', text)}
-        />
-
-        <Controller
-          as={
-            <RadioButton.Group
-              onValueChange={value => setValue('vegano_vegetariano', value)}>
-              <ContainerRadioButton>
-                <ContainerTitle>
-                  <TitleRadioGroup error={errors.vegano_vegetariano}>
-                    Você é vegetariano ou vegano?
-                  </TitleRadioGroup>
-                  {errors.vegano_vegetariano && (
-                    <HelperText padding="none" type="error">
-                      * Campo Obrigatório
-                    </HelperText>
-                  )}
-                </ContainerTitle>
-
-                <RadioButtonItem
-                  label="Não sou vegano ou vegetariano"
-                  value="Não sou vegano/vegetariano"
-                  handlePress={() =>
-                    setValue('vegano_vegetariano', 'Não sou vegano/vegetariano')
-                  }
-                />
-
-                <RadioButtonItem
-                  label="Ovolactovegetariano"
-                  value="ovolactovegetariano"
-                  handlePress={() =>
-                    setValue('vegano_vegetariano', 'ovolactovegetariano')
-                  }
-                />
-
-                <RadioButtonItem
-                  label="Vegetariano restrito – alimentação"
-                  value="Vegetariano restrito – alimentação"
-                  handlePress={() =>
-                    setValue(
-                      'vegano_vegetariano',
-                      'Vegetariano restrito – alimentação',
-                    )
-                  }
-                />
-
-                <RadioButtonItem
-                  label="Vegano"
-                  value="Vegano"
-                  handlePress={() => setValue('vegano_vegetariano', 'Vegano')}
-                />
-              </ContainerRadioButton>
-            </RadioButton.Group>
-          }
-          name="vegano_vegetariano"
-          control={control}
-          rules={{required: true}}
-          defaultValue=""
         />
 
         <ContainerButton>

@@ -20,7 +20,7 @@ export const InfoCard = styled.View`
   border-radius: 8px;
   padding: 5px;
   margin: 5px;
-  background-color: #e2e2e2;
+  background-color: #f6fafd;
 `;
 
 export const Title = styled.Text`

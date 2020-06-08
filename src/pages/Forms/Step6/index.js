@@ -4,10 +4,10 @@ import {Button} from 'react-native-paper';
 import {KeyboardAvoidingView} from 'react-native';
 
 import CheckBoxItem from '../../../components/Checkbox';
+import ProgressBar from '../../../components/ProgressBar';
 
 import {
   Container,
-  Progress,
   ContainerCheckbox,
   TitleCheckboxGroup,
   ContainerButton,
@@ -71,8 +71,8 @@ export default function Step6({navigation, route}) {
   return (
     <KeyboardAvoidingView style={{flex: 1}}>
       <Container>
-        <Progress progress={0.6} />
         <ContainerCheckbox>
+          <ProgressBar progress={0.6} />
           <TitleCheckboxGroup>
             Há histórico de presença, de alguma das patologias abaixo, na sua
             família? Se sim, quais?
@@ -207,26 +207,26 @@ export default function Step6({navigation, route}) {
             }
             onPress={() => handlerCheckboxDoenca()}
           />
-        </ContainerCheckbox>
-        <Input
-          disabled={doenca}
-          label="Outras Doenças"
-          mode="outlined"
-          ref={register('patologias_familia.patologias_familia_outras')}
-          onChangeText={text =>
-            setValue('patologias_familia.patologias_familia_outras', text)
-          }
-        />
+          <Input
+            disabled={doenca}
+            label="Outras Doenças"
+            mode="outlined"
+            ref={register('patologias_familia.patologias_familia_outras')}
+            onChangeText={text =>
+              setValue('patologias_familia.patologias_familia_outras', text)
+            }
+          />
 
-        <TitleInput>
-          Faz uso contínuo de algum medicamento? Se sim qual?
-        </TitleInput>
-        <Input
-          label="Medicamentos"
-          mode="outlined"
-          ref={register('medicamento_continuo')}
-          onChangeText={text => setValue('medicamento_continuo', text)}
-        />
+          <TitleInput>
+            Faz uso contínuo de algum medicamento? Se sim qual?
+          </TitleInput>
+          <Input
+            label="Medicamentos"
+            mode="outlined"
+            ref={register('medicamento_continuo')}
+            onChangeText={text => setValue('medicamento_continuo', text)}
+          />
+        </ContainerCheckbox>
 
         <ContainerButton>
           <Button mode="contained" onPress={handleButtonPrev}>
