@@ -28,7 +28,9 @@ export const Title = styled.Text`
 `;
 
 export const CardapioItem = styled.View`
-  background-color: #e2e2e2;
+  background-color: #f6fafd;
+  border-radius: 4px;
+  border: 1px solid #d2d2d2;
   flex-direction: row;
   align-items: center;
 `;
@@ -66,6 +68,12 @@ export const LoadingShimmer = styled.View`
   width: ${props => props.width}px;
   align-self: flex-start;
   margin: ${hp(1)}px;
+`;
+
+export const TextFooter = styled.Text`
+  font-family: 'PTSans-Regular';
+  font-size: ${hp(2)}px;
+  color: #4a4a4a;
 `;
 
 export const styles = StyleSheet.create({
