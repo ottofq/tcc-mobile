@@ -3,13 +3,15 @@ import {TextInput, ProgressBar} from 'react-native-paper';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-export const Container = styled.ScrollView.attrs({
-  contentContainerStyle: {
-    flexGrow: 1,
-  },
-})`
+export const Container = styled.View`
   flex: 1;
   padding: ${hp(1)}px;
+  justify-content: space-between;
+`;
+
+export const ContainerProgress = styled.View`
+  padding: ${hp(1)}px;
+  align-items: center;
 `;
 
 export const Progress = styled(ProgressBar)`
@@ -17,8 +19,8 @@ export const Progress = styled(ProgressBar)`
 `;
 
 export const ContainerInput = styled.View`
-  flex: 1;
   justify-content: space-around;
+  height: ${hp(80)}px;
 `;
 
 export const ContainerInputItem = styled.View`
@@ -35,10 +37,10 @@ export const ContainerTitle = styled.View`
 
 export const Input = styled(TextInput)``;
 
-export const DateInput = styled(TouchableOpacity)`
+export const DateInput = styled.TouchableOpacity`
+  flex: 1;
   justify-content: center;
   padding-left: ${hp(2)}px;
-  height: ${hp(8.5)}px;
 `;
 
 export const PickerInput = styled(DateInput)``;
@@ -59,7 +61,7 @@ export const pickerSelectStyles = StyleSheet.create({
   inputAndroid: {
     color: '#000',
     justifyContent: 'center',
-    height: hp(8.5),
+    alignSelf: 'stretch',
     paddingLeft: hp(2),
   },
   placeholder: {

@@ -55,7 +55,7 @@ export const ButtonNext = styled(Button).attrs({
     justifyContent: 'center',
   },
   labelStyle: {
-    fontSize: hp(3),
+    fontSize: hp('3%'),
     color: '#004b82',
   },
 })`

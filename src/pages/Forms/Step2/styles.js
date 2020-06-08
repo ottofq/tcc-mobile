@@ -13,8 +13,8 @@ export const Progress = styled(ProgressBar)`
 `;
 
 export const ContainerRadioButton = styled.View`
-  flex: 1;
-  justify-content: space-around;
+  height: ${hp(20)}px;
+  justify-content: space-evenly;
 `;
 
 export const ContainerTitle = styled.View`
