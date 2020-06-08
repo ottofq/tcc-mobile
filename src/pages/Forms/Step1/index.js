@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Button, RadioButton, HelperText} from 'react-native-paper';
-import {StyleSheet} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import {useForm, Controller} from 'react-hook-form';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -8,10 +7,10 @@ import {format} from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import RadioButtonItem from '../../../components/RadioButton';
+import ProgressBar from '../../../components/ProgressBar';
 
 import {
   Container,
-  Progress,
   ContainerInputItem,
   ContainerInput,
   ContainerRadioButton,
@@ -106,8 +105,8 @@ export default function Step1({navigation}) {
 
   return (
     <Container>
-      <Progress progress={0.1} />
       <ContainerInput>
+        <ProgressBar progress={0.1} />
         <ContainerInputItem>
           {errors.nome && (
             <HelperText padding="none" type="error">
@@ -350,41 +349,43 @@ export default function Step1({navigation}) {
             />
           </PickerInput> */}
         </ContainerInputItem>
+
+        <Controller
+          as={
+            <RadioButton.Group onValueChange={value => setValue('sexo', value)}>
+              <ContainerRadioButton>
+                <ContainerTitle>
+                  <TitleRadioGroup error={errors.sexo}>Sexo: </TitleRadioGroup>
+                  {errors.sexo && (
+                    <HelperText padding="none" type="error">
+                      * Campo Obrigatório
+                    </HelperText>
+                  )}
+                </ContainerTitle>
+                <RadioButtonItem
+                  label="Masculino"
+                  value="masculino"
+                  handlePress={() => setValue('sexo', 'masculino')}
+                />
+
+                <RadioButtonItem
+                  label="Feminino"
+                  value="feminino"
+                  handlePress={() => setValue('sexo', 'feminino')}
+                />
+              </ContainerRadioButton>
+            </RadioButton.Group>
+          }
+          name="sexo"
+          control={control}
+          rules={{required: true}}
+          defaultValue=""
+        />
       </ContainerInput>
-
-      <Controller
-        as={
-          <RadioButton.Group onValueChange={value => setValue('sexo', value)}>
-            <ContainerRadioButton>
-              <ContainerTitle>
-                <TitleRadioGroup error={errors.sexo}>Sexo: </TitleRadioGroup>
-                {errors.sexo && (
-                  <HelperText padding="none" type="error">
-                    * Campo Obrigatório
-                  </HelperText>
-                )}
-              </ContainerTitle>
-              <RadioButtonItem
-                label="Masculino"
-                value="masculino"
-                handlePress={() => setValue('sexo', 'masculino')}
-              />
-
-              <RadioButtonItem
-                label="Feminino"
-                value="feminino"
-                handlePress={() => setValue('sexo', 'feminino')}
-              />
-            </ContainerRadioButton>
-          </RadioButton.Group>
-        }
-        name="sexo"
-        control={control}
-        rules={{required: true}}
-        defaultValue=""
-      />
-
-      <Button mode="contained" onPress={handleSubmit(onSubmit)}>
+      <Button
+        style={{marginBottom: 5}}
+        mode="contained"
+        onPress={handleSubmit(onSubmit)}>
         Próximo
       </Button>
     </Container>

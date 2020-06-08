@@ -1,6 +1,7 @@
 import React from 'react';
 import {Appbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default function Header({handleMenu, title}) {
   return (
@@ -12,7 +13,7 @@ export default function Header({handleMenu, title}) {
       />
       <Appbar.Content
         title={title}
-        titleStyle={{fontSize: 22, paddingHorizontal: 10}}
+        titleStyle={{fontSize: hp(3), paddingHorizontal: 10}}
       />
     </Appbar.Header>
   );

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -9,52 +10,53 @@ export const Container = styled.ScrollView.attrs({
 })`
   flex: 1;
   background-color: #fff;
-  padding: 10px;
+  padding: ${hp(1)}px;
 `;
 
 export const ContainerTitle = styled.View`
   border: 1px solid #101113;
-  border-radius: 4px;
-  padding: 5px;
+  border-radius: ${hp(1)}px;
+  padding: ${hp(1)}px;
   flex-direction: row;
   justify-content: center;
 `;
 
 export const Title = styled.Text`
   font-family: 'PTSans-Bold';
-  font-size: 18px;
+  font-size: ${hp(2.3)}px;
   color: #101113;
 `;
 
 export const CardapioItem = styled.View`
-  background-color: #e2e2e2;
+  background-color: #f6fafd;
+  border-radius: 4px;
+  border: 1px solid #d2d2d2;
   flex-direction: row;
   align-items: center;
 `;
 
 export const CardapioImage = styled.Image`
-  resize-mode: contain;
-  width: 40px;
-  height: 40px;
-  margin: 5px;
+  width: ${hp(6)}px;
+  height: ${hp(6)}px;
+  margin: ${hp(1)}px;
 `;
 
 export const CardapioTextContainer = styled.View`
   align-items: center;
-  margin-left: 5px;
+  margin-left: ${hp(1)}px;
 `;
 
 export const CardapioTitle = styled.Text`
   font-family: 'PTSans-Bold';
   align-self: flex-start;
-  font-size: 20px;
+  font-size: ${hp(3)}px;
   color: #111111;
 `;
 
 export const CardapioDescription = styled.Text`
   font-family: 'PTSans-Regular';
   align-self: flex-start;
-  font-size: 14px;
+  font-size: ${hp(2.3)}px;
   font-weight: 200;
   color: #4a4a4a;
 `;
@@ -65,7 +67,13 @@ export const LoadingShimmer = styled.View`
   height: ${props => props.height}px;
   width: ${props => props.width}px;
   align-self: flex-start;
-  margin: 5px;
+  margin: ${hp(1)}px;
+`;
+
+export const TextFooter = styled.Text`
+  font-family: 'PTSans-Regular';
+  font-size: ${hp(2)}px;
+  color: #4a4a4a;
 `;
 
 export const styles = StyleSheet.create({

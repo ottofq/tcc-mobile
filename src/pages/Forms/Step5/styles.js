@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import {TextInput, ProgressBar} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -7,20 +8,15 @@ export const Container = styled.ScrollView.attrs({
     justifyContent: 'space-between',
   },
 })`
-  padding: 5px 5px;
-`;
-
-export const Progress = styled(ProgressBar)`
-  height: 10px;
+  padding: ${hp(1)}px;
 `;
 
 export const ContainerCheckbox = styled.View`
   flex: 1;
-  height: 480px;
   justify-content: space-around;
 `;
 export const TitleCheckboxGroup = styled.Text`
-  font-size: 20px;
+  font-size: ${hp(3)}px;
   font-family: 'PTSans-Bold';
 `;
 
@@ -30,5 +26,5 @@ export const ContainerButton = styled.View`
 `;
 
 export const Input = styled(TextInput)`
-  margin-bottom: 15px;
+  margin-bottom: ${hp(2.4)}px;
 `;

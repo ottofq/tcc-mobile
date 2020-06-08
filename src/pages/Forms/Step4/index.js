@@ -3,10 +3,10 @@ import {useForm, Controller} from 'react-hook-form';
 import {Button, RadioButton, HelperText} from 'react-native-paper';
 
 import RadioButtonItem from '../../../components/RadioButton';
+import ProgressBar from '../../../components/ProgressBar';
 
 import {
   Container,
-  Progress,
   ContainerRadioButton,
   ContainerTitle,
   TitleRadioGroup,
@@ -44,7 +44,7 @@ export default function Step4({navigation, route}) {
 
   return (
     <Container>
-      <Progress progress={0.4} />
+      <ProgressBar progress={0.4} />
       <Controller
         as={
           <RadioButton.Group

@@ -1,5 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import Intro from '../Intro';
 import Done from '../Done';
@@ -19,16 +20,17 @@ export default function Main() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerMode: 'none',
+        headerShown: false,
         headerLeft: null,
-        headerTitleAlign: 'center',
-        title: 'QUESTIONÁRIO',
-        headerTitleStyle: {
-          fontSize: 24,
-          color: '#fff',
-          fontFamily: 'PTSans-Bold',
-        },
-        headerStyle: {backgroundColor: '#004B82'},
+        //   headerTitleAlign: 'center',
+        //   title: 'QUESTIONÁRIO',
+        //   headerTitleStyle: {
+        //     fontSize: hp(3),
+        //     color: '#fff',
+        //     fontFamily: 'PTSans-Bold',
+        //   },
+        //   headerStyle: {backgroundColor: '#004B82', height: hp(7)},
+        //
       }}
       initialRouteName="Intro">
       <Stack.Screen

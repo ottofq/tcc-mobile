@@ -4,10 +4,10 @@ import {Button, RadioButton, HelperText} from 'react-native-paper';
 import {merge} from 'lodash';
 
 import RadioButtonItem from '../../../components/RadioButton';
+import ProgressBar from '../../../components/ProgressBar';
 
 import {
   Container,
-  Progress,
   TitleRadioGroup,
   ContainerRadioButton,
   ContainerTitle,
@@ -33,7 +33,7 @@ export default function Step7({navigation, route}) {
 
   return (
     <Container>
-      <Progress progress={0.7} />
+      <ProgressBar progress={0.7} />
       <Controller
         as={
           <RadioButton.Group

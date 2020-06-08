@@ -12,6 +12,7 @@ import {
   CardapioTitle,
   CardapioDescription,
   LoadingShimmer,
+  TextFooter,
   styles,
 } from './styles';
 
@@ -189,6 +190,11 @@ export default function Cardapio() {
           </CardapioTextContainer>
         </CardapioItem>
       )}
+
+      <TextFooter>
+        * O cardápio poderá sofrer alterações sem comunicação prévia, de acordo
+        com as necessidades da Seção.
+      </TextFooter>
     </Container>
   );
 }

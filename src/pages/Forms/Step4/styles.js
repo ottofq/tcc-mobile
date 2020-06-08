@@ -1,19 +1,14 @@
 import styled from 'styled-components/native';
-import {TextInput, ProgressBar} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 5px 5px;
+  padding: ${hp(1)}px;
   justify-content: space-between;
 `;
 
-export const Progress = styled(ProgressBar)`
-  height: 10px;
-`;
-
-export const ContainerRadioButton = styled.View`
-  justify-content: space-around;
-`;
+export const ContainerRadioButton = styled.View``;
 
 export const ContainerTitle = styled.View`
   flex-direction: row;
@@ -23,7 +18,7 @@ export const ContainerTitle = styled.View`
 export const Input = styled(TextInput)``;
 
 export const TitleRadioGroup = styled.Text`
-  font-size: 18px;
+  font-size: ${hp(2.4)}px;
   font-family: 'PTSans-Bold';
   color: ${props => (props.error ? '#B00020' : 'black')};
 `;
