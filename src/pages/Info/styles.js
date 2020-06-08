@@ -1,9 +1,6 @@
 import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const Container = styled.ScrollView`
   flex: 1;

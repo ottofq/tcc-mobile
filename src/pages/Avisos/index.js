@@ -2,6 +2,8 @@ import React, {useEffect, useState, useCallback} from 'react';
 import Shimmer from 'react-native-shimmer';
 import {RefreshControl, StyleSheet} from 'react-native';
 import HTMLView from 'react-native-htmlview';
+import {format, parseISO} from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 import {
   Container,
@@ -91,14 +93,14 @@ export default function Avisos() {
         avisos.map(aviso => (
           <InfoCard key={aviso._id}>
             <Title>
-              {aviso.data} - {aviso.titulo}
+              {format(parseISO(aviso.data), 'eeee, dd/MM/yyyy', {
+                locale: ptBR,
+              })}{' '}
+              - {aviso.titulo}
             </Title>
             <HTMLView
               stylesheet={styles}
-              value={`<div>${aviso.descricao.replace(
-                /(\r\n|\n|\r)/gm,
-                '',
-              )}</div>`}
+              value={`<div>${aviso.descricao}</div>`}
             />
           </InfoCard>
         ))

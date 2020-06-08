@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import Shimmer from 'react-native-shimmer';
 import {RefreshControl} from 'react-native';
+import {format, parseISO} from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 import {
   Container,
@@ -66,7 +68,10 @@ export default function Cardapio() {
       ) : (
         <ContainerTitle>
           <Title>
-            {cardapio.data} - {cardapio.tipo}
+            {format(parseISO(cardapio.data), 'EEEE, dd/MM/yyyy', {
+              locale: ptBR,
+            })}{' '}
+            - {cardapio.tipo}
           </Title>
         </ContainerTitle>
       )}
