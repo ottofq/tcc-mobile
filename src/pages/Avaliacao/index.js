@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Snackbar} from 'react-native-paper';
 import {AirbnbRating} from 'react-native-ratings';
 import {Keyboard} from 'react-native';
 import {useForm} from 'react-hook-form';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import animation from '../../../assets/animation-rating.json';
@@ -10,7 +11,7 @@ import api from '../../services/api';
 
 import {
   Container,
-  ScrollViewAvaliacao,
+  ContainerAvaliacao,
   ContainerAnimacao,
   Title,
   ContainerSubmit,
@@ -19,33 +20,11 @@ import {
   Animation,
 } from './styles';
 
-export default function Avaliacão({navigation}) {
+export default function Avaliacao({navigation}) {
   const [nota, setNota] = useState(3);
   const {register, setValue, handleSubmit, reset} = useForm();
   const [showAnimation, setShowAnimation] = useState(false);
   const [snackBarVisible, setSnackBarVisible] = useState(false);
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
-
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', keyboardDidHide);
-
-    return () => {
-      Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
-      console.log('componente unmount, listener removido');
-    };
-  }, []);
-
-  const keyboardDidShow = () => {
-    setKeyboardVisible(true);
-    console.log('teclado aberto');
-  };
-
-  const keyboardDidHide = () => {
-    setKeyboardVisible(false);
-    console.log('teclado fechado');
-  };
 
   async function onSubmit(data) {
     try {
@@ -80,7 +59,7 @@ export default function Avaliacão({navigation}) {
   return (
     <Container>
       {showAnimation === false ? (
-        <ScrollViewAvaliacao keyboardShouldPersistTaps="always">
+        <ContainerAvaliacao>
           <Title>Avalie o cardápio</Title>
           <AirbnbRating
             onFinishRating={setNota}
@@ -89,13 +68,14 @@ export default function Avaliacão({navigation}) {
             defaultRating={3}
             size={hp(10)}
           />
-          <ContainerSubmit keyboardVisible={keyboardVisible}>
+
+          <ContainerSubmit>
             <InputComentario
               onChangeText={text => setValue('comentario', text)}
               ref={register('comentario')}
             />
-            <ButtonSubmit onPress={handleSubmit(onSubmit)} mode="contained">
-              Enviar Avaliação
+            <ButtonSubmit mode="contained" onPress={handleSubmit(onSubmit)}>
+              <Icon name="send" size={32} color="#fff" />
             </ButtonSubmit>
           </ContainerSubmit>
           <Snackbar
@@ -104,7 +84,7 @@ export default function Avaliacão({navigation}) {
             visible={snackBarVisible}>
             Erro ao enviar avaliação
           </Snackbar>
-        </ScrollViewAvaliacao>
+        </ContainerAvaliacao>
       ) : (
         <ContainerAnimacao>
           <Animation
