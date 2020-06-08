@@ -6,6 +6,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import {enableScreens} from 'react-native-screens';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -42,7 +43,7 @@ export default function Routes() {
         }}
         drawerStyle={{
           backgroundColor: '#005ea3',
-          width: 240,
+          width: hp(35),
         }}
         initialRouteName="Cardapio RU - CCA UFES">
         <Drawer.Screen
