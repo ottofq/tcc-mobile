@@ -5,6 +5,7 @@ import {useForm, Controller} from 'react-hook-form';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format} from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import {TextInputMask} from 'react-native-masked-text';
 
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
@@ -137,6 +138,15 @@ export default function Step1({navigation}) {
             mode="outlined"
             keyboardType="numeric"
             error={errors.matricula}
+            render={props => (
+              <TextInputMask
+                {...props}
+                type={'custom'}
+                options={{
+                  mask: '9999999999',
+                }}
+              />
+            )}
             ref={register('matricula', {
               required: true,
               pattern: /\d{10}/,

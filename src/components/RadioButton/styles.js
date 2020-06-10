@@ -9,5 +9,5 @@ export const Container = styled.View`
 `;
 export const Label = styled.Text`
   font-family: 'PTSans-Regular';
-  font-size: ${hp('2.5%')};
+  font-size: ${hp(2.5)}px;
 `;

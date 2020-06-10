@@ -13,6 +13,7 @@ export const Container = styled.View`
 export const ContainerAvaliacao = styled.View`
   flex: 1;
   justify-content: space-between;
+  padding: ${hp(1)}px;
 `;
 
 export const ContainerAnimacao = styled.View`
@@ -36,7 +37,6 @@ export const ContainerSubmit = styled.View`
   justify-content: space-between;
   border: 1px solid #004b82;
   border-radius: 4px;
-  margin: ${hp(1)}px;
 `;
 
 export const InputComentario = styled.TextInput.attrs({
