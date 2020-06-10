@@ -49,8 +49,6 @@ export const PlaceholderDate = styled.Text`
 export const pickerSelectStyles = StyleSheet.create({
   inputAndroid: {
     color: '#000',
-    justifyContent: 'center',
-    alignSelf: 'stretch',
     paddingLeft: hp(2),
   },
   placeholder: {
