@@ -4,7 +4,7 @@ import {AirbnbRating} from 'react-native-ratings';
 import {Keyboard} from 'react-native';
 import {useForm} from 'react-hook-form';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import animation from '../../../assets/animation-rating.json';
 import api from '../../services/api';
@@ -66,7 +66,7 @@ export default function Avaliacao({navigation}) {
             count={5}
             reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
             defaultRating={3}
-            size={hp(10)}
+            size={wp(17)}
           />
 
           <ContainerSubmit>
