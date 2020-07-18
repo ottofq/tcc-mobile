@@ -20,6 +20,7 @@
     "date-fns": "^2.14.0",
     "install": "^0.13.0",
     "lottie-react-native": "^3.4.0",
+    "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-hook-form": "^4.9.8",
     "react-native": "0.63.1",
