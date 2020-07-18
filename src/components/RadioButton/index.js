@@ -1,10 +1,11 @@
 import React from 'react';
-import {TouchableNativeFeedback} from 'react-native';
-import {RadioButton} from 'react-native-paper';
+import PropTypes from 'prop-types';
+import { TouchableNativeFeedback } from 'react-native';
+import { RadioButton } from 'react-native-paper';
 
-import {Container, Label} from './styles';
+import { Container, Label } from './styles';
 
-export default function RadioButtonItem({value, handlePress, label}) {
+const RadioButtonItem = ({ value, handlePress, label }) => {
   return (
     <TouchableNativeFeedback onPress={handlePress}>
       <Container>
@@ -13,4 +14,12 @@ export default function RadioButtonItem({value, handlePress, label}) {
       </Container>
     </TouchableNativeFeedback>
   );
-}
+};
+
+RadioButtonItem.propTypes = {
+  value: PropTypes.string.isRequired,
+  handlePress: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+};
+
+export default RadioButtonItem;

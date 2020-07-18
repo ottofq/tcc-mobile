@@ -1,9 +1,10 @@
 import React from 'react';
-import {Appbar} from 'react-native-paper';
+import PropTypes from 'prop-types';
+import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-export default function Header({handleMenu, title}) {
+const Header = ({ handleMenu, title }) => {
   return (
     <Appbar.Header>
       <Appbar.Action
@@ -13,8 +14,15 @@ export default function Header({handleMenu, title}) {
       />
       <Appbar.Content
         title={title}
-        titleStyle={{fontSize: hp(3), paddingHorizontal: 10}}
+        titleStyle={{ fontSize: hp(3), paddingHorizontal: 10 }}
       />
     </Appbar.Header>
   );
-}
+};
+
+Header.propTypes = {
+  handleMenu: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+};
+
+export default Header;
