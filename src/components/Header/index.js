@@ -2,7 +2,8 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { fonts } from '../../styles';
 
 const Header = ({ handleMenu, title }) => {
   return (
@@ -14,7 +15,7 @@ const Header = ({ handleMenu, title }) => {
       />
       <Appbar.Content
         title={title}
-        titleStyle={{ fontSize: hp(3), paddingHorizontal: 10 }}
+        titleStyle={{ fontSize: fonts.bigger, paddingHorizontal: 10 }}
       />
     </Appbar.Header>
   );
