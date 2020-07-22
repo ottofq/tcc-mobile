@@ -1,45 +1,41 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import animation from '../../../../assets/animation.json';
 
-import {
-  Container,
-  ContainerLogo,
-  Animation,
-  ContainerDescription,
-  Title,
-  TitleLogo,
-  Description,
-  ButtonNext,
-} from './styles';
+import * as S from './styles';
 
-export default function Intro({navigation}) {
-  function handleNext() {
-    navigation.navigate('Questionario passo 1');
-  }
+const Intro = () => {
+  const navigation = useNavigation();
+
+  const handleNext = () => {
+    navigation.navigate('step-1');
+  };
   return (
-    <Container>
-      <ContainerLogo>
-        <Animation
+    <S.Container>
+      <S.ContainerLogo>
+        <S.Animation
           loop={false}
           resizeMode="center"
           autoPlay
           source={animation}
         />
 
-        <TitleLogo>CARDÁPIO RU CCA UFES</TitleLogo>
-      </ContainerLogo>
-      <ContainerDescription>
-        <Title>Bem Vindo</Title>
-        <Description>
+        <S.TitleLogo>CARDÁPIO RU CCA UFES</S.TitleLogo>
+      </S.ContainerLogo>
+      <S.ContainerDescription>
+        <S.Title>Bem Vindo</S.Title>
+        <S.Description>
           Antes de exibir o cardápio, precisamos que responda um questionário
           para o setor de nutrição do RU CCA UFES.
-        </Description>
-      </ContainerDescription>
+        </S.Description>
+      </S.ContainerDescription>
 
-      <ButtonNext mode="contained" onPress={handleNext}>
+      <S.ButtonNext mode="contained" onPress={handleNext}>
         Avançar
-      </ButtonNext>
-    </Container>
+      </S.ButtonNext>
+    </S.Container>
   );
-}
+};
+
+export default Intro;
