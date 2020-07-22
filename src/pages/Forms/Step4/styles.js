@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
-import {TextInput} from 'react-native-paper';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { TextInput } from 'react-native-paper';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { colors, fonts } from '../../../styles';
 
 export const Container = styled.View`
   flex: 1;
@@ -18,9 +19,9 @@ export const ContainerTitle = styled.View`
 export const Input = styled(TextInput)``;
 
 export const TitleRadioGroup = styled.Text`
-  font-size: ${hp(2.4)}px;
+  font-size: ${fonts.regular}px;
   font-family: 'PTSans-Bold';
-  color: ${props => (props.error ? '#B00020' : 'black')};
+  color: ${(props) => (props.error ? colors.error : 'black')};
 `;
 
 export const ContainerButton = styled.View`

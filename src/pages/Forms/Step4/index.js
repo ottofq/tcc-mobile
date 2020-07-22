@@ -1,34 +1,21 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import {Button, RadioButton, HelperText} from 'react-native-paper';
+import { useForm, Controller } from 'react-hook-form';
+import { Button, RadioButton, HelperText } from 'react-native-paper';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
 
-import {
-  Container,
-  ContainerRadioButton,
-  ContainerTitle,
-  TitleRadioGroup,
-  ContainerButton,
-} from './styles';
+import * as S from './styles';
 
-export default function Step4({navigation, route}) {
-  const {handleSubmit, setValue, control, errors} = useForm();
-
-  const params = route.params;
-
-  function handleButtonNext(data) {
-    const obj = {...params, ...data};
-    StringToBoolean(obj);
-    console.log(obj);
-    navigation.navigate('Questionário passo 5', {
-      ...obj,
-    });
-  }
+const Step4 = () => {
+  const { handleSubmit, setValue, control, errors } = useForm();
+  const navigation = useNavigation();
+  const { params } = useRoute();
 
   function StringToBoolean(obj) {
-    Object.keys(obj).forEach(item => {
+    Object.keys(obj).forEach((item) => {
       if (obj[item] === 'nao') {
         obj[item] = false;
       }
@@ -38,20 +25,29 @@ export default function Step4({navigation, route}) {
     });
   }
 
+  function handleButtonNext(data) {
+    const obj = { ...params, ...data };
+    StringToBoolean(obj);
+    navigation.navigate('step-5', {
+      ...obj,
+    });
+  }
+
   function handleButtonPrev() {
     navigation.goBack();
   }
 
   return (
-    <Container>
+    <S.Container>
       <ProgressBar progress={0.4} />
       <Controller
         as={
           <RadioButton.Group
-            onValueChange={value => setValue('adiciona_sal', value)}>
-            <ContainerRadioButton>
-              <ContainerTitle>
-                <TitleRadioGroup error={errors.adiciona_sal}>
+            onValueChange={(value) => setValue('adiciona_sal', value)}
+          >
+            <S.ContainerRadioButton>
+              <S.ContainerTitle>
+                <S.TitleRadioGroup error={errors.adiciona_sal}>
                   Costuma adicionar sal nos alimentos prontos e saladas (você
                   faz uso do saleiro à mesa)?
                   {errors.adiciona_sal && (
@@ -59,8 +55,8 @@ export default function Step4({navigation, route}) {
                       * Campo Obrigatório
                     </HelperText>
                   )}
-                </TitleRadioGroup>
-              </ContainerTitle>
+                </S.TitleRadioGroup>
+              </S.ContainerTitle>
 
               <RadioButtonItem
                 label="Sim"
@@ -73,22 +69,23 @@ export default function Step4({navigation, route}) {
                 value="nao"
                 handlePress={() => setValue('adiciona_sal', 'nao')}
               />
-            </ContainerRadioButton>
+            </S.ContainerRadioButton>
           </RadioButton.Group>
         }
         name="adiciona_sal"
         control={control}
-        rules={{required: true}}
+        rules={{ required: true }}
         defaultValue=""
       />
 
       <Controller
         as={
           <RadioButton.Group
-            onValueChange={value => setValue('utiliza_oleo_composto', value)}>
-            <ContainerRadioButton>
-              <ContainerTitle>
-                <TitleRadioGroup error={errors.utiliza_oleo_composto}>
+            onValueChange={(value) => setValue('utiliza_oleo_composto', value)}
+          >
+            <S.ContainerRadioButton>
+              <S.ContainerTitle>
+                <S.TitleRadioGroup error={errors.utiliza_oleo_composto}>
                   Você utiliza o óleo composto que fica no balcão de
                   distribuição de refeições?
                   {errors.utiliza_oleo_composto && (
@@ -96,8 +93,8 @@ export default function Step4({navigation, route}) {
                       * Campo Obrigatório
                     </HelperText>
                   )}
-                </TitleRadioGroup>
-              </ContainerTitle>
+                </S.TitleRadioGroup>
+              </S.ContainerTitle>
 
               <RadioButtonItem
                 label="Sim"
@@ -110,32 +107,33 @@ export default function Step4({navigation, route}) {
                 value="nao"
                 handlePress={() => setValue('utiliza_oleo_composto', 'nao')}
               />
-            </ContainerRadioButton>
+            </S.ContainerRadioButton>
           </RadioButton.Group>
         }
         name="utiliza_oleo_composto"
         control={control}
-        rules={{required: true}}
+        rules={{ required: true }}
         defaultValue=""
       />
 
       <Controller
         as={
           <RadioButton.Group
-            onValueChange={value =>
+            onValueChange={(value) =>
               setValue('consome_bebida_alcoolica', value)
-            }>
-            <ContainerRadioButton>
-              <ContainerTitle>
-                <TitleRadioGroup error={errors.consome_bebida_alcoolica}>
+            }
+          >
+            <S.ContainerRadioButton>
+              <S.ContainerTitle>
+                <S.TitleRadioGroup error={errors.consome_bebida_alcoolica}>
                   Você consome bebidas alcoólicas?
-                </TitleRadioGroup>
+                </S.TitleRadioGroup>
                 {errors.consome_bebida_alcoolica && (
                   <HelperText padding="none" type="error">
                     * Campo Obrigatório
                   </HelperText>
                 )}
-              </ContainerTitle>
+              </S.ContainerTitle>
 
               <RadioButtonItem
                 label="Sim, Diariamente"
@@ -175,34 +173,35 @@ export default function Step4({navigation, route}) {
                 handlePress={() =>
                   setValue(
                     'consome_bebida_alcoolica',
-                    'Não consumo bebidas alcoólicas',
+                    'Não consumo bebidas alcoólicas'
                   )
                 }
               />
-            </ContainerRadioButton>
+            </S.ContainerRadioButton>
           </RadioButton.Group>
         }
         name="consome_bebida_alcoolica"
         control={control}
-        rules={{required: true}}
+        rules={{ required: true }}
         defaultValue=""
       />
 
       <Controller
         as={
           <RadioButton.Group
-            onValueChange={value => setValue('tabagista', value)}>
-            <ContainerRadioButton>
-              <ContainerTitle>
-                <TitleRadioGroup error={errors.tabagista}>
+            onValueChange={(value) => setValue('tabagista', value)}
+          >
+            <S.ContainerRadioButton>
+              <S.ContainerTitle>
+                <S.TitleRadioGroup error={errors.tabagista}>
                   Você é tabagista?
-                </TitleRadioGroup>
+                </S.TitleRadioGroup>
                 {errors.tabagista && (
                   <HelperText padding="none" type="error">
                     * Campo Obrigatório
                   </HelperText>
                 )}
-              </ContainerTitle>
+              </S.ContainerTitle>
 
               <RadioButtonItem
                 label="Sim"
@@ -215,23 +214,25 @@ export default function Step4({navigation, route}) {
                 value="nao"
                 handlePress={() => setValue('tabagista', 'nao')}
               />
-            </ContainerRadioButton>
+            </S.ContainerRadioButton>
           </RadioButton.Group>
         }
         name="tabagista"
         control={control}
-        rules={{required: true}}
+        rules={{ required: true }}
         defaultValue=""
       />
 
-      <ContainerButton>
+      <S.ContainerButton>
         <Button mode="contained" onPress={handleButtonPrev}>
           Voltar
         </Button>
         <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
           Próximo
         </Button>
-      </ContainerButton>
-    </Container>
+      </S.ContainerButton>
+    </S.Container>
   );
-}
+};
+
+export default Step4;
