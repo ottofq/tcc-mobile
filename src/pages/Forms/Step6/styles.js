@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
-import {TextInput} from 'react-native-paper';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { TextInput } from 'react-native-paper';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { fonts } from '../../../styles';
 
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -17,7 +18,7 @@ export const ContainerCheckbox = styled.View`
 `;
 
 export const TitleCheckboxGroup = styled.Text`
-  font-size: ${hp(2.5)}px;
+  font-size: ${fonts.regular}px;
   font-weight: bold;
 `;
 
@@ -32,6 +33,6 @@ export const Input = styled(TextInput)`
 `;
 
 export const TitleInput = styled.Text`
-  font-size: ${hp(2.5)}px;
+  font-size: ${fonts.regular}px;
   font-weight: bold;
 `;
