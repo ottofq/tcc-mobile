@@ -4,4 +4,6 @@ export default {
   tertiary: '#f6fafd',
 
   grayDark: '#969696',
+
+  error: '#B00020',
 };
