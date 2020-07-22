@@ -7,6 +7,6 @@ export default {
   regular: hp(2.5),
   big: hp(2.8),
   bigger: hp(3),
-  superBig: hp(3.2),
-  giant: hp(3.5),
+  superBig: hp(3.5),
+  giant: hp(4),
 };
