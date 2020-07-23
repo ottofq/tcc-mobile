@@ -4,7 +4,6 @@ import { Snackbar } from 'react-native-paper';
 import { AirbnbRating } from 'react-native-ratings';
 import { Keyboard } from 'react-native';
 import { useForm } from 'react-hook-form';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
@@ -54,10 +53,22 @@ const Rating = () => {
     <S.Container>
       {showAnimation === false ? (
         <S.RatingContainer>
+          <S.CurrentRatingContainer>
+            <S.TitleCurrentRating>Avaliação</S.TitleCurrentRating>
+            <AirbnbRating
+              showRating
+              count={5}
+              reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
+              defaultRating={3}
+              size={wp(6)}
+              isDisabled
+            />
+            <S.TotalRatings>32 avaliações</S.TotalRatings>
+          </S.CurrentRatingContainer>
+
           <S.Title>Avalie o cardápio</S.Title>
           <AirbnbRating
             showRating
-            starContainerStyle={{ backgroudColor: '#000' }}
             onFinishRating={setNota}
             count={5}
             reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
@@ -71,7 +82,7 @@ const Rating = () => {
               ref={register('comentario')}
             />
             <S.Button mode="contained" onPress={handleSubmit(onSubmit)}>
-              <Icon name="send" size={32} color="#fff" />
+              Enviar avaliação
             </S.Button>
           </S.SubmitContainer>
           <Snackbar
@@ -83,14 +94,12 @@ const Rating = () => {
           </Snackbar>
         </S.RatingContainer>
       ) : (
-        <S.AnimationContainer>
-          <S.Animation
-            onAnimationFinish={finishAnimation}
-            autoPlay
-            loop={false}
-            source={animation}
-          />
-        </S.AnimationContainer>
+        <S.Animation
+          onAnimationFinish={finishAnimation}
+          autoPlay
+          loop={false}
+          source={animation}
+        />
       )}
     </S.Container>
   );
