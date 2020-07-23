@@ -1,25 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import Lottie from 'lottie-react-native';
-import {Snackbar} from 'react-native-paper';
-import {Text} from 'react-native';
+import { Snackbar } from 'react-native-paper';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import animation from '../../../../assets/done.json';
-
 import api from '../../../services/api';
 
-export default function Done({navigation, route}) {
+const Done = () => {
   const [loading, setLoading] = useState(true);
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Error');
+  const navigation = useNavigation();
+  const { params } = useRoute;
 
-  const data = route.params;
+  const data = params;
 
   useEffect(() => {
     async function postData() {
       try {
-        console.log(data);
-        const result = await api.post('/alunos', data);
-        console.log(result.data);
+        await api.post('/alunos', data);
         setLoading(false);
       } catch (error) {
         setSnackBarVisible(true);
@@ -29,7 +28,7 @@ export default function Done({navigation, route}) {
     postData();
   }, [data]);
 
-  const _onDismissSnackBar = () => setSnackBarVisible(false);
+  const onDismissSnackBar = () => setSnackBarVisible(false);
 
   function finish() {
     navigation.navigate('Cardapio RU - CCA UFES');
@@ -44,11 +43,14 @@ export default function Done({navigation, route}) {
         source={animation}
       />
       <Snackbar
-        onDismiss={_onDismissSnackBar}
+        onDismiss={onDismissSnackBar}
         duration={2000}
-        visible={snackBarVisible}>
+        visible={snackBarVisible}
+      >
         Error
       </Snackbar>
     </>
   );
-}
+};
+
+export default memo(Done);
