@@ -1,18 +1,22 @@
 import React from 'react';
-import {Table, Row, Rows} from 'react-native-table-component';
-import {View} from 'react-native';
+import { Table, Row, Rows } from 'react-native-table-component';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import Header from '../../components/Header';
 
-import {Title, Container, TitleInfo, InfoDescription, styles} from './styles';
+import * as S from './styles';
 
-export default function Info({navigation}) {
+const Info = () => {
+  const navigation = useNavigation();
+
   const tableHead = [
     'Categoria de usuário',
     'Valor pago R$',
     'Identificação para compra de ticket',
     'Identificação para acessar o restaurante',
   ];
+
   const tableData = [
     [
       'Estudantes 100%',
@@ -42,40 +46,42 @@ export default function Info({navigation}) {
   ];
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Header
         handleMenu={() => navigation.openDrawer()}
         title="INFORMAÇÕES GERAIS"
       />
-      <Container>
-        <Title>Horário de funcionamento</Title>
-        <TitleInfo>Dias de atendimento:</TitleInfo>
-        <InfoDescription>
+      <S.Container>
+        <S.Title>Horário de funcionamento</S.Title>
+        <S.Title>Dias de atendimento:</S.Title>
+        <S.Description>
           De 2ª a 6ª feira, exceto feriados, paralisações e recessos acadêmicos.
-        </InfoDescription>
+        </S.Description>
 
-        <TitleInfo>Horários:</TitleInfo>
+        <S.Title>Horários:</S.Title>
 
-        <InfoDescription>
+        <S.Description>
           {`Almoço: 11h00min às 13h30min - (Alegre) 
                                 11h30min às 13h00min - (Jerônimo Monteiro)
 Jantar: 17h30min às 19h00min - (Alegre)
         `}
-        </InfoDescription>
+        </S.Description>
 
-        <Title>Valores e Identificação para Acesso</Title>
+        <S.Title>Valores e Identificação para Acesso</S.Title>
 
-        <View style={styles.container}>
-          <Table borderStyle={styles.borderTable}>
+        <View style={S.styles.container}>
+          <Table borderStyle={S.styles.borderTable}>
             <Row
               data={tableHead}
-              style={styles.head}
-              textStyle={styles.titleHead}
+              style={S.styles.head}
+              textStyle={S.styles.titleHead}
             />
-            <Rows data={tableData} textStyle={styles.textRow} />
+            <Rows data={tableData} textStyle={S.styles.textRow} />
           </Table>
         </View>
-      </Container>
+      </S.Container>
     </View>
   );
-}
+};
+
+export default Info;
