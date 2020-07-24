@@ -1,12 +1,14 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StatusBar} from 'react-native';
+import { StatusBar } from 'react-native';
 import {
   configureFonts,
   DefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
 import Routes from './Routes/Main';
+
+import { colors } from './styles';
 
 const fontConfig = {
   default: {
@@ -33,7 +35,7 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#004B82',
+    primary: colors.primary,
   },
   fonts: configureFonts(fontConfig),
 };
@@ -41,7 +43,7 @@ const theme = {
 const App = () => {
   return (
     <PaperProvider theme={theme}>
-      <StatusBar content="ligh-content" backgroundColor="#426696" />
+      <StatusBar content="light-content" backgroundColor={colors.secondary} />
       <Routes />
     </PaperProvider>
   );
