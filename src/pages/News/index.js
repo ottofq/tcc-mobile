@@ -1,30 +1,16 @@
-import React, {useEffect, useState, useCallback} from 'react';
-import Shimmer from 'react-native-shimmer';
-import {RefreshControl, StyleSheet} from 'react-native';
-import HTMLView from 'react-native-htmlview';
-import {format, parseISO} from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
+/* eslint-disable no-underscore-dangle */
+import React, { useEffect, useState, useCallback } from 'react';
+import { RefreshControl, StyleSheet } from 'react-native';
 
-import {
-  Container,
-  ContainerLoading,
-  InfoCard,
-  Title,
-  InfoContent,
-  LoadingShimmer,
-} from './styles';
+import NewsCard from '../../components/NewsCard';
+
+import * as S from './styles';
 import api from '../../services/api';
 
-export default function Avisos() {
+const News = () => {
   const [avisos, setAvisos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setLoading(true);
-    loadAvisos();
-  }, []);
 
   async function loadAvisos() {
     try {
@@ -38,16 +24,41 @@ export default function Avisos() {
     }
   }
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setLoading(true);
+    loadAvisos();
+  }, []);
+
   useEffect(() => {
     loadAvisos();
   }, []);
 
   return (
-    <Container
+    <S.Container
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }>
+      }
+    >
       {loading ? (
+        <>
+          <NewsCard loading={loading} title="..." date="..." />
+          <NewsCard loading={loading} title="..." date="..." />
+          <NewsCard loading={loading} title="..." date="..." />
+          <NewsCard loading={loading} title="..." date="..." />
+        </>
+      ) : (
+        avisos.map((aviso) => (
+          <NewsCard
+            loading={loading}
+            key={aviso._id}
+            title={aviso.titulo}
+            date={aviso.data}
+          />
+        ))
+      )}
+
+      {/* {loading ? (
         <ContainerLoading>
           <Shimmer>
             <InfoCard>
@@ -104,10 +115,10 @@ export default function Avisos() {
             />
           </InfoCard>
         ))
-      )}
-    </Container>
+      )} */}
+    </S.Container>
   );
-}
+};
 
 const styles = StyleSheet.create({
   p: {
@@ -133,3 +144,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+export default News;
