@@ -1,17 +1,21 @@
 import React from 'react';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 
 import Header from '../../components/Header';
-import Cardapio from '../../pages/Cardapio';
-import Avisos from '../../pages/Avisos';
-import Avaliacao from '../../pages/Avaliacao';
+import Menu from '../../pages/Menu';
+import News from '../../pages/News';
+import Rating from '../../pages/Rating';
+import { colors } from '../../styles';
 
-import {Title} from './styles';
+import * as S from './styles';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default function BottomNavigator({navigation}) {
+const BottomNavigator = () => {
+  const navigation = useNavigation();
+
   return (
     <>
       <Header
@@ -20,48 +24,54 @@ export default function BottomNavigator({navigation}) {
       />
       <Tab.Navigator
         initialRouteName="Cardapio"
-        barStyle={{backgroundColor: '#004B82'}}>
+        barStyle={{ backgroundColor: colors.primary }}
+      >
         <Tab.Screen
-          inactiveColor="#eee"
           options={{
-            tabBarIcon: ({focused}) =>
+            tabBarIcon: ({ focused }) =>
               focused ? (
                 <Icon name="restaurant-menu" size={24} color="#fff" />
               ) : (
-                <Icon name="restaurant-menu" size={24} color="#bebebe" />
+                <Icon
+                  name="restaurant-menu"
+                  size={24}
+                  color={colors.grayLight}
+                />
               ),
-            tabBarLabel: <Title>Cardápio</Title>,
+            tabBarLabel: <S.Title>Cardápio</S.Title>,
           }}
           name="Cardapio"
-          component={Cardapio}
+          component={Menu}
         />
         <Tab.Screen
           name="Avaliar"
-          component={Avaliacao}
+          component={Rating}
           options={{
-            tabBarIcon: ({focused}) =>
+            tabBarIcon: ({ focused }) =>
               focused ? (
                 <Icon name="star" size={24} color="#fff" />
               ) : (
-                <Icon name="star" size={24} color="#bebebe" />
+                <Icon name="star" size={24} color={colors.grayLight} />
               ),
-            tabBarLabel: <Title>Avaliar</Title>,
+            tabBarLabel: <S.Title>Avaliar</S.Title>,
           }}
         />
         <Tab.Screen
           name="Info"
-          component={Avisos}
+          component={News}
           options={{
-            tabBarIcon: ({focused}) =>
+            tabBarIcon: ({ focused }) =>
               focused ? (
                 <Icon name="info-outline" size={24} color="#fff" />
               ) : (
-                <Icon name="info-outline" size={24} color="#bebebe" />
+                <Icon name="info-outline" size={24} color={colors.grayLight} />
               ),
-            tabBarLabel: <Title>Avisos</Title>,
+            tabBarLabel: <S.Title>Notícias</S.Title>,
           }}
         />
       </Tab.Navigator>
     </>
   );
-}
+};
+
+export default BottomNavigator;
