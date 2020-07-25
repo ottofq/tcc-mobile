@@ -31,7 +31,7 @@ const MenuItem = ({ imgSrc, title, description, loading }) => {
 };
 
 MenuItem.propTypes = {
-  imgSrc: PropTypes.string.isRequired,
+  imgSrc: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
