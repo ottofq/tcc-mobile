@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Snackbar } from 'react-native-paper';
 import { AirbnbRating } from 'react-native-ratings';
 import { Keyboard } from 'react-native';
@@ -105,4 +105,4 @@ const Rating = () => {
   );
 };
 
-export default Rating;
+export default memo(Rating);

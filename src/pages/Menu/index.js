@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, memo } from 'react';
 import { RefreshControl } from 'react-native';
 
 import MenuItem from '../../components/MenuItem';
@@ -121,4 +121,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default memo(Menu);
