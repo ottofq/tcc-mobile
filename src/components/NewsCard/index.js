@@ -7,12 +7,12 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 import * as S from './styles';
 
-const NewsCard = ({ loading, title, date }) => {
+const NewsCard = ({ loading, title, date, onPress }) => {
   return (
     <>
       {loading ? (
         <Shimmer>
-          <S.Card disable style={S.styles.shadow}>
+          <S.Card disable={loading} style={S.styles.shadow}>
             <S.ContentContainer>
               <S.Content>
                 <S.Loading radius={0} height={10} width={150} />
@@ -26,7 +26,7 @@ const NewsCard = ({ loading, title, date }) => {
           </S.Card>
         </Shimmer>
       ) : (
-        <S.Card style={S.styles.shadow}>
+        <S.Card disable={loading} onPress={onPress} style={S.styles.shadow}>
           <S.ContentContainer>
             <S.Content>
               <S.Date>
@@ -50,6 +50,7 @@ NewsCard.propTypes = {
   loading: PropTypes.bool.isRequired,
   date: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 export default NewsCard;
