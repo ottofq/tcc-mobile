@@ -1,17 +1,17 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Intro from '../Intro';
-import Done from '../Done';
-import Step1 from '../Step1';
-import Step2 from '../Step2';
-import Step3 from '../Step3';
-import Step4 from '../Step4';
-import Step5 from '../Step5';
-import Step6 from '../Step6';
-import Step7 from '../Step7';
-import Step8 from '../Step8';
-import Step9 from '../Step9';
+import Intro from '../../pages/Forms/Intro';
+import Step1 from '../../pages/Forms/Step1';
+import Step2 from '../../pages/Forms/Step2';
+import Step3 from '../../pages/Forms/Step3';
+import Step4 from '../../pages/Forms/Step4';
+import Step5 from '../../pages/Forms/Step5';
+import Step6 from '../../pages/Forms/Step6';
+import Step7 from '../../pages/Forms/Step7';
+import Step8 from '../../pages/Forms/Step8';
+import Step9 from '../../pages/Forms/Step9';
+import Done from '../../pages/Forms/Done';
 
 const Stack = createStackNavigator();
 
@@ -22,11 +22,11 @@ export default function Main() {
         headerShown: false,
         headerLeft: null,
       }}
-      initialRouteName="Intro"
+      initialRouteName="intro"
     >
       <Stack.Screen
         options={{ headerShown: false }}
-        name="Intro"
+        name="intro"
         component={Intro}
       />
 
@@ -41,7 +41,7 @@ export default function Main() {
       <Stack.Screen name="step-9" component={Step9} />
       <Stack.Screen
         options={{ headerShown: false }}
-        name="Done"
+        name="done"
         component={Done}
       />
     </Stack.Navigator>
