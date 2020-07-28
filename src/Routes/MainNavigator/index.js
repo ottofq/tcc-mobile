@@ -1,54 +1,55 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {enableScreens} from 'react-native-screens';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { enableScreens } from 'react-native-screens';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Form from '../../pages/Forms/Main';
-import InfoNavigator from '../../pages/Info';
+import { colors } from '../../styles';
+import FormNavigator from '../FormNavigator';
 import BottomNavigator from '../BottomNavigator';
 import logo from '../../../assets/images/logo.png';
 
-enableScreens();
+import * as S from './styles';
 
-import {Container, Title, Logo, Divider} from './styles';
+enableScreens();
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-      <Container>
-        <Logo source={logo} />
-        <Divider />
-      </Container>
+      <S.Container>
+        <S.Logo source={logo} />
+        <S.Divider />
+      </S.Container>
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
   );
 }
 
-export default function Routes() {
+const Routes = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        drawerContent={props => <CustomDrawerContent {...props} />}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
         drawerContentOptions={{
           activeBackgroundColor: '#6a82ab',
         }}
         drawerStyle={{
-          backgroundColor: '#005ea3',
+          backgroundColor: colors.primary,
           width: hp(35),
         }}
-        initialRouteName="Cardapio RU - CCA UFES">
+        initialRouteName="Cardapio RU - CCA UFES"
+      >
         <Drawer.Screen
           options={{
-            drawerLabel: () => <Title>Cardápio</Title>,
+            drawerLabel: () => <S.Title>Cardápio</S.Title>,
             drawerIcon: () => (
               <Icon name="restaurant-menu" size={24} color="#fff" />
             ),
@@ -58,23 +59,17 @@ export default function Routes() {
         />
         <Drawer.Screen
           options={{
-            drawerLabel: () => <Title>Questionário</Title>,
+            drawerLabel: () => <S.Title>Questionário</S.Title>,
             drawerIcon: () => (
               <Icon name="question-answer" size={24} color="#fff" />
             ),
           }}
           name="Questionário"
-          component={Form}
-        />
-        <Drawer.Screen
-          options={{
-            drawerLabel: () => <Title>Informações Gerais</Title>,
-            drawerIcon: () => <Icon name="info" size={24} color="#fff" />,
-          }}
-          name="Info"
-          component={InfoNavigator}
+          component={FormNavigator}
         />
       </Drawer.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default Routes;

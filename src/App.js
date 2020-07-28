@@ -6,7 +6,7 @@ import {
   DefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
-import Routes from './Routes/Main';
+import Routes from './Routes/MainNavigator';
 
 import { colors } from './styles';
 
