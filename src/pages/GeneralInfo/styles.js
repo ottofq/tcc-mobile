@@ -6,6 +6,11 @@ import { colors, fonts } from '../../styles';
 export const Container = styled.ScrollView`
   flex: 1;
   padding: ${hp(1)}px;
+  background-color: #fff;
+`;
+
+export const TableContainer = styled.View`
+  margin-bottom: ${hp(3)}px;
 `;
 
 export const Title = styled.Text`
@@ -23,12 +28,6 @@ export const Description = styled.Text`
 `;
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: hp(1),
-    backgroundColor: '#fff',
-    paddingBottom: hp(1),
-  },
   borderTable: { borderWidth: 1, borderColor: colors.grayLight },
   head: { height: hp(12), backgroundColor: colors.primary },
   titleHead: {
