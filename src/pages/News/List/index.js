@@ -59,7 +59,7 @@ const List = () => {
       ) : (
         avisos.map((aviso) => (
           <NewsCard
-            onPress={() => handlePress(aviso.descricao)}
+            onPress={() => handlePress(aviso)}
             loading={loading}
             key={aviso._id}
             title={aviso.titulo}
