@@ -2,12 +2,8 @@ import React, { useState } from 'react';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import { useForm, Controller } from 'react-hook-form';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { format } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
 import { TextInputMask } from 'react-native-masked-text';
 import { useNavigation } from '@react-navigation/native';
-
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
 import { dateItems, courseItems } from './selectItem';
@@ -17,35 +13,23 @@ import * as S from './styles';
 const Step1 = () => {
   const { register, handleSubmit, setValue, errors, control } = useForm();
 
-  const [show, setShow] = useState(false);
-  const [date, setDate] = useState();
   const [course, setCourse] = useState();
   const [year, setYear] = useState(0);
   const navigation = useNavigation();
 
+  const regexDate = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+
   function formatDate(dateValue) {
-    return format(dateValue, 'dd/MM/yyyy', {
-      locale: ptBR,
-    });
+    const date = new Date(dateValue);
+    return date.toISOString();
   }
 
   function onSubmit(data) {
+    console.log(formatDate(data.data_nascimento));
     navigation.navigate('step-2', {
       ...data,
     });
   }
-  const handleSelectDate = (event, selectedDate) => {
-    setShow(false);
-
-    if (selectedDate !== undefined) {
-      setValue('data_nascimento', selectedDate);
-      setDate(selectedDate);
-    }
-  };
-
-  const showDatepicker = () => {
-    setShow(true);
-  };
 
   function handleSelect(field, value, setState) {
     setValue(field, value);
@@ -100,39 +84,37 @@ const Step1 = () => {
         </S.ContainerInputItem>
 
         <S.ContainerInputItem>
-          {errors.data_nascimento && (
+          {errors.data_nascimento &&
+          errors.data_nascimento.type === 'required' ? (
             <HelperText padding="none" type="error">
               Campo Data de Nascimento é Obrigatório
             </HelperText>
-          )}
+          ) : null}
+          {errors.data_nascimento &&
+          errors.data_nascimento.type === 'pattern' ? (
+            <HelperText padding="none" type="error">
+              Data de Nascimento Inválida
+            </HelperText>
+          ) : null}
           <S.Input
             label="Data de Nascimento"
             mode="outlined"
-            value={date}
+            keyboardType="numeric"
             error={errors.data_nascimento}
+            render={(props) => (
+              <TextInputMask
+                {...props}
+                type="datetime"
+                options={{
+                  format: 'DD/MM/YYYY',
+                }}
+              />
+            )}
             ref={register('data_nascimento', {
               required: true,
+              pattern: regexDate,
             })}
-            render={() => (
-              <S.DateInput
-                error={errors.data_nascimento1}
-                onPress={showDatepicker}
-              >
-                <S.PlaceholderDate error={errors.data_nascimento}>
-                  {date === undefined ? '' : formatDate(date)}
-                </S.PlaceholderDate>
-                {show && (
-                  <DateTimePicker
-                    maximumDate={new Date(2004, 11, 31)}
-                    minimumDate={new Date(1950, 0, 1)}
-                    value={new Date(2004, 11, 31)}
-                    mode="date"
-                    display="calendar"
-                    onChange={handleSelectDate}
-                  />
-                )}
-              </S.DateInput>
-            )}
+            onChangeText={(text) => setValue('data_nascimento', text)}
           />
         </S.ContainerInputItem>
 
