@@ -2,12 +2,14 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
 import Header from '../../components/Header';
 import Menu from '../../pages/Menu';
-import News from '../../Routes/NewsNavigator';
+import News from '../NewsNavigator';
 import Rating from '../../pages/Rating';
+import GeneralInfo from '../../pages/GeneralInfo';
 import { colors } from '../../styles';
 
 import * as S from './styles';
@@ -55,6 +57,20 @@ const BottomNavigator = () => {
           component={News}
           options={{
             tabBarLabel: <S.Title>Notícias</S.Title>,
+            tabBarIcon: ({ color }) => (
+              <IconCI
+                name="newspaper-variant-outline"
+                size={24}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Info Gerais"
+          component={GeneralInfo}
+          options={{
+            tabBarLabel: <S.Title>Info Gerais</S.Title>,
             tabBarIcon: ({ color }) => (
               <Icon name="info-outline" size={24} color={color} />
             ),
