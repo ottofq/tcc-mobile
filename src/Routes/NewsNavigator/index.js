@@ -14,11 +14,7 @@ const NewsNavigator = () => {
       }}
     >
       <Stack.Screen name="news-list" component={List} />
-      <Stack.Screen
-        options={{ headerShown: true }}
-        name="news-details"
-        component={Details}
-      />
+      <Stack.Screen name="news-details" component={Details} />
     </Stack.Navigator>
   );
 };
