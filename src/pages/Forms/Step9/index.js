@@ -34,7 +34,7 @@ const Step9 = () => {
 
   function handleButtonNext(data) {
     const obj = merge(params, data);
-    navigation.navigate('Done', {
+    navigation.navigate('done', {
       ...obj,
     });
   }
