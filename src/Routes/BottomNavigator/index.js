@@ -30,7 +30,7 @@ const BottomNavigator = () => {
         barStyle={{ backgroundColor: colors.primary }}
         shifting
         activeColor="#fff"
-        inactiveColor={colors.grayLight}
+        inactiveColor={colors.grayMedium}
       >
         <Tab.Screen
           options={{
