@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { TouchableNativeFeedback } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 
-import { Container, Label } from './styles';
+import { colors } from '../../styles';
+import * as S from './styles';
 
 const RadioButtonItem = ({ value, handlePress, label }) => {
   return (
     <TouchableNativeFeedback onPress={handlePress}>
-      <Container>
-        <RadioButton.Android value={value} color="#004B82" />
-        <Label>{label}</Label>
-      </Container>
+      <S.Container>
+        <RadioButton.Android value={value} color={colors.primary} />
+        <S.Label>{label}</S.Label>
+      </S.Container>
     </TouchableNativeFeedback>
   );
 };

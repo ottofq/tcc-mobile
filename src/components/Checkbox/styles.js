@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { fonts } from '../../styles';
 
 export const Container = styled.View`
   flex-direction: row;
@@ -9,5 +9,5 @@ export const Container = styled.View`
 `;
 export const Label = styled.Text`
   font-family: 'PTSans-Regular';
-  font-size: ${hp(2.5)}px;
+  font-size: ${fonts.regular}px;
 `;

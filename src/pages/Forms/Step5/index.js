@@ -1,29 +1,26 @@
-import React, {useState, useEffect} from 'react';
-import {useForm} from 'react-hook-form';
-import {Button} from 'react-native-paper';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { Button } from 'react-native-paper';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import CheckBoxItem from '../../../components/Checkbox';
 import ProgressBar from '../../../components/ProgressBar';
 
-import {
-  Container,
-  ContainerCheckbox,
-  TitleCheckboxGroup,
-  ContainerButton,
-  Input,
-} from './styles';
+import * as S from './styles';
 
-export default function Step5({navigation, route}) {
-  const {register, handleSubmit, setValue} = useForm();
+const Step5 = () => {
+  const { register, handleSubmit, setValue } = useForm();
   const [doencaCardiovascular, setDoencaCardiovascular] = useState(false);
   const [hipertensaoArterial, setHipertensaoArterial] = useState(false);
   const [obesidade, setObesidade] = useState(false);
   const [dislipidemias, setDislipidemias] = useState(false);
   const [diabetes, setDiabetes] = useState(false);
   const [doencaArterialCoronariana, setDoencaArterialCoronariana] = useState(
-    false,
+    false
   );
   const [doenca, setDoenca] = useState(false);
+  const navigation = useNavigation();
+  const { params } = useRoute();
 
   useEffect(() => {
     setValue('patologias.doenca_cardiovascular', true);
@@ -35,12 +32,9 @@ export default function Step5({navigation, route}) {
     setValue('patologias.outras_patologias', false);
   }, [setValue]);
 
-  const params = route.params;
-
   function handleButtonNext(data) {
-    const obj = {...params, ...data};
-    console.log(obj);
-    navigation.navigate('Questionário passo 6', {
+    const obj = { ...params, ...data };
+    navigation.navigate('step-6', {
       ...obj,
     });
   }
@@ -67,13 +61,13 @@ export default function Step5({navigation, route}) {
   }
 
   return (
-    <Container>
+    <S.Container>
       <ProgressBar progress={0.5} />
-      <ContainerCheckbox>
-        <TitleCheckboxGroup>
+      <S.ContainerCheckbox>
+        <S.TitleCheckboxGroup>
           Você apresenta ou já apresentou alguma das patologias abaixo? Se sim,
           quais?
-        </TitleCheckboxGroup>
+        </S.TitleCheckboxGroup>
 
         <CheckBoxItem
           label="Doença cardiovascular"
@@ -89,7 +83,7 @@ export default function Step5({navigation, route}) {
             handlerCheckbox(
               'patologias.doenca_cardiovascular',
               doencaCardiovascular,
-              setDoencaCardiovascular,
+              setDoencaCardiovascular
             )
           }
         />
@@ -108,7 +102,7 @@ export default function Step5({navigation, route}) {
             handlerCheckbox(
               'patologias.hipertensao_arterial',
               hipertensaoArterial,
-              setHipertensaoArterial,
+              setHipertensaoArterial
             )
           }
         />
@@ -142,7 +136,7 @@ export default function Step5({navigation, route}) {
             handlerCheckbox(
               'patologias.dislipidemias',
               dislipidemias,
-              setDislipidemias,
+              setDislipidemias
             )
           }
         />
@@ -176,7 +170,7 @@ export default function Step5({navigation, route}) {
             handlerCheckbox(
               'patologias.doenca_arterial_coronariana',
               doencaArterialCoronariana,
-              setDoencaArterialCoronariana,
+              setDoencaArterialCoronariana
             )
           }
         />
@@ -197,23 +191,25 @@ export default function Step5({navigation, route}) {
           }
           onPress={() => handlerCheckboxDoenca()}
         />
-      </ContainerCheckbox>
-      <Input
+      </S.ContainerCheckbox>
+      <S.Input
         disabled={doenca}
         label="Outras Doenças"
         mode="outlined"
         ref={register('patologias.outras_patologias')}
-        onChangeText={text => setValue('patologias.outras_patologias', text)}
+        onChangeText={(text) => setValue('patologias.outras_patologias', text)}
       />
 
-      <ContainerButton>
+      <S.ContainerButton>
         <Button mode="contained" onPress={handleButtonPrev}>
           Voltar
         </Button>
         <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
           Próximo
         </Button>
-      </ContainerButton>
-    </Container>
+      </S.ContainerButton>
+    </S.Container>
   );
-}
+};
+
+export default Step5;

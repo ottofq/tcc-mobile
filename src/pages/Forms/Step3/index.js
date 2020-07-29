@@ -1,27 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import {Button, RadioButton, HelperText} from 'react-native-paper';
-import {KeyboardAvoidingView} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { Button, RadioButton, HelperText } from 'react-native-paper';
+import { KeyboardAvoidingView } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import RadioButtonItem from '../../../components/RadioButton';
 import CheckBoxItem from '../../../components/Checkbox';
 import ProgressBar from '../../../components/ProgressBar';
 
-import {
-  Container,
-  TitleRadioGroup,
-  ContainerRadioButton,
-  ContainerTitle,
-  ContainerButton,
-  Input,
-} from './styles';
+import * as S from './styles';
 
-export default function Step3({navigation, route}) {
-  const {register, handleSubmit, setValue, control, errors} = useForm();
+const Step3 = () => {
+  const { register, handleSubmit, setValue, control, errors } = useForm();
   const [gluten, setGluten] = useState(false);
   const [lactose, setLactose] = useState(false);
   const [proteinaLeite, setProteinaLeite] = useState(false);
   const [alergia, setAlergia] = useState(false);
+  const navigation = useNavigation();
+  const { params } = useRoute();
 
   useEffect(() => {
     setValue('alergias.nenhuma', true);
@@ -31,12 +27,9 @@ export default function Step3({navigation, route}) {
     setValue('alergias.outras_alergias', false);
   }, [setValue]);
 
-  const params = route.params;
-
   function handleButtonNext(data) {
-    const obj = {...params, ...data};
-    console.log(obj);
-    navigation.navigate('Questionário passo 4', {
+    const obj = { ...params, ...data };
+    navigation.navigate('step-4', {
       ...obj,
     });
   }
@@ -61,16 +54,17 @@ export default function Step3({navigation, route}) {
   }
 
   return (
-    <KeyboardAvoidingView style={{flex: 1}}>
-      <Container>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <S.Container>
         <ProgressBar progress={0.3} />
         <Controller
           as={
             <RadioButton.Group
-              onValueChange={value => setValue('peso_ideal', value)}>
-              <ContainerRadioButton>
-                <ContainerTitle>
-                  <TitleRadioGroup error={errors.peso_ideal}>
+              onValueChange={(value) => setValue('peso_ideal', value)}
+            >
+              <S.ContainerRadioButton>
+                <S.ContainerTitle>
+                  <S.TitleRadioGroup error={errors.peso_ideal}>
                     Você se considera dentro do peso ideal para a sua idade e
                     sexo?{' '}
                     {errors.peso_ideal && (
@@ -78,8 +72,8 @@ export default function Step3({navigation, route}) {
                         * Campo Obrigatório
                       </HelperText>
                     )}
-                  </TitleRadioGroup>
-                </ContainerTitle>
+                  </S.TitleRadioGroup>
+                </S.ContainerTitle>
 
                 <RadioButtonItem
                   label="Sim"
@@ -92,30 +86,31 @@ export default function Step3({navigation, route}) {
                   value="nao"
                   handlePress={() => setValue('peso_ideal', 'nao')}
                 />
-              </ContainerRadioButton>
+              </S.ContainerRadioButton>
             </RadioButton.Group>
           }
           name="peso_ideal"
           control={control}
-          rules={{required: true}}
+          rules={{ required: true }}
           defaultValue=""
         />
 
         <Controller
           as={
             <RadioButton.Group
-              onValueChange={value => setValue('vegano_vegetariano', value)}>
-              <ContainerRadioButton>
-                <ContainerTitle>
-                  <TitleRadioGroup error={errors.vegano_vegetariano}>
+              onValueChange={(value) => setValue('vegano_vegetariano', value)}
+            >
+              <S.ContainerRadioButton>
+                <S.ContainerTitle>
+                  <S.TitleRadioGroup error={errors.vegano_vegetariano}>
                     Você é vegetariano ou vegano?
-                  </TitleRadioGroup>
+                  </S.TitleRadioGroup>
                   {errors.vegano_vegetariano && (
                     <HelperText padding="none" type="error">
                       * Campo Obrigatório
                     </HelperText>
                   )}
-                </ContainerTitle>
+                </S.ContainerTitle>
 
                 <RadioButtonItem
                   label="Não sou vegano ou vegetariano"
@@ -139,7 +134,7 @@ export default function Step3({navigation, route}) {
                   handlePress={() =>
                     setValue(
                       'vegano_vegetariano',
-                      'Vegetariano restrito – alimentação',
+                      'Vegetariano restrito – alimentação'
                     )
                   }
                 />
@@ -149,18 +144,18 @@ export default function Step3({navigation, route}) {
                   value="Vegano"
                   handlePress={() => setValue('vegano_vegetariano', 'Vegano')}
                 />
-              </ContainerRadioButton>
+              </S.ContainerRadioButton>
             </RadioButton.Group>
           }
           name="vegano_vegetariano"
           control={control}
-          rules={{required: true}}
+          rules={{ required: true }}
           defaultValue=""
         />
 
-        <TitleRadioGroup>
+        <S.TitleRadioGroup>
           Você possui algum tipo de alergia ou intolerância alimentar?
-        </TitleRadioGroup>
+        </S.TitleRadioGroup>
 
         <CheckBoxItem
           label="Alergia ao Gluten"
@@ -191,7 +186,7 @@ export default function Step3({navigation, route}) {
             handlerCheckbox(
               'alergias.intolerancia_lactose',
               lactose,
-              setLactose,
+              setLactose
             )
           }
         />
@@ -210,7 +205,7 @@ export default function Step3({navigation, route}) {
             handlerCheckbox(
               'alergias.proteina_leite_vaca',
               proteinaLeite,
-              setProteinaLeite,
+              setProteinaLeite
             )
           }
         />
@@ -228,23 +223,25 @@ export default function Step3({navigation, route}) {
           onPress={() => handlerCheckboxAlergia()}
         />
 
-        <Input
+        <S.Input
           disabled={alergia}
           label="Outro"
           mode="outlined"
           ref={register('alergias.outras_alergias')}
-          onChangeText={text => setValue('alergias.outras_alergias', text)}
+          onChangeText={(text) => setValue('alergias.outras_alergias', text)}
         />
 
-        <ContainerButton>
+        <S.ContainerButton>
           <Button mode="contained" onPress={handleButtonPrev}>
             Voltar
           </Button>
           <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
             Próximo
           </Button>
-        </ContainerButton>
-      </Container>
+        </S.ContainerButton>
+      </S.Container>
     </KeyboardAvoidingView>
   );
-}
+};
+
+export default Step3;

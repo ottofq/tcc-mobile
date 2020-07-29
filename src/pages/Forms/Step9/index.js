@@ -1,32 +1,26 @@
-import React, {useState, useEffect} from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import {Button, RadioButton, HelperText} from 'react-native-paper';
-import {KeyboardAvoidingView, View} from 'react-native';
-import {merge} from 'lodash';
+import React, { useState, useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { Button, RadioButton, HelperText } from 'react-native-paper';
+import { KeyboardAvoidingView, View } from 'react-native';
+import { merge } from 'lodash';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import CheckBoxItem from '../../../components/Checkbox';
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
 
-import {
-  Container,
-  ContainerCheckbox,
-  ContainerRadioButton,
-  ContainerTitle,
-  TitleRadioGroup,
-  TitleCheckboxGroup,
-  ContainerButton,
-  Input,
-} from './styles';
+import * as S from './styles';
 
-export default function Step9({navigation, route}) {
-  const {register, handleSubmit, setValue, errors, control} = useForm();
+const Step9 = () => {
+  const { register, handleSubmit, setValue, errors, control } = useForm();
   const [melhoriaCardapio, setMelhoriaCardapio] = useState(false);
   const [melhoriaSaborPreparacao, setMelhoriaSaborPreparacao] = useState(false);
   const [melhoriaOpcoesVegana, setMelhoriaOpcoesVegana] = useState(false);
   const [melhoriaEstruturaFisica, setMelhoriaEstruturaFisica] = useState(false);
   const [melhoriaTempoEsperaFila, setMelhoriaTempoEsperaFila] = useState(false);
   const [melhoriaPrecoTicket, setMelhoriaPrecoTicket] = useState(false);
+  const navigation = useNavigation();
+  const { params } = useRoute();
 
   useEffect(() => {
     setValue('melhorias_RU.cardapio', false);
@@ -38,11 +32,9 @@ export default function Step9({navigation, route}) {
     setValue('melhorias_RU.melhoria_outros', false);
   }, [setValue]);
 
-  const params = route.params;
-
   function handleButtonNext(data) {
     const obj = merge(params, data);
-    navigation.navigate('Done', {
+    navigation.navigate('done', {
       ...obj,
     });
   }
@@ -56,28 +48,30 @@ export default function Step9({navigation, route}) {
   }
 
   return (
-    <KeyboardAvoidingView style={{flex: 1}}>
-      <Container>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <S.Container>
         <View>
           <ProgressBar progress={0.9} />
           <Controller
             as={
               <RadioButton.Group
-                onValueChange={value =>
+                onValueChange={(value) =>
                   setValue('avaliacao_RU.avaliacao_geral', value)
-                }>
-                <ContainerRadioButton>
-                  <ContainerTitle>
-                    <TitleRadioGroup
-                      error={errors?.avaliacao_RU?.avaliacao_geral}>
+                }
+              >
+                <S.ContainerRadioButton>
+                  <S.ContainerTitle>
+                    <S.TitleRadioGroup
+                      error={errors?.avaliacao_RU?.avaliacao_geral}
+                    >
                       De modo geral, como você avalia o cardápio do RU?{' '}
                       {errors?.avaliacao_RU?.avaliacao_geral && (
                         <HelperText padding="none" type="error">
                           * Campo Obrigatório
                         </HelperText>
                       )}
-                    </TitleRadioGroup>
-                  </ContainerTitle>
+                    </S.TitleRadioGroup>
+                  </S.ContainerTitle>
                   <RadioButtonItem
                     label="Muito ruim"
                     value="Muito ruim"
@@ -117,19 +111,19 @@ export default function Step9({navigation, route}) {
                       setValue('avaliacao_RU.avaliacao_geral', 'Muito bom')
                     }
                   />
-                </ContainerRadioButton>
+                </S.ContainerRadioButton>
               </RadioButton.Group>
             }
             name="avaliacao_RU.avaliacao_geral"
             control={control}
-            rules={{required: true}}
+            rules={{ required: true }}
             defaultValue=""
           />
 
-          <ContainerCheckbox>
-            <TitleCheckboxGroup>
+          <S.ContainerCheckbox>
+            <S.TitleCheckboxGroup>
               O que você acha que deveria ser melhorado no RU?
-            </TitleCheckboxGroup>
+            </S.TitleCheckboxGroup>
 
             <CheckBoxItem
               label="Cardápio"
@@ -139,7 +133,7 @@ export default function Step9({navigation, route}) {
                 handlerCheckbox(
                   'melhorias_RU.cardapio',
                   melhoriaCardapio,
-                  setMelhoriaCardapio,
+                  setMelhoriaCardapio
                 )
               }
             />
@@ -152,7 +146,7 @@ export default function Step9({navigation, route}) {
                 handlerCheckbox(
                   'melhorias_RU.melhoria_sabor_preparacao',
                   melhoriaSaborPreparacao,
-                  setMelhoriaSaborPreparacao,
+                  setMelhoriaSaborPreparacao
                 )
               }
             />
@@ -165,7 +159,7 @@ export default function Step9({navigation, route}) {
                 handlerCheckbox(
                   'melhorias_RU.opcao_vegetariana',
                   melhoriaOpcoesVegana,
-                  setMelhoriaOpcoesVegana,
+                  setMelhoriaOpcoesVegana
                 )
               }
             />
@@ -178,7 +172,7 @@ export default function Step9({navigation, route}) {
                 handlerCheckbox(
                   'melhorias_RU.estrutura_fisica',
                   melhoriaEstruturaFisica,
-                  setMelhoriaEstruturaFisica,
+                  setMelhoriaEstruturaFisica
                 )
               }
             />
@@ -191,7 +185,7 @@ export default function Step9({navigation, route}) {
                 handlerCheckbox(
                   'melhorias_RU.tempo_fila',
                   melhoriaTempoEsperaFila,
-                  setMelhoriaTempoEsperaFila,
+                  setMelhoriaTempoEsperaFila
                 )
               }
             />
@@ -204,29 +198,32 @@ export default function Step9({navigation, route}) {
                 handlerCheckbox(
                   'melhorias_RU.preco_ticket',
                   melhoriaPrecoTicket,
-                  setMelhoriaPrecoTicket,
+                  setMelhoriaPrecoTicket
                 )
               }
             />
-          </ContainerCheckbox>
-          <Input
+          </S.ContainerCheckbox>
+          <S.Input
             label="Outras"
             mode="outlined"
             ref={register('melhorias_RU.melhoria_outros')}
-            onChangeText={text =>
+            onChangeText={(text) =>
               setValue('melhorias_RU.melhoria_outros', text)
             }
           />
         </View>
-        <ContainerButton>
+
+        <S.ContainerButton>
           <Button mode="contained" onPress={handleButtonPrev}>
             Voltar
           </Button>
           <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
             Próximo
           </Button>
-        </ContainerButton>
-      </Container>
+        </S.ContainerButton>
+      </S.Container>
     </KeyboardAvoidingView>
   );
-}
+};
+
+export default Step9;

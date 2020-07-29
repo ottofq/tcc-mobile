@@ -1,31 +1,27 @@
-import React, {useState, useEffect} from 'react';
-import {useForm} from 'react-hook-form';
-import {Button} from 'react-native-paper';
-import {KeyboardAvoidingView} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { Button } from 'react-native-paper';
+import { KeyboardAvoidingView } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import CheckBoxItem from '../../../components/Checkbox';
 import ProgressBar from '../../../components/ProgressBar';
 
-import {
-  Container,
-  ContainerCheckbox,
-  TitleCheckboxGroup,
-  ContainerButton,
-  Input,
-  TitleInput,
-} from './styles';
+import * as S from './styles';
 
-export default function Step6({navigation, route}) {
-  const {register, handleSubmit, setValue} = useForm();
+const Step6 = () => {
+  const { register, handleSubmit, setValue } = useForm();
   const [doencaCardiovascular, setDoencaCardiovascular] = useState(false);
   const [hipertensaoArterial, setHipertensaoArterial] = useState(false);
   const [obesidade, setObesidade] = useState(false);
   const [dislipidemias, setDislipidemias] = useState(false);
   const [diabetes, setDiabetes] = useState(false);
   const [doencaArterialCoronariana, setDoencaArterialCoronariana] = useState(
-    false,
+    false
   );
   const [doenca, setDoenca] = useState(false);
+  const navigation = useNavigation();
+  const { params } = useRoute();
 
   useEffect(() => {
     setValue('patologias_familia.fam_doenca_cardiovascular', true);
@@ -37,12 +33,9 @@ export default function Step6({navigation, route}) {
     setValue('patologias_familia.patologias_familia_outras', false);
   }, [setValue]);
 
-  const params = route.params;
-
   function handleButtonNext(data) {
-    const obj = {...params, ...data};
-    console.log(obj);
-    navigation.navigate('Questionário passo 7', {
+    const obj = { ...params, ...data };
+    navigation.navigate('step-7', {
       ...obj,
     });
   }
@@ -69,14 +62,14 @@ export default function Step6({navigation, route}) {
   }
 
   return (
-    <KeyboardAvoidingView style={{flex: 1}}>
-      <Container>
-        <ContainerCheckbox>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <S.Container>
+        <S.ContainerCheckbox>
           <ProgressBar progress={0.6} />
-          <TitleCheckboxGroup>
+          <S.TitleCheckboxGroup>
             Há histórico de presença, de alguma das patologias abaixo, na sua
             família? Se sim, quais?
-          </TitleCheckboxGroup>
+          </S.TitleCheckboxGroup>
           <CheckBoxItem
             label="Doença cardiovascular"
             status={
@@ -91,7 +84,7 @@ export default function Step6({navigation, route}) {
               handlerCheckbox(
                 'patologias_familia.fam_doenca_cardiovascular',
                 doencaCardiovascular,
-                setDoencaCardiovascular,
+                setDoencaCardiovascular
               )
             }
           />
@@ -110,7 +103,7 @@ export default function Step6({navigation, route}) {
               handlerCheckbox(
                 'patologias_familia.fam_hipertensao',
                 hipertensaoArterial,
-                setHipertensaoArterial,
+                setHipertensaoArterial
               )
             }
           />
@@ -129,7 +122,7 @@ export default function Step6({navigation, route}) {
               handlerCheckbox(
                 'patologias_familia.fam_obesidade',
                 obesidade,
-                setObesidade,
+                setObesidade
               )
             }
           />
@@ -148,7 +141,7 @@ export default function Step6({navigation, route}) {
               handlerCheckbox(
                 'patologias_familia.fam_dislipidemias',
                 dislipidemias,
-                setDislipidemias,
+                setDislipidemias
               )
             }
           />
@@ -167,7 +160,7 @@ export default function Step6({navigation, route}) {
               handlerCheckbox(
                 'patologias_familia.fam_diabetes',
                 diabetes,
-                setDiabetes,
+                setDiabetes
               )
             }
           />
@@ -186,7 +179,7 @@ export default function Step6({navigation, route}) {
               handlerCheckbox(
                 'patologias_familia.fam_doenca_arterial_coronariana',
                 doencaArterialCoronariana,
-                setDoencaArterialCoronariana,
+                setDoencaArterialCoronariana
               )
             }
           />
@@ -207,36 +200,38 @@ export default function Step6({navigation, route}) {
             }
             onPress={() => handlerCheckboxDoenca()}
           />
-          <Input
+          <S.Input
             disabled={doenca}
             label="Outras Doenças"
             mode="outlined"
             ref={register('patologias_familia.patologias_familia_outras')}
-            onChangeText={text =>
+            onChangeText={(text) =>
               setValue('patologias_familia.patologias_familia_outras', text)
             }
           />
 
-          <TitleInput>
+          <S.TitleInput>
             Faz uso contínuo de algum medicamento? Se sim qual?
-          </TitleInput>
-          <Input
+          </S.TitleInput>
+          <S.Input
             label="Medicamentos"
             mode="outlined"
             ref={register('medicamento_continuo')}
-            onChangeText={text => setValue('medicamento_continuo', text)}
+            onChangeText={(text) => setValue('medicamento_continuo', text)}
           />
-        </ContainerCheckbox>
+        </S.ContainerCheckbox>
 
-        <ContainerButton>
+        <S.ContainerButton>
           <Button mode="contained" onPress={handleButtonPrev}>
             Voltar
           </Button>
           <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
             Próximo
           </Button>
-        </ContainerButton>
-      </Container>
+        </S.ContainerButton>
+      </S.Container>
     </KeyboardAvoidingView>
   );
-}
+};
+
+export default Step6;

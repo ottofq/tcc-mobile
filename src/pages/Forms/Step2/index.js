@@ -1,25 +1,21 @@
 import React from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import {Button, RadioButton, HelperText} from 'react-native-paper';
+import { useForm, Controller } from 'react-hook-form';
+import { Button, RadioButton, HelperText } from 'react-native-paper';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
 
-import {
-  Container,
-  ContainerRadioButton,
-  ContainerTitle,
-  TitleRadioGroup,
-  ContainerButton,
-} from './styles';
+import * as S from './styles';
 
-export default function Step2({route, navigation}) {
-  const {handleSubmit, setValue, control, errors} = useForm();
-  const params = route.params;
+const Step2 = () => {
+  const { handleSubmit, setValue, control, errors } = useForm();
+  const navigation = useNavigation();
+  const { params } = useRoute();
 
   function handleButtonNext(data) {
-    const obj = {...params, ...data};
-    navigation.navigate('Questionário passo 3', {
+    const obj = { ...params, ...data };
+    navigation.navigate('step-3', {
       ...obj,
     });
   }
@@ -28,23 +24,24 @@ export default function Step2({route, navigation}) {
   }
 
   return (
-    <Container>
+    <S.Container>
       <ProgressBar progress={0.2} />
       <Controller
         as={
           <RadioButton.Group
-            onValueChange={value => setValue('bolsista', value)}>
-            <ContainerRadioButton>
-              <ContainerTitle>
-                <TitleRadioGroup error={errors.bolsista}>
+            onValueChange={(value) => setValue('bolsista', value)}
+          >
+            <S.ContainerRadioButton>
+              <S.ContainerTitle>
+                <S.TitleRadioGroup error={errors.bolsista}>
                   Você é Bolsista do RU ?
                   {errors.bolsista && (
                     <HelperText padding="none" type="error">
                       * Campo Obrigatório
                     </HelperText>
                   )}
-                </TitleRadioGroup>
-              </ContainerTitle>
+                </S.TitleRadioGroup>
+              </S.ContainerTitle>
               <RadioButtonItem
                 label="Não sou bolsista"
                 value="Não sou bolsista"
@@ -60,29 +57,30 @@ export default function Step2({route, navigation}) {
                 value="Bolsa integral"
                 handlePress={() => setValue('bolsista', 'Bolsa integral')}
               />
-            </ContainerRadioButton>
+            </S.ContainerRadioButton>
           </RadioButton.Group>
         }
         name="bolsista"
         control={control}
-        rules={{required: true}}
+        rules={{ required: true }}
         defaultValue=""
       />
       <Controller
         as={
           <RadioButton.Group
-            onValueChange={value => setValue('frequencia_RU', value)}>
-            <ContainerRadioButton>
-              <ContainerTitle>
-                <TitleRadioGroup error={errors.frequencia_RU}>
+            onValueChange={(value) => setValue('frequencia_RU', value)}
+          >
+            <S.ContainerRadioButton>
+              <S.ContainerTitle>
+                <S.TitleRadioGroup error={errors.frequencia_RU}>
                   Com qual frequência você realiza suas refeições no RU.{' '}
                   {errors.frequencia_RU && (
                     <HelperText padding="none" type="error">
                       * Campo Obrigatório
                     </HelperText>
                   )}
-                </TitleRadioGroup>
-              </ContainerTitle>
+                </S.TitleRadioGroup>
+              </S.ContainerTitle>
               <RadioButtonItem
                 label="Todos os dias"
                 value="Todos os dias"
@@ -110,30 +108,31 @@ export default function Step2({route, navigation}) {
                 value="Raramente"
                 handlePress={() => setValue('frequencia_RU', 'Raramente')}
               />
-            </ContainerRadioButton>
+            </S.ContainerRadioButton>
           </RadioButton.Group>
         }
         name="frequencia_RU"
         control={control}
-        rules={{required: true}}
+        rules={{ required: true }}
         defaultValue=""
       />
 
       <Controller
         as={
           <RadioButton.Group
-            onValueChange={value => setValue('tipo_refeicao_RU', value)}>
-            <ContainerRadioButton>
-              <ContainerTitle>
-                <TitleRadioGroup error={errors.tipo_refeicao_RU}>
+            onValueChange={(value) => setValue('tipo_refeicao_RU', value)}
+          >
+            <S.ContainerRadioButton>
+              <S.ContainerTitle>
+                <S.TitleRadioGroup error={errors.tipo_refeicao_RU}>
                   Qual tipo de refeição você costuma realizar no RU?
                   {errors.tipo_refeicao_RU && (
                     <HelperText padding="none" type="error">
                       * Campo Obrigatório
                     </HelperText>
                   )}
-                </TitleRadioGroup>
-              </ContainerTitle>
+                </S.TitleRadioGroup>
+              </S.ContainerTitle>
               <RadioButtonItem
                 label="Almoço"
                 value="Almoço"
@@ -153,22 +152,23 @@ export default function Step2({route, navigation}) {
                   setValue('tipo_refeicao_RU', 'Almoço e Jantar')
                 }
               />
-            </ContainerRadioButton>
+            </S.ContainerRadioButton>
           </RadioButton.Group>
         }
         name="tipo_refeicao_RU"
         control={control}
-        rules={{required: true}}
+        rules={{ required: true }}
         defaultValue=""
       />
 
       <Controller
         as={
           <RadioButton.Group
-            onValueChange={value => setValue('nivel_fisico', value)}>
-            <ContainerRadioButton>
-              <ContainerTitle>
-                <TitleRadioGroup error={errors.nivel_fisico}>
+            onValueChange={(value) => setValue('nivel_fisico', value)}
+          >
+            <S.ContainerRadioButton>
+              <S.ContainerTitle>
+                <S.TitleRadioGroup error={errors.nivel_fisico}>
                   Como você se considera de acordo com o seu nível de atividade
                   física?
                   {errors.nivel_fisico && (
@@ -176,8 +176,8 @@ export default function Step2({route, navigation}) {
                       * Campo Obrigatório
                     </HelperText>
                   )}
-                </TitleRadioGroup>
-              </ContainerTitle>
+                </S.TitleRadioGroup>
+              </S.ContainerTitle>
               <RadioButtonItem
                 label="Sedentário"
                 value="Sedentário"
@@ -201,23 +201,25 @@ export default function Step2({route, navigation}) {
                 value="Ativo"
                 handlePress={() => setValue('nivel_fisico', 'Ativo')}
               />
-            </ContainerRadioButton>
+            </S.ContainerRadioButton>
           </RadioButton.Group>
         }
         name="nivel_fisico"
         control={control}
-        rules={{required: true}}
+        rules={{ required: true }}
         defaultValue=""
       />
 
-      <ContainerButton>
+      <S.ContainerButton>
         <Button mode="contained" onPress={handleButtonPrev}>
           Voltar
         </Button>
         <Button mode="contained" onPress={handleSubmit(handleButtonNext)}>
           Próximo
         </Button>
-      </ContainerButton>
-    </Container>
+      </S.ContainerButton>
+    </S.Container>
   );
-}
+};
+
+export default Step2;

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { fonts } from '../../styles';
 
 export const Container = styled.View`
   flex: 1;
@@ -9,7 +10,7 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: ${hp(3)}px;
+  font-size: ${fonts.big}px;
   font-family: 'PTSans-Bold';
   color: #fff;
 `;
