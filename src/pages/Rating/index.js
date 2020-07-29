@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
+import RatingCard from '../../components/RatingCard';
 import animation from '../../../assets/animation-rating.json';
 import api from '../../services/api';
 
@@ -53,18 +54,7 @@ const Rating = () => {
     <S.Container>
       {showAnimation === false ? (
         <S.RatingContainer>
-          <S.CurrentRatingContainer>
-            <S.TitleCurrentRating>Avaliação</S.TitleCurrentRating>
-            <AirbnbRating
-              showRating
-              count={5}
-              reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
-              defaultRating={3}
-              size={wp(6)}
-              isDisabled
-            />
-            <S.TotalRatings>32 avaliações</S.TotalRatings>
-          </S.CurrentRatingContainer>
+          <RatingCard rating={3} totalVotes={9999} />
 
           <S.Title>Avalie o cardápio</S.Title>
           <AirbnbRating

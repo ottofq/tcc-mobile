@@ -22,23 +22,6 @@ export const RatingContainer = styled.View`
   padding: ${hp(1)}px;
 `;
 
-export const TitleCurrentRating = styled.Text`
-  font-size: ${fonts.superBig}px;
-  color: ${colors.primary};
-  text-align: center;
-  margin-top: ${hp(1)}px;
-  font-family: 'PTSans-Bold';
-`;
-
-export const TotalRatings = styled(TitleCurrentRating)`
-  font-size: ${fonts.regular}px;
-`;
-
-export const CurrentRatingContainer = styled.View`
-  border: 1px solid #ddd;
-  border-radius: 4px;
-`;
-
 export const AnimationContainer = styled.View`
   flex: 1;
   align-items: center;
