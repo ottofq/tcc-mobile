@@ -21,7 +21,7 @@
     "lottie-react-native": "^3.4.0",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
-    "react-hook-form": "^4.9.8",
+    "react-hook-form": "^6.2.0",
     "react-native": "0.63.1",
     "react-native-dotenv": "^0.2.0",
     "react-native-gesture-handler": "^1.6.1",
