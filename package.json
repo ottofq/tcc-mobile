@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@hookform/resolvers": "^0.1.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/drawer": "^5.8.5",
     "@react-navigation/material-bottom-tabs": "^5.2.13",
@@ -37,7 +38,8 @@
     "react-native-shimmer": "^0.6.0",
     "react-native-table-component": "^1.2.1",
     "react-native-vector-icons": "^7.0.0",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "yup": "^0.29.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
