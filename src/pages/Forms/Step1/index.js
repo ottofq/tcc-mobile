@@ -1,39 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import { useForm, Controller } from 'react-hook-form';
 import { TextInputMask } from 'react-native-masked-text';
 import { useNavigation } from '@react-navigation/native';
+import { yupResolver } from '@hookform/resolvers';
+import * as yup from 'yup';
+
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
-import { dateItems, courseItems } from './selectItem';
+import { courseItems } from './selectItem';
 
 import * as S from './styles';
 
 const Step1 = () => {
-  const { register, handleSubmit, setValue, errors, control } = useForm();
+  const schema = yup.object().shape({
+    nome: yup
+      .string()
+      .required('Campo nome é obrigatório!')
+      .min(5, 'Digite seu nome completo!'),
+    matricula: yup
+      .string()
+      .required('Campo matrícula é obrigatório!')
+      .matches(/\d{10}/, 'Matrícula inválida!'),
+    data_nascimento: yup
+      .date()
+      .required('Campo data de nascimento é obrigatório!')
+      .min('1940-01-01T00:00:00.000Z', 'Data de nascimento inválida!')
+      .max('2004-12-31T00:00:00.000Z', 'Data de nascimento inválida!')
+      .nullable()
+      .default(undefined)
+      .typeError('Data de nascimento inválida!'),
+    curso: yup.string().required('Campo curso é obrigatório!'),
+    ano_ingresso: yup
+      .string()
+      .required('Campo ano de ingresso é obrigatório!')
+      .matches(/^2[0|1]1[0-9]$|2020/, 'Ano de ingresso inválido!'),
+    sexo: yup.string().required('Campo obrigatório!'),
+  });
 
-  const [course, setCourse] = useState();
-  const [year, setYear] = useState(0);
+  const { handleSubmit, setValue, errors, control } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const navigation = useNavigation();
 
-  const regexDate = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-
-  function formatDate(dateValue) {
-    const date = new Date(dateValue);
-    return date.toISOString();
-  }
-
   function onSubmit(data) {
-    console.log(formatDate(data.data_nascimento));
     navigation.navigate('step-2', {
-      ...data,
+      params: data,
     });
-  }
-
-  function handleSelect(field, value, setState) {
-    setValue(field, value);
-    setState(value);
   }
 
   return (
@@ -43,152 +58,163 @@ const Step1 = () => {
         <S.ContainerInputItem>
           {errors.nome && (
             <HelperText padding="none" type="error">
-              Campo Nome é Obrigatório
+              {errors.nome.message}
             </HelperText>
           )}
-          <S.Input
-            label="Nome"
-            mode="outlined"
-            error={errors.nome}
-            ref={register('nome', { required: true })}
-            onChangeText={(text) => setValue('nome', text)}
+          <Controller
+            control={control}
+            render={({ onChange }) => (
+              <S.Input
+                label="Nome"
+                mode="outlined"
+                error={errors.nome}
+                onChangeText={(text) => onChange(text)}
+              />
+            )}
+            name="nome"
+            rules={{ required: true }}
+            defaultValue=""
           />
         </S.ContainerInputItem>
 
         <S.ContainerInputItem>
-          {errors.matricula && errors.matricula.type === 'required' ? (
+          {errors.matricula && (
             <HelperText padding="none" type="error">
-              Campo Matrícula é Obrigatório
+              {errors.matricula.message}
             </HelperText>
-          ) : null}
-          <S.Input
-            label="Matrícula"
-            mode="outlined"
-            keyboardType="numeric"
-            error={errors.matricula}
-            render={(props) => (
-              <TextInputMask
-                {...props}
-                type="custom"
-                options={{
-                  mask: '9999999999',
-                }}
+          )}
+
+          <Controller
+            control={control}
+            render={({ onChange }) => (
+              <S.Input
+                label="Matrícula"
+                mode="outlined"
+                keyboardType="numeric"
+                error={errors.matricula}
+                render={(props) => (
+                  <TextInputMask
+                    {...props}
+                    type="custom"
+                    options={{
+                      mask: '9999999999',
+                    }}
+                  />
+                )}
+                onChangeText={(text) => onChange(text)}
               />
             )}
-            ref={register('matricula', {
-              required: true,
-              pattern: /\d{10}/,
-            })}
-            onChangeText={(text) => setValue('matricula', text)}
+            name="matricula"
+            rules={{ required: true }}
+            defaultValue=""
           />
         </S.ContainerInputItem>
 
         <S.ContainerInputItem>
-          {errors.data_nascimento &&
-          errors.data_nascimento.type === 'required' ? (
+          {errors.data_nascimento && (
             <HelperText padding="none" type="error">
-              Campo Data de Nascimento é Obrigatório
+              {errors.data_nascimento.message}
             </HelperText>
-          ) : null}
-          {errors.data_nascimento &&
-          errors.data_nascimento.type === 'pattern' ? (
-            <HelperText padding="none" type="error">
-              Data de Nascimento Inválida
-            </HelperText>
-          ) : null}
-          <S.Input
-            label="Data de Nascimento"
-            mode="outlined"
-            keyboardType="numeric"
-            error={errors.data_nascimento}
-            render={(props) => (
-              <TextInputMask
-                {...props}
-                type="datetime"
-                options={{
-                  format: 'DD/MM/YYYY',
-                }}
+          )}
+
+          <Controller
+            control={control}
+            render={({ onChange }) => (
+              <S.Input
+                label="Data de Nascimento"
+                mode="outlined"
+                keyboardType="numeric"
+                error={errors.data_nascimento}
+                render={(props) => (
+                  <TextInputMask
+                    {...props}
+                    type="datetime"
+                    options={{
+                      format: 'DD/MM/YYYY',
+                    }}
+                  />
+                )}
+                onChangeText={(text) => onChange(text)}
               />
             )}
-            ref={register('data_nascimento', {
-              required: true,
-              pattern: regexDate,
-            })}
-            onChangeText={(text) => setValue('data_nascimento', text)}
+            name="data_nascimento"
+            rules={{ required: true }}
+            defaultValue={null}
           />
         </S.ContainerInputItem>
 
         <S.ContainerInputItem>
           {errors.curso && (
             <HelperText padding="none" type="error">
-              Campo Curso é Obrigatório
+              {errors.curso.message}
             </HelperText>
           )}
 
-          <S.Input
-            label="Curso"
-            mode="outlined"
-            value={course}
-            error={errors.curso}
-            render={() => (
-              <RNPickerSelect
-                useNativeAndroidPickerStyle={false}
-                placeholder={{
-                  label: 'Selecione seu curso',
-                  value: null,
-                  color: '#fff',
-                }}
-                ref={register('curso', {
-                  required: true,
-                })}
-                onValueChange={(value) =>
-                  handleSelect('curso', value, setCourse)
-                }
-                style={S.pickerSelectStyles}
-                items={courseItems}
+          <Controller
+            control={control}
+            render={({ onChange, value }) => (
+              <S.Input
+                label="Curso"
+                mode="outlined"
+                value={value}
+                error={errors.curso}
+                render={() => (
+                  <RNPickerSelect
+                    useNativeAndroidPickerStyle={false}
+                    placeholder={{
+                      label: 'Selecione seu curso',
+                      value: null,
+                      color: '#fff',
+                    }}
+                    onValueChange={(text) => onChange(text)}
+                    style={S.pickerSelectStyles}
+                    items={courseItems}
+                  />
+                )}
               />
             )}
+            name="curso"
+            rules={{ required: true }}
+            defaultValue=""
           />
         </S.ContainerInputItem>
 
         <S.ContainerInputItem>
           {errors.ano_ingresso ? (
             <HelperText padding="none" type="error">
-              Campo Ano de Ingresso é Obrigatório
+              {errors.ano_ingresso.message}
             </HelperText>
           ) : null}
 
-          <S.Input
-            label="Ano de Ingresso"
-            mode="outlined"
-            value={year}
-            error={errors.ano_ingresso}
-            ref={register('ano_ingresso', {
-              required: true,
-            })}
-            render={() => (
-              <RNPickerSelect
-                useNativeAndroidPickerStyle={false}
-                placeholder={{
-                  label: 'Selecione o ano de ingresso',
-                  value: null,
-                  color: '#fff',
-                }}
-                onValueChange={(value) =>
-                  handleSelect('ano_ingresso', value, setYear)
-                }
-                style={S.pickerSelectStyles}
-                items={dateItems}
+          <Controller
+            control={control}
+            render={({ onChange }) => (
+              <S.Input
+                label="Ano de ingresso"
+                mode="outlined"
+                keyboardType="numeric"
+                error={errors.ano_ingresso}
+                render={(props) => (
+                  <TextInputMask
+                    {...props}
+                    type="custom"
+                    options={{
+                      mask: '9999',
+                    }}
+                  />
+                )}
+                onChangeText={(text) => onChange(text)}
               />
             )}
+            name="ano_ingresso"
+            rules={{ required: true }}
+            defaultValue=""
           />
         </S.ContainerInputItem>
 
         <Controller
-          as={
-            <RadioButton.Group
-              onValueChange={(value) => setValue('sexo', value)}
-            >
+          render={({ onChange, value }) => (
+            <RadioButton.Group onValueChange={(text) => onChange(text)}>
               <S.ContainerRadioButton>
                 <S.ContainerTitle>
                   <S.TitleRadioGroup error={errors.sexo}>
@@ -196,30 +222,33 @@ const Step1 = () => {
                   </S.TitleRadioGroup>
                   {errors.sexo && (
                     <HelperText padding="none" type="error">
-                      * Campo Obrigatório
+                      {errors.sexo.message}
                     </HelperText>
                   )}
                 </S.ContainerTitle>
                 <RadioButtonItem
                   label="Masculino"
                   value="masculino"
+                  status={value === 'masculino' ? 'checked' : 'unchecked'}
                   handlePress={() => setValue('sexo', 'masculino')}
                 />
 
                 <RadioButtonItem
                   label="Feminino"
                   value="feminino"
+                  status={value === 'feminino' ? 'checked' : 'unchecked'}
                   handlePress={() => setValue('sexo', 'feminino')}
                 />
               </S.ContainerRadioButton>
             </RadioButton.Group>
-          }
+          )}
           name="sexo"
           control={control}
           rules={{ required: true }}
           defaultValue=""
         />
       </S.ContainerInput>
+
       <Button
         style={{ marginBottom: 5 }}
         mode="contained"
