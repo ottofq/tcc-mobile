@@ -47,7 +47,7 @@ const Step1 = () => {
 
   function onSubmit(data) {
     navigation.navigate('step-2', {
-      params: data,
+      params: { data },
     });
   }
 
