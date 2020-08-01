@@ -14,7 +14,6 @@ const Step2 = () => {
   const { params } = useRoute();
 
   function handleButtonNext(data) {
-    console.log(params);
     const obj = { ...params.data, ...data };
     navigation.navigate('step-3', {
       params: obj,
