@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { TouchableNativeFeedback } from 'react-native';
 import { Checkbox } from 'react-native-paper';
@@ -27,4 +27,4 @@ CheckboxItem.propTypes = {
   status: PropTypes.string.isRequired,
 };
 
-export default CheckboxItem;
+export default memo(CheckboxItem);
