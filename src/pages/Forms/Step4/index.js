@@ -41,10 +41,8 @@ const Step4 = () => {
     <S.Container>
       <ProgressBar progress={0.4} />
       <Controller
-        as={
-          <RadioButton.Group
-            onValueChange={(value) => setValue('adiciona_sal', value)}
-          >
+        render={({ onChange, value }) => (
+          <RadioButton.Group onValueChange={(text) => onChange(text)}>
             <S.ContainerRadioButton>
               <S.ContainerTitle>
                 <S.TitleRadioGroup error={errors.adiciona_sal}>
@@ -61,17 +59,19 @@ const Step4 = () => {
               <RadioButtonItem
                 label="Sim"
                 value="sim"
+                status={value === 'sim' ? 'checked' : 'unchecked'}
                 handlePress={() => setValue('adiciona_sal', 'sim')}
               />
 
               <RadioButtonItem
                 label="Não"
                 value="nao"
+                status={value === 'nao' ? 'checked' : 'unchecked'}
                 handlePress={() => setValue('adiciona_sal', 'nao')}
               />
             </S.ContainerRadioButton>
           </RadioButton.Group>
-        }
+        )}
         name="adiciona_sal"
         control={control}
         rules={{ required: true }}
@@ -79,10 +79,8 @@ const Step4 = () => {
       />
 
       <Controller
-        as={
-          <RadioButton.Group
-            onValueChange={(value) => setValue('utiliza_oleo_composto', value)}
-          >
+        render={({ onChange, value }) => (
+          <RadioButton.Group onValueChange={(text) => onChange(text)}>
             <S.ContainerRadioButton>
               <S.ContainerTitle>
                 <S.TitleRadioGroup error={errors.utiliza_oleo_composto}>
@@ -99,17 +97,19 @@ const Step4 = () => {
               <RadioButtonItem
                 label="Sim"
                 value="sim"
+                status={value === 'sim' ? 'checked' : 'unchecked'}
                 handlePress={() => setValue('utiliza_oleo_composto', 'sim')}
               />
 
               <RadioButtonItem
                 label="Não"
                 value="nao"
+                status={value === 'nao' ? 'checked' : 'unchecked'}
                 handlePress={() => setValue('utiliza_oleo_composto', 'nao')}
               />
             </S.ContainerRadioButton>
           </RadioButton.Group>
-        }
+        )}
         name="utiliza_oleo_composto"
         control={control}
         rules={{ required: true }}
@@ -117,12 +117,8 @@ const Step4 = () => {
       />
 
       <Controller
-        as={
-          <RadioButton.Group
-            onValueChange={(value) =>
-              setValue('consome_bebida_alcoolica', value)
-            }
-          >
+        render={({ onChange, value }) => (
+          <RadioButton.Group onValueChange={(text) => onChange(text)}>
             <S.ContainerRadioButton>
               <S.ContainerTitle>
                 <S.TitleRadioGroup error={errors.consome_bebida_alcoolica}>
@@ -138,6 +134,7 @@ const Step4 = () => {
               <RadioButtonItem
                 label="Sim, Diariamente"
                 value="Diariamente"
+                status={value === 'Diariamente' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('consome_bebida_alcoolica', 'Diariamente')
                 }
@@ -146,6 +143,9 @@ const Step4 = () => {
               <RadioButtonItem
                 label="Sim, de 3-6 vezes na semana"
                 value="de 3-6 vezes na semana"
+                status={
+                  value === 'de 3-6 vezes na semana' ? 'checked' : 'unchecked'
+                }
                 handlePress={() =>
                   setValue('consome_bebida_alcoolica', 'de 3-6 vezes na semana')
                 }
@@ -154,6 +154,9 @@ const Step4 = () => {
               <RadioButtonItem
                 label="Sim, de 1-2 vezes na semana"
                 value="de 1-2 vezes na semana"
+                status={
+                  value === 'de 1-2 vezes na semana' ? 'checked' : 'unchecked'
+                }
                 handlePress={() =>
                   setValue('consome_bebida_alcoolica', 'de 1-2 vezes na semana')
                 }
@@ -162,6 +165,7 @@ const Step4 = () => {
               <RadioButtonItem
                 label="Sim, Raramente"
                 value="Raramente"
+                status={value === 'Raramente' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('consome_bebida_alcoolica', 'Raramente')
                 }
@@ -170,6 +174,11 @@ const Step4 = () => {
               <RadioButtonItem
                 label="Não Consumo"
                 value="Não consumo bebidas alcoólicas"
+                status={
+                  value === 'Não consumo bebidas alcoólicas'
+                    ? 'checked'
+                    : 'unchecked'
+                }
                 handlePress={() =>
                   setValue(
                     'consome_bebida_alcoolica',
@@ -179,7 +188,7 @@ const Step4 = () => {
               />
             </S.ContainerRadioButton>
           </RadioButton.Group>
-        }
+        )}
         name="consome_bebida_alcoolica"
         control={control}
         rules={{ required: true }}
@@ -187,10 +196,8 @@ const Step4 = () => {
       />
 
       <Controller
-        as={
-          <RadioButton.Group
-            onValueChange={(value) => setValue('tabagista', value)}
-          >
+        render={({ onChange, value }) => (
+          <RadioButton.Group onValueChange={(text) => onChange(text)}>
             <S.ContainerRadioButton>
               <S.ContainerTitle>
                 <S.TitleRadioGroup error={errors.tabagista}>
@@ -206,17 +213,19 @@ const Step4 = () => {
               <RadioButtonItem
                 label="Sim"
                 value="sim"
+                status={value === 'sim' ? 'checked' : 'unchecked'}
                 handlePress={() => setValue('tabagista', 'sim')}
               />
 
               <RadioButtonItem
                 label="Não"
                 value="nao"
+                status={value === 'nao' ? 'checked' : 'unchecked'}
                 handlePress={() => setValue('tabagista', 'nao')}
               />
             </S.ContainerRadioButton>
           </RadioButton.Group>
-        }
+        )}
         name="tabagista"
         control={control}
         rules={{ required: true }}
