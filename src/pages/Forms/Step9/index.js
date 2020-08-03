@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable camelcase */
+import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
 import { KeyboardAvoidingView, View } from 'react-native';
-import { merge } from 'lodash';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import CheckBoxItem from '../../../components/Checkbox';
@@ -12,35 +12,17 @@ import ProgressBar from '../../../components/ProgressBar';
 import * as S from './styles';
 
 const Step9 = () => {
-  const { register, handleSubmit, setValue, errors, control } = useForm();
-  const [melhoriaCardapio, setMelhoriaCardapio] = useState(false);
-  const [melhoriaSaborPreparacao, setMelhoriaSaborPreparacao] = useState(false);
-  const [melhoriaOpcoesVegana, setMelhoriaOpcoesVegana] = useState(false);
-  const [melhoriaEstruturaFisica, setMelhoriaEstruturaFisica] = useState(false);
-  const [melhoriaTempoEsperaFila, setMelhoriaTempoEsperaFila] = useState(false);
-  const [melhoriaPrecoTicket, setMelhoriaPrecoTicket] = useState(false);
+  const { handleSubmit, setValue, errors, control } = useForm();
+
   const navigation = useNavigation();
   const { params } = useRoute();
 
-  useEffect(() => {
-    setValue('melhorias_RU.cardapio', false);
-    setValue('melhorias_RU.melhoria_sabor_preparacao', false);
-    setValue('melhorias_RU.opcao_vegetariana', false);
-    setValue('melhorias_RU.estrutura_fisica', false);
-    setValue('melhorias_RU.tempo_fila', false);
-    setValue('melhorias_RU.preco_ticket', false);
-    setValue('melhorias_RU.melhoria_outros', false);
-  }, [setValue]);
-
   function handleButtonNext(data) {
-    const obj = merge(params, data);
+    const obj = { ...params, ...data };
+
     navigation.navigate('done', {
       ...obj,
     });
-  }
-  function handlerCheckbox(field, state, setState) {
-    setState(!state);
-    setValue(field, !state);
   }
 
   function handleButtonPrev() {
@@ -53,12 +35,8 @@ const Step9 = () => {
         <View>
           <ProgressBar progress={0.9} />
           <Controller
-            as={
-              <RadioButton.Group
-                onValueChange={(value) =>
-                  setValue('avaliacao_RU.avaliacao_geral', value)
-                }
-              >
+            render={({ onChange, value }) => (
+              <RadioButton.Group onValueChange={(text) => onChange(text)}>
                 <S.ContainerRadioButton>
                   <S.ContainerTitle>
                     <S.TitleRadioGroup
@@ -75,6 +53,7 @@ const Step9 = () => {
                   <RadioButtonItem
                     label="Muito ruim"
                     value="Muito ruim"
+                    status={value === 'Muito ruim' ? 'checked' : 'unchecked'}
                     handlePress={() =>
                       setValue('avaliacao_RU.avaliacao_geral', 'Muito ruim')
                     }
@@ -83,6 +62,7 @@ const Step9 = () => {
                   <RadioButtonItem
                     label="Ruim"
                     value="Ruim"
+                    status={value === 'Ruim' ? 'checked' : 'unchecked'}
                     handlePress={() =>
                       setValue('avaliacao_RU.avaliacao_geral', 'Ruim')
                     }
@@ -91,6 +71,7 @@ const Step9 = () => {
                   <RadioButtonItem
                     label="Regular"
                     value="Regular"
+                    status={value === 'Regular' ? 'checked' : 'unchecked'}
                     handlePress={() =>
                       setValue('avaliacao_RU.avaliacao_geral', 'Regular')
                     }
@@ -99,6 +80,7 @@ const Step9 = () => {
                   <RadioButtonItem
                     label="Bom"
                     value="Bom"
+                    status={value === 'Bom' ? 'checked' : 'unchecked'}
                     handlePress={() =>
                       setValue('avaliacao_RU.avaliacao_geral', 'Bom')
                     }
@@ -107,13 +89,14 @@ const Step9 = () => {
                   <RadioButtonItem
                     label="Muito bom"
                     value="Muito bom"
+                    status={value === 'Muito bom' ? 'checked' : 'unchecked'}
                     handlePress={() =>
                       setValue('avaliacao_RU.avaliacao_geral', 'Muito bom')
                     }
                   />
                 </S.ContainerRadioButton>
               </RadioButton.Group>
-            }
+            )}
             name="avaliacao_RU.avaliacao_geral"
             control={control}
             rules={{ required: true }}
@@ -125,91 +108,102 @@ const Step9 = () => {
               O que você acha que deveria ser melhorado no RU?
             </S.TitleCheckboxGroup>
 
-            <CheckBoxItem
-              label="Cardápio"
-              status={melhoriaCardapio ? 'checked' : 'unchecked'}
-              ref={register('melhorias_RU.cardapio')}
-              onPress={() =>
-                handlerCheckbox(
-                  'melhorias_RU.cardapio',
-                  melhoriaCardapio,
-                  setMelhoriaCardapio
-                )
-              }
+            <Controller
+              render={({ value }) => (
+                <CheckBoxItem
+                  label="Cardápio"
+                  status={value ? 'checked' : 'unchecked'}
+                  onPress={() => setValue('melhorias_RU.cardapio', !value)}
+                />
+              )}
+              name="melhorias_RU.cardapio"
+              control={control}
+              defaultValue={false}
             />
 
-            <CheckBoxItem
-              label="Sabor das preparações"
-              status={melhoriaSaborPreparacao ? 'checked' : 'unchecked'}
-              ref={register('melhorias_RU.melhoria_sabor_preparacao')}
-              onPress={() =>
-                handlerCheckbox(
-                  'melhorias_RU.melhoria_sabor_preparacao',
-                  melhoriaSaborPreparacao,
-                  setMelhoriaSaborPreparacao
-                )
-              }
+            <Controller
+              render={({ value }) => (
+                <CheckBoxItem
+                  label="Sabor das preparações"
+                  status={value ? 'checked' : 'unchecked'}
+                  onPress={() =>
+                    setValue('melhorias_RU.melhoria_sabor_preparacao', !value)
+                  }
+                />
+              )}
+              name="melhorias_RU.melhoria_sabor_preparacao"
+              control={control}
+              defaultValue={false}
             />
 
-            <CheckBoxItem
-              label="Mais opções veganas"
-              status={melhoriaOpcoesVegana ? 'checked' : 'unchecked'}
-              ref={register('melhorias_RU.opcao_vegetariana')}
-              onPress={() =>
-                handlerCheckbox(
-                  'melhorias_RU.opcao_vegetariana',
-                  melhoriaOpcoesVegana,
-                  setMelhoriaOpcoesVegana
-                )
-              }
+            <Controller
+              render={({ value }) => (
+                <CheckBoxItem
+                  label="Mais opções veganas"
+                  status={value ? 'checked' : 'unchecked'}
+                  onPress={() =>
+                    setValue('melhorias_RU.opcao_vegetariana', !value)
+                  }
+                />
+              )}
+              name="melhorias_RU.opcao_vegetariana"
+              control={control}
+              defaultValue={false}
             />
 
-            <CheckBoxItem
-              label="Estrutura física"
-              status={melhoriaEstruturaFisica ? 'checked' : 'unchecked'}
-              ref={register('melhorias_RU.estrutura_fisica')}
-              onPress={() =>
-                handlerCheckbox(
-                  'melhorias_RU.estrutura_fisica',
-                  melhoriaEstruturaFisica,
-                  setMelhoriaEstruturaFisica
-                )
-              }
+            <Controller
+              render={({ value }) => (
+                <CheckBoxItem
+                  label="Estrutura física"
+                  status={value ? 'checked' : 'unchecked'}
+                  onPress={() =>
+                    setValue('melhorias_RU.estrutura_fisica', !value)
+                  }
+                />
+              )}
+              name="melhorias_RU.estrutura_fisica"
+              control={control}
+              defaultValue={false}
             />
 
-            <CheckBoxItem
-              label="Tempo de espera na fila"
-              status={melhoriaTempoEsperaFila ? 'checked' : 'unchecked'}
-              ref={register('melhorias_RU.tempo_fila')}
-              onPress={() =>
-                handlerCheckbox(
-                  'melhorias_RU.tempo_fila',
-                  melhoriaTempoEsperaFila,
-                  setMelhoriaTempoEsperaFila
-                )
-              }
+            <Controller
+              render={({ value }) => (
+                <CheckBoxItem
+                  label="Tempo de espera na fila"
+                  status={value ? 'checked' : 'unchecked'}
+                  onPress={() => setValue('melhorias_RU.tempo_fila', !value)}
+                />
+              )}
+              name="melhorias_RU.tempo_fila"
+              control={control}
+              defaultValue={false}
             />
 
-            <CheckBoxItem
-              label="Preço do ticket"
-              status={melhoriaPrecoTicket ? 'checked' : 'unchecked'}
-              ref={register('melhorias_RU.preco_ticket')}
-              onPress={() =>
-                handlerCheckbox(
-                  'melhorias_RU.preco_ticket',
-                  melhoriaPrecoTicket,
-                  setMelhoriaPrecoTicket
-                )
-              }
+            <Controller
+              render={({ value }) => (
+                <CheckBoxItem
+                  label="Preço do ticket"
+                  status={value ? 'checked' : 'unchecked'}
+                  onPress={() => setValue('melhorias_RU.preco_ticket', !value)}
+                />
+              )}
+              name="melhorias_RU.preco_ticket"
+              control={control}
+              defaultValue={false}
             />
           </S.ContainerCheckbox>
-          <S.Input
-            label="Outras"
-            mode="outlined"
-            ref={register('melhorias_RU.melhoria_outros')}
-            onChangeText={(text) =>
-              setValue('melhorias_RU.melhoria_outros', text)
-            }
+
+          <Controller
+            render={({ onChange }) => (
+              <S.Input
+                label="Outras"
+                mode="outlined"
+                onChangeText={(text) => onChange(text)}
+              />
+            )}
+            name="melhorias_RU.melhoria_outros"
+            control={control}
+            defaultValue=""
           />
         </View>
 

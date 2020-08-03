@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
 import { KeyboardAvoidingView } from 'react-native';
@@ -11,21 +11,10 @@ import ProgressBar from '../../../components/ProgressBar';
 import * as S from './styles';
 
 const Step3 = () => {
-  const { register, handleSubmit, setValue, control, errors } = useForm();
-  const [gluten, setGluten] = useState(false);
-  const [lactose, setLactose] = useState(false);
-  const [proteinaLeite, setProteinaLeite] = useState(false);
-  const [alergia, setAlergia] = useState(false);
+  const { watch, handleSubmit, setValue, control, errors } = useForm();
+
   const navigation = useNavigation();
   const { params } = useRoute();
-
-  useEffect(() => {
-    setValue('alergias.nenhuma', true);
-    setValue('alergias.alergia_gluten', false);
-    setValue('alergias.intolerancia_lactose', false);
-    setValue('alergias.proteina_leite_vaca', false);
-    setValue('alergias.outras_alergias', false);
-  }, [setValue]);
 
   function handleButtonNext(data) {
     const obj = { ...params, ...data };
@@ -33,21 +22,14 @@ const Step3 = () => {
       ...obj,
     });
   }
-  function handlerCheckbox(field, state, setState) {
-    if (!alergia) {
-      setState(!state);
-      setValue(field, !state);
-    }
-  }
 
-  function handlerCheckboxAlergia() {
-    setAlergia(!alergia);
-    setValue('alergias.nenhuma', false);
-    setValue('alergias.alergia_gluten', false);
-    setValue('alergias.intolerancia_lactose', false);
-    setValue('alergias.proteina_leite_vaca', false);
-    setValue('alergias.outras_alergias', false);
-  }
+  const handleCheckboxStatus = (value) => {
+    if (watch('alergias.nao_tenho_alergias')) return 'indeterminate';
+
+    if (value) return 'checked';
+
+    return 'unchecked';
+  };
 
   function handleButtonPrev() {
     navigation.goBack();
@@ -58,10 +40,8 @@ const Step3 = () => {
       <S.Container>
         <ProgressBar progress={0.3} />
         <Controller
-          as={
-            <RadioButton.Group
-              onValueChange={(value) => setValue('peso_ideal', value)}
-            >
+          render={({ onChange, value }) => (
+            <RadioButton.Group onValueChange={(text) => onChange(text)}>
               <S.ContainerRadioButton>
                 <S.ContainerTitle>
                   <S.TitleRadioGroup error={errors.peso_ideal}>
@@ -78,17 +58,19 @@ const Step3 = () => {
                 <RadioButtonItem
                   label="Sim"
                   value="sim"
+                  status={value === 'sim' ? 'checked' : 'unchecked'}
                   handlePress={() => setValue('peso_ideal', 'sim')}
                 />
 
                 <RadioButtonItem
                   label="Não"
                   value="nao"
+                  status={value === 'nao' ? 'checked' : 'unchecked'}
                   handlePress={() => setValue('peso_ideal', 'nao')}
                 />
               </S.ContainerRadioButton>
             </RadioButton.Group>
-          }
+          )}
           name="peso_ideal"
           control={control}
           rules={{ required: true }}
@@ -96,10 +78,8 @@ const Step3 = () => {
         />
 
         <Controller
-          as={
-            <RadioButton.Group
-              onValueChange={(value) => setValue('vegano_vegetariano', value)}
-            >
+          render={({ onChange, value }) => (
+            <RadioButton.Group onValueChange={(text) => onChange(text)}>
               <S.ContainerRadioButton>
                 <S.ContainerTitle>
                   <S.TitleRadioGroup error={errors.vegano_vegetariano}>
@@ -115,6 +95,11 @@ const Step3 = () => {
                 <RadioButtonItem
                   label="Não sou vegano ou vegetariano"
                   value="Não sou vegano/vegetariano"
+                  status={
+                    value === 'Não sou vegano/vegetariano'
+                      ? 'checked'
+                      : 'unchecked'
+                  }
                   handlePress={() =>
                     setValue('vegano_vegetariano', 'Não sou vegano/vegetariano')
                   }
@@ -123,6 +108,9 @@ const Step3 = () => {
                 <RadioButtonItem
                   label="Ovolactovegetariano"
                   value="ovolactovegetariano"
+                  status={
+                    value === 'ovolactovegetariano' ? 'checked' : 'unchecked'
+                  }
                   handlePress={() =>
                     setValue('vegano_vegetariano', 'ovolactovegetariano')
                   }
@@ -131,6 +119,11 @@ const Step3 = () => {
                 <RadioButtonItem
                   label="Vegetariano restrito – alimentação"
                   value="Vegetariano restrito – alimentação"
+                  status={
+                    value === 'Vegetariano restrito – alimentação'
+                      ? 'checked'
+                      : 'unchecked'
+                  }
                   handlePress={() =>
                     setValue(
                       'vegano_vegetariano',
@@ -142,11 +135,12 @@ const Step3 = () => {
                 <RadioButtonItem
                   label="Vegano"
                   value="Vegano"
+                  status={value === 'Vegano' ? 'checked' : 'unchecked'}
                   handlePress={() => setValue('vegano_vegetariano', 'Vegano')}
                 />
               </S.ContainerRadioButton>
             </RadioButton.Group>
-          }
+          )}
           name="vegano_vegetariano"
           control={control}
           rules={{ required: true }}
@@ -157,78 +151,77 @@ const Step3 = () => {
           Você possui algum tipo de alergia ou intolerância alimentar?
         </S.TitleRadioGroup>
 
-        <CheckBoxItem
-          label="Alergia ao Gluten"
-          status={
-            alergia
-              ? 'indeterminate'
-              : 'unchecked' && gluten
-              ? 'checked'
-              : 'unchecked'
-          }
-          ref={register('alergias.alergia_gluten')}
-          onPress={() =>
-            handlerCheckbox('alergias.alergia_gluten', gluten, setGluten)
-          }
+        <Controller
+          render={({ value }) => (
+            <CheckBoxItem
+              label="Alergia ao glúten"
+              status={handleCheckboxStatus(value)}
+              onPress={() => setValue('alergias.alergia_gluten', !value)}
+            />
+          )}
+          name="alergias.alergia_gluten"
+          control={control}
+          defaultValue={false}
         />
 
-        <CheckBoxItem
-          label="Intolerância a lactose"
-          status={
-            alergia
-              ? 'indeterminate'
-              : 'unchecked' && lactose
-              ? 'checked'
-              : 'unchecked'
-          }
-          ref={register('alergias.intolerancia_lactose')}
-          onPress={() =>
-            handlerCheckbox(
-              'alergias.intolerancia_lactose',
-              lactose,
-              setLactose
-            )
-          }
+        <Controller
+          render={({ value }) => (
+            <CheckBoxItem
+              label="Intolerância a lactose"
+              status={handleCheckboxStatus(value)}
+              onPress={() => setValue('alergias.intolerancia_lactose', !value)}
+            />
+          )}
+          name="alergias.intolerancia_lactose"
+          control={control}
+          defaultValue={false}
         />
 
-        <CheckBoxItem
-          label="Alergia à proteína do leite de vaca"
-          status={
-            alergia
-              ? 'indeterminate'
-              : 'unchecked' && proteinaLeite
-              ? 'checked'
-              : 'unchecked'
-          }
-          ref={register('alergias.proteina_leite_vaca')}
-          onPress={() =>
-            handlerCheckbox(
-              'alergias.proteina_leite_vaca',
-              proteinaLeite,
-              setProteinaLeite
-            )
-          }
+        <Controller
+          render={({ value }) => (
+            <CheckBoxItem
+              label="Alergia à proteína do leite de vaca"
+              status={handleCheckboxStatus(value)}
+              onPress={() => setValue('alergias.proteina_leite_vaca', !value)}
+            />
+          )}
+          name="alergias.proteina_leite_vaca"
+          control={control}
+          defaultValue={false}
         />
 
-        <CheckBoxItem
-          label="Não possuo alergias"
-          status={
-            gluten || lactose || proteinaLeite
-              ? 'indeterminate'
-              : 'unchecked' && alergia
-              ? 'checked'
-              : 'unchecked'
-          }
-          ref={register('alergias.nenhuma')}
-          onPress={() => handlerCheckboxAlergia()}
+        <Controller
+          render={({ value }) => (
+            <CheckBoxItem
+              label="Não possuo alergias"
+              status={value ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setValue('alergias.nao_tenho_alergias', !value);
+                setValue('alergias.alergia_gluten', false);
+                setValue('alergias.intolerancia_lactose', false);
+                setValue('alergias.proteina_leite_vaca', false);
+                setValue('alergias.outras_alergias', '');
+              }}
+            />
+          )}
+          name="alergias.nao_tenho_alergias"
+          control={control}
+          defaultValue={false}
         />
 
-        <S.Input
-          disabled={alergia}
-          label="Outro"
-          mode="outlined"
-          ref={register('alergias.outras_alergias')}
-          onChangeText={(text) => setValue('alergias.outras_alergias', text)}
+        <Controller
+          render={({ onChange, value }) => (
+            <S.Input
+              disabled={watch('alergias.nao_tenho_alergias')}
+              label="Outro"
+              mode="outlined"
+              value={value}
+              onChangeText={(text) => onChange(text)}
+            />
+          )}
+          name="alergias.outras_alergias"
+          control={control}
+          defaultValue=""
         />
 
         <S.ContainerButton>

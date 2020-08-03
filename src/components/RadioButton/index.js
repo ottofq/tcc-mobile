@@ -6,11 +6,11 @@ import { RadioButton } from 'react-native-paper';
 import { colors } from '../../styles';
 import * as S from './styles';
 
-const RadioButtonItem = ({ value, handlePress, label }) => {
+const RadioButtonItem = ({ value, handlePress, label, ...rest }) => {
   return (
     <TouchableNativeFeedback onPress={handlePress}>
       <S.Container>
-        <RadioButton.Android value={value} color={colors.primary} />
+        <RadioButton.Android {...rest} value={value} color={colors.primary} />
         <S.Label>{label}</S.Label>
       </S.Container>
     </TouchableNativeFeedback>

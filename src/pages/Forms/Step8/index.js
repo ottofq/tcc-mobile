@@ -1,7 +1,7 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
-import { merge } from 'lodash';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import RadioButtonItem from '../../../components/RadioButton';
@@ -15,7 +15,7 @@ const Step8 = () => {
   const { params } = useRoute();
 
   function handleButtonNext(data) {
-    const obj = merge(params, data);
+    const obj = { ...params, ...data };
     navigation.navigate('step-9', {
       ...obj,
     });
@@ -29,12 +29,8 @@ const Step8 = () => {
     <S.Container>
       <ProgressBar progress={0.8} />
       <Controller
-        as={
-          <RadioButton.Group
-            onValueChange={(value) =>
-              setValue('avaliacao_RU.textura_preparacao', value)
-            }
-          >
+        render={({ onChange, value }) => (
+          <RadioButton.Group onValueChange={(text) => onChange(text)}>
             <S.ContainerRadioButton>
               <S.ContainerTitle>
                 <S.TitleRadioGroup
@@ -52,6 +48,7 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Muito ruim"
                 value="Muito ruim"
+                status={value === 'Muito ruim' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.textura_preparacao', 'Muito ruim')
                 }
@@ -60,6 +57,7 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Ruim"
                 value="Ruim"
+                status={value === 'Ruim' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.textura_preparacao', 'Ruim')
                 }
@@ -68,6 +66,7 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Regular"
                 value="Regular"
+                status={value === 'Regular' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.textura_preparacao', 'Regular')
                 }
@@ -76,6 +75,7 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Bom"
                 value="Bom"
+                status={value === 'Bom' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.textura_preparacao', 'Bom')
                 }
@@ -84,13 +84,14 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Muito bom"
                 value="Muito bom"
+                status={value === 'Muito bom' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.textura_preparacao', 'Muito bom')
                 }
               />
             </S.ContainerRadioButton>
           </RadioButton.Group>
-        }
+        )}
         name="avaliacao_RU.textura_preparacao"
         control={control}
         rules={{ required: true }}
@@ -98,12 +99,8 @@ const Step8 = () => {
       />
 
       <Controller
-        as={
-          <RadioButton.Group
-            onValueChange={(value) =>
-              setValue('avaliacao_RU.sabor_preparacao', value)
-            }
-          >
+        render={({ onChange, value }) => (
+          <RadioButton.Group onValueChange={(text) => onChange(text)}>
             <S.ContainerRadioButton>
               <S.ContainerTitle>
                 <S.TitleRadioGroup
@@ -121,6 +118,7 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Muito ruim"
                 value="Muito ruim"
+                status={value === 'Muito ruim' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.sabor_preparacao', 'Muito ruim')
                 }
@@ -129,6 +127,7 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Ruim"
                 value="Ruim"
+                status={value === 'Ruim' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.sabor_preparacao', 'Ruim')
                 }
@@ -137,6 +136,7 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Regular"
                 value="Regular"
+                status={value === 'Regular' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.sabor_preparacao', 'Regular')
                 }
@@ -145,6 +145,7 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Bom"
                 value="Bom"
+                status={value === 'Bom' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.sabor_preparacao', 'Bom')
                 }
@@ -153,13 +154,14 @@ const Step8 = () => {
               <RadioButtonItem
                 label="Muito bom"
                 value="Muito bom"
+                status={value === 'Muito bom' ? 'checked' : 'unchecked'}
                 handlePress={() =>
                   setValue('avaliacao_RU.sabor_preparacao', 'Muito bom')
                 }
               />
             </S.ContainerRadioButton>
           </RadioButton.Group>
-        }
+        )}
         name="avaliacao_RU.sabor_preparacao"
         control={control}
         rules={{ required: true }}
