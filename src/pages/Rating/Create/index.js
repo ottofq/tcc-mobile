@@ -7,9 +7,8 @@ import { useForm } from 'react-hook-form';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
-import RatingCard from '../../components/RatingCard';
-import animation from '../../../assets/animation-rating.json';
-import api from '../../services/api';
+import animation from '../../../../assets/animation-rating.json';
+import api from '../../../services/api';
 
 import * as S from './styles';
 
@@ -54,9 +53,54 @@ const Rating = () => {
     <S.Container>
       {showAnimation === false ? (
         <S.RatingContainer>
-          <RatingCard rating={3} totalVotes={9999} />
-
           <S.Title>Avalie o cardápio</S.Title>
+
+          <S.Title>Entrada</S.Title>
+          <AirbnbRating
+            showRating
+            onFinishRating={setNota}
+            count={5}
+            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
+            defaultRating={3}
+            size={wp(17)}
+          />
+          <S.Title>Prato proteico</S.Title>
+          <AirbnbRating
+            showRating
+            onFinishRating={setNota}
+            count={5}
+            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
+            defaultRating={3}
+            size={wp(17)}
+          />
+          <S.Title>Opção</S.Title>
+          <AirbnbRating
+            showRating
+            onFinishRating={setNota}
+            count={5}
+            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
+            defaultRating={3}
+            size={wp(17)}
+          />
+          <S.Title>Acompanhamento</S.Title>
+          <AirbnbRating
+            showRating
+            onFinishRating={setNota}
+            count={5}
+            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
+            defaultRating={3}
+            size={wp(17)}
+          />
+          <S.Title>Guarnição</S.Title>
+          <AirbnbRating
+            showRating
+            onFinishRating={setNota}
+            count={5}
+            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
+            defaultRating={3}
+            size={wp(17)}
+          />
+          <S.Title>Melão</S.Title>
           <AirbnbRating
             showRating
             onFinishRating={setNota}

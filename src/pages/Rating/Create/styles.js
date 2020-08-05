@@ -3,7 +3,7 @@ import { Button as ButtonNativePaper } from 'react-native-paper';
 import Lottie from 'lottie-react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { fonts, colors } from '../../styles';
+import { fonts, colors } from '../../../styles';
 
 export const Container = styled.ScrollView.attrs({
   centerContent: true,
