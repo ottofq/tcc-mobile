@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import Header from '../../components/Header';
 import Menu from '../../pages/Menu';
 import News from '../NewsNavigator';
-import Rating from '../../pages/Rating';
+import Rating from '../RatingNavigator';
 import GeneralInfo from '../../pages/GeneralInfo';
 import { colors } from '../../styles';
 
