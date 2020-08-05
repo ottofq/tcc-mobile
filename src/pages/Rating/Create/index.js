@@ -2,49 +2,49 @@
 import React, { useState, memo } from 'react';
 import { Snackbar } from 'react-native-paper';
 import { AirbnbRating } from 'react-native-ratings';
-import { Keyboard } from 'react-native';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
 import animation from '../../../../assets/animation-rating.json';
-import api from '../../../services/api';
 
 import * as S from './styles';
 
 const Rating = () => {
-  const [nota, setNota] = useState(3);
-  const { register, setValue, handleSubmit, reset } = useForm();
+  const { handleSubmit, reset, control } = useForm();
   const [showAnimation, setShowAnimation] = useState(false);
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const navigation = useNavigation();
 
   async function onSubmit(data) {
-    try {
-      const { comentario } = data;
-      const user_id = Math.random() * 9;
-      const nome = 'TEST_APP_NAME';
-      const result = await api.get('cardapio/last');
-      const { _id } = result.data;
-      await api.post(`/cardapio/avaliar/${_id}`, {
-        nome,
-        comentario,
-        user_id,
-        nota,
-      });
+    console.log(data);
+    setShowAnimation(true);
 
-      Keyboard.dismiss();
-      setShowAnimation(true);
-    } catch (error) {
-      setSnackBarVisible(true);
-      console.log(error);
-    }
+    // try {
+    //   const { comentario } = data;
+    //   const user_id = Math.random() * 9;
+    //   const nome = 'TEST_APP_NAME';
+    //   const result = await api.get('cardapio/last');
+    //   const { _id } = result.data;
+    //   await api.post(`/cardapio/avaliar/${_id}`, {
+    //     nome,
+    //     comentario,
+    //     user_id,
+    //     nota,
+    //   });
+
+    //   Keyboard.dismiss();
+    //   setShowAnimation(true);
+    // } catch (error) {
+    //   setSnackBarVisible(true);
+    //   console.log(error);
+    // }
   }
 
   function finishAnimation() {
     reset();
     setShowAnimation(false);
-    navigation.navigate('Cardapio');
+    navigation.goBack();
   }
 
   const onDismissSnackBar = () => setSnackBarVisible(false);
@@ -55,66 +55,166 @@ const Rating = () => {
         <S.RatingContainer>
           <S.Title>Avalie o cardápio</S.Title>
 
-          <S.Title>Entrada</S.Title>
-          <AirbnbRating
-            showRating
-            onFinishRating={setNota}
-            count={5}
-            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
-            defaultRating={3}
-            size={wp(17)}
-          />
-          <S.Title>Prato proteico</S.Title>
-          <AirbnbRating
-            showRating
-            onFinishRating={setNota}
-            count={5}
-            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
-            defaultRating={3}
-            size={wp(17)}
-          />
-          <S.Title>Opção</S.Title>
-          <AirbnbRating
-            showRating
-            onFinishRating={setNota}
-            count={5}
-            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
-            defaultRating={3}
-            size={wp(17)}
-          />
-          <S.Title>Acompanhamento</S.Title>
-          <AirbnbRating
-            showRating
-            onFinishRating={setNota}
-            count={5}
-            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
-            defaultRating={3}
-            size={wp(17)}
-          />
-          <S.Title>Guarnição</S.Title>
-          <AirbnbRating
-            showRating
-            onFinishRating={setNota}
-            count={5}
-            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
-            defaultRating={3}
-            size={wp(17)}
-          />
-          <S.Title>Melão</S.Title>
-          <AirbnbRating
-            showRating
-            onFinishRating={setNota}
-            count={5}
-            reviews={['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom']}
-            defaultRating={3}
-            size={wp(17)}
-          />
+          <S.RattingWrapper style={S.styles.shadow}>
+            <S.Description>Repolho Branco, Duo de Batatas</S.Description>
+            <Controller
+              render={({ onChange }) => (
+                <AirbnbRating
+                  showRating
+                  onFinishRating={(value) => onChange(value)}
+                  count={5}
+                  reviews={[
+                    'Muito Ruim',
+                    'Ruim',
+                    'Regular',
+                    'Bom',
+                    'Muito Bom',
+                  ]}
+                  defaultRating={3}
+                  size={wp(12)}
+                />
+              )}
+              name="avaliacao.entrada"
+              control={control}
+              defaultValue={3}
+            />
+          </S.RattingWrapper>
+
+          <S.RattingWrapper style={S.styles.shadow}>
+            <S.Description>Sobrecoxa Assada</S.Description>
+            <Controller
+              render={({ onChange }) => (
+                <AirbnbRating
+                  showRating
+                  onFinishRating={(value) => onChange(value)}
+                  count={5}
+                  reviews={[
+                    'Muito Ruim',
+                    'Ruim',
+                    'Regular',
+                    'Bom',
+                    'Muito Bom',
+                  ]}
+                  defaultRating={3}
+                  size={wp(12)}
+                />
+              )}
+              name="avaliacao.prato_proteico"
+              control={control}
+              defaultValue={3}
+            />
+          </S.RattingWrapper>
+
+          <S.RattingWrapper style={S.styles.shadow}>
+            <S.Description>Ovo Frito</S.Description>
+            <Controller
+              render={({ onChange }) => (
+                <AirbnbRating
+                  showRating
+                  onFinishRating={(value) => onChange(value)}
+                  count={5}
+                  reviews={[
+                    'Muito Ruim',
+                    'Ruim',
+                    'Regular',
+                    'Bom',
+                    'Muito Bom',
+                  ]}
+                  defaultRating={3}
+                  size={wp(12)}
+                />
+              )}
+              name="avaliacao.opcao"
+              control={control}
+              defaultValue={3}
+            />
+          </S.RattingWrapper>
+
+          <S.RattingWrapper style={S.styles.shadow}>
+            <S.Description>Arroz, Feijão</S.Description>
+            <Controller
+              render={({ onChange }) => (
+                <AirbnbRating
+                  showRating
+                  onFinishRating={(value) => onChange(value)}
+                  count={5}
+                  reviews={[
+                    'Muito Ruim',
+                    'Ruim',
+                    'Regular',
+                    'Bom',
+                    'Muito Bom',
+                  ]}
+                  defaultRating={3}
+                  size={wp(12)}
+                />
+              )}
+              name="avaliacao.acompanhamento"
+              control={control}
+              defaultValue={3}
+            />
+          </S.RattingWrapper>
+
+          <S.RattingWrapper style={S.styles.shadow}>
+            <S.Description>Macarrão Gravatinha ao Alho e Óleo</S.Description>
+            <Controller
+              render={({ onChange }) => (
+                <AirbnbRating
+                  showRating
+                  onFinishRating={(value) => onChange(value)}
+                  count={5}
+                  reviews={[
+                    'Muito Ruim',
+                    'Ruim',
+                    'Regular',
+                    'Bom',
+                    'Muito Bom',
+                  ]}
+                  defaultRating={3}
+                  size={wp(12)}
+                />
+              )}
+              name="avaliacao.guarnicao"
+              control={control}
+              defaultValue={3}
+            />
+          </S.RattingWrapper>
+
+          <S.RattingWrapper style={S.styles.shadow}>
+            <S.Description>Melão</S.Description>
+            <Controller
+              render={({ onChange }) => (
+                <AirbnbRating
+                  showRating
+                  onFinishRating={(value) => onChange(value)}
+                  count={5}
+                  reviews={[
+                    'Muito Ruim',
+                    'Ruim',
+                    'Regular',
+                    'Bom',
+                    'Muito Bom',
+                  ]}
+                  defaultRating={3}
+                  size={wp(12)}
+                />
+              )}
+              name="avaliacao.sobremesa"
+              control={control}
+              defaultValue={3}
+            />
+          </S.RattingWrapper>
 
           <S.SubmitContainer>
-            <S.Input
-              onChangeText={(text) => setValue('comentario', text)}
-              ref={register('comentario')}
+            <Controller
+              render={({ onChange }) => (
+                <S.Input onChangeText={(text) => onChange(text)} />
+              )}
+              name="comentario"
+              defaultValue=""
+              control={control}
             />
+
             <S.Button mode="contained" onPress={handleSubmit(onSubmit)}>
               Enviar avaliação
             </S.Button>
