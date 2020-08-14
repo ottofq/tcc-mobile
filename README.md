@@ -1,5 +1,5 @@
-# Aplicação mobile para o restaurante universitário do CCA-UFES
-### :construction: TCC em desenvolvimento.
+# Aplicação mobile para o restaurante universitário (RU) do CCA-UFES
+### :construction: TCC em desenvolvimento
 
 ## 📑 Plataformas
 
@@ -26,6 +26,13 @@ O TCC está sendo desenvolvido como um Full Stack App, ou seja, Front-end, Back-
 </p>
 
 ---
+
+ ## 📋 Funcionalidades
+ - Consultar e avaliar o cardápio do dia
+ - Consultar os avisos lançados pelo RU
+ - Preencher o questionário elaborado pelo setor de nutrição
+ - Verificar informações gerais sobre o funcionamento do RU
+
 
  ### 🛠 Feito com
   - [React Native](https://github.com/facebook/react-native)
