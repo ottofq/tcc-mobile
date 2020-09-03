@@ -10,6 +10,8 @@ import * as S from './styles';
 const RatingCard = ({ rating, description, loading }) => {
   const reviews = ['Muito Ruim', 'Ruim', 'Regular', 'Bom', 'Muito Bom'];
 
+  const ratingRounded = Math.round(rating);
+
   return (
     <>
       {loading ? (
@@ -25,12 +27,12 @@ const RatingCard = ({ rating, description, loading }) => {
           <S.Description>{description}</S.Description>
           <AirbnbRating
             isDisabled
+            defaultRating={ratingRounded}
             showRating={false}
             count={5}
-            defaultRating={3}
             size={wp(5)}
           />
-          <S.Review>{reviews[rating - 1]}</S.Review>
+          <S.Review>{reviews[ratingRounded - 1]}</S.Review>
         </S.Container>
       )}
     </>
