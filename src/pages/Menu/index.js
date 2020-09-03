@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, memo } from 'react';
+import React, { useCallback, memo, useContext } from 'react';
 import { RefreshControl } from 'react-native';
 
 import MenuItem from '../../components/MenuItem';
@@ -13,104 +13,63 @@ import acompanhamento from '../../../assets/images/acompanhamento.png';
 import guarnicao from '../../../assets/images/guarnicao.png';
 import sobremesa from '../../../assets/images/sobremesa.png';
 
-import api from '../../services/api';
+import MenuContext from '../../contexts/menu';
 
 const Menu = () => {
-  const [cardapio, setCardapio] = useState({
-    tipo: 'Almoço',
-    data: '2020-07-14T18:44:11.416Z',
-    entrada: {
-      descricao: 'Tomate, Abobrinha Verde',
-    },
-    proteina: {
-      descricao: 'Linguiça de Frango Assada',
-    },
-    opcao: {
-      descricao: 'Ovo Cozido',
-    },
-    acompanhamento: {
-      descricao: 'Arroz, Feijão',
-    },
-    guarnicao: {
-      descricao: 'Espaguete ao Alho e Óleo',
-    },
-    sobremesa: {
-      descricao: 'Maçã',
-    },
-  });
-  const [loading, setLoading] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
-
-  async function loadCardapio() {
-    try {
-      setLoading(true);
-      const result = await api.get('/cardapio/last');
-      setCardapio(result.data);
-      setRefreshing(false);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    loadCardapio();
-  }, []);
+  const { menu, loading, loadMenu } = useContext(MenuContext);
 
   const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setLoading(true);
-    loadCardapio();
+    loadMenu();
   }, []);
 
   return (
     <S.Container
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl refreshing={loading} onRefresh={onRefresh} />
       }
     >
-      <MenuDate loading={loading} title={cardapio.tipo} date={cardapio.data} />
+      <MenuDate loading={loading} title={menu.tipo} date={menu.data} />
 
       <MenuItem
         imgSrc={entrada}
         loading={loading}
         title="Entrada"
-        description={cardapio.entrada.descricao}
+        description={menu.entrada}
       />
 
       <MenuItem
         imgSrc={proteico}
         loading={loading}
         title="Prato proteico"
-        description={cardapio.proteina.descricao}
+        description={menu.prato_proteico}
       />
 
       <MenuItem
         imgSrc={opcao}
         loading={loading}
         title="Opção"
-        description={cardapio.opcao.descricao}
+        description={menu.opcao}
       />
 
       <MenuItem
         imgSrc={acompanhamento}
         loading={loading}
         title="Acompanhamento"
-        description={cardapio.acompanhamento.descricao}
+        description={menu.acompanhamento}
       />
 
       <MenuItem
         imgSrc={guarnicao}
         loading={loading}
         title="Guarnição"
-        description={cardapio.guarnicao.descricao}
+        description={menu.guarnicao}
       />
 
       <MenuItem
         imgSrc={sobremesa}
         loading={loading}
         title="Sobremesa"
-        description={cardapio.sobremesa.descricao}
+        description={menu.sobremesa}
       />
 
       <S.TextFooter>
