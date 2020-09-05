@@ -8,6 +8,8 @@ import {
 } from 'react-native-paper';
 import Routes from './Routes/MainNavigator';
 
+import { MenuProvider } from './contexts/menu';
+import { UserProvider } from './contexts/User';
 import { colors } from './styles';
 
 const fontConfig = {
@@ -44,7 +46,11 @@ const App = () => {
   return (
     <PaperProvider theme={theme}>
       <StatusBar content="light-content" backgroundColor={colors.secondary} />
-      <Routes />
+      <MenuProvider>
+        <UserProvider>
+          <Routes />
+        </UserProvider>
+      </MenuProvider>
     </PaperProvider>
   );
 };
