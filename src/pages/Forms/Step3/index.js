@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
 import { KeyboardAvoidingView } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
 import RadioButtonItem from '../../../components/RadioButton';
 import CheckBoxItem from '../../../components/Checkbox';
 import ProgressBar from '../../../components/ProgressBar';
@@ -12,15 +13,13 @@ import * as S from './styles';
 
 const Step3 = () => {
   const { watch, handleSubmit, setValue, control, errors } = useForm();
+  const { user, dispatch } = useContext(userContext);
 
   const navigation = useNavigation();
-  const { params } = useRoute();
 
   function handleButtonNext(data) {
-    const obj = { ...params, ...data };
-    navigation.navigate('step-4', {
-      ...obj,
-    });
+    dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
+    navigation.navigate('step-4');
   }
 
   const handleCheckboxStatus = (value) => {
@@ -74,7 +73,7 @@ const Step3 = () => {
           name="peso_ideal"
           control={control}
           rules={{ required: true }}
-          defaultValue=""
+          defaultValue={user.peso_ideal}
         />
 
         <Controller
@@ -144,7 +143,7 @@ const Step3 = () => {
           name="vegano_vegetariano"
           control={control}
           rules={{ required: true }}
-          defaultValue=""
+          defaultValue={user.vegano_vegetariano}
         />
 
         <S.TitleRadioGroup>
@@ -161,7 +160,7 @@ const Step3 = () => {
           )}
           name="alergias.alergia_gluten"
           control={control}
-          defaultValue={false}
+          defaultValue={user.alergias.alergia_gluten}
         />
 
         <Controller
@@ -174,7 +173,7 @@ const Step3 = () => {
           )}
           name="alergias.intolerancia_lactose"
           control={control}
-          defaultValue={false}
+          defaultValue={user.alergias.intolerancia_lactose}
         />
 
         <Controller
@@ -187,7 +186,7 @@ const Step3 = () => {
           )}
           name="alergias.proteina_leite_vaca"
           control={control}
-          defaultValue={false}
+          defaultValue={user.alergias.proteina_leite_vaca}
         />
 
         <Controller
@@ -221,7 +220,7 @@ const Step3 = () => {
           )}
           name="alergias.outras_alergias"
           control={control}
-          defaultValue=""
+          defaultValue={'' || user.alergias.outras_alergias}
         />
 
         <S.ContainerButton>

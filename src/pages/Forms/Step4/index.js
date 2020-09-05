@@ -1,9 +1,10 @@
 /* eslint-disable no-param-reassign */
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
 
@@ -11,8 +12,8 @@ import * as S from './styles';
 
 const Step4 = () => {
   const { handleSubmit, setValue, control, errors } = useForm();
+  const { user, dispatch } = useContext(userContext);
   const navigation = useNavigation();
-  const { params } = useRoute();
 
   function StringToBoolean(obj) {
     Object.keys(obj).forEach((item) => {
@@ -26,11 +27,9 @@ const Step4 = () => {
   }
 
   function handleButtonNext(data) {
-    const obj = { ...params, ...data };
-    StringToBoolean(obj);
-    navigation.navigate('step-5', {
-      ...obj,
-    });
+    StringToBoolean(data);
+    dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
+    navigation.navigate('step-5');
   }
 
   function handleButtonPrev() {
@@ -75,7 +74,7 @@ const Step4 = () => {
         name="adiciona_sal"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.adiciona_sal}
       />
 
       <Controller
@@ -113,7 +112,7 @@ const Step4 = () => {
         name="utiliza_oleo_composto"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.utiliza_oleo_composto}
       />
 
       <Controller
@@ -192,7 +191,7 @@ const Step4 = () => {
         name="consome_bebida_alcoolica"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.consome_bebida_alcoolica}
       />
 
       <Controller
@@ -229,7 +228,7 @@ const Step4 = () => {
         name="tabagista"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.tabagista}
       />
 
       <S.ContainerButton>

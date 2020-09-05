@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button } from 'react-native-paper';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
 import CheckBoxItem from '../../../components/Checkbox';
 import ProgressBar from '../../../components/ProgressBar';
 
@@ -10,15 +11,12 @@ import * as S from './styles';
 
 const Step5 = () => {
   const { handleSubmit, setValue, watch, control } = useForm();
-
   const navigation = useNavigation();
-  const { params } = useRoute();
+  const { user, dispatch } = useContext(userContext);
 
   function handleButtonNext(data) {
-    const obj = { ...params, ...data };
-    navigation.navigate('step-6', {
-      ...obj,
-    });
+    dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
+    navigation.navigate('step-6');
   }
 
   const handleCheckboxStatus = (value) => {
@@ -66,7 +64,7 @@ const Step5 = () => {
           )}
           name="patologias.hipertensao"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.hipertensao_arterial}
         />
 
         <Controller
@@ -79,7 +77,7 @@ const Step5 = () => {
           )}
           name="patologias.obesidade"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.obesidade}
         />
 
         <Controller
@@ -92,7 +90,7 @@ const Step5 = () => {
           )}
           name="patologias.dislipidemias"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.dislipidemias}
         />
 
         <Controller
@@ -105,7 +103,7 @@ const Step5 = () => {
           )}
           name="patologias.diabetes"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.diabetes}
         />
 
         <Controller
@@ -120,7 +118,7 @@ const Step5 = () => {
           )}
           name="patologias.doenca_arterial_coronariana"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.doenca_arterial_coronariana}
         />
 
         <Controller
@@ -157,7 +155,7 @@ const Step5 = () => {
           )}
           name="patologias.outras_patologias"
           control={control}
-          defaultValue=""
+          defaultValue={'' || user.patologias.outras_patologias}
         />
       </S.ContainerCheckbox>
 

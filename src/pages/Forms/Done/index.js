@@ -1,8 +1,9 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState, memo, useContext } from 'react';
 import Lottie from 'lottie-react-native';
 import { Snackbar } from 'react-native-paper';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
 import animation from '../../../../assets/done.json';
 import api from '../../../services/api';
 
@@ -11,22 +12,38 @@ const Done = () => {
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Error');
   const navigation = useNavigation();
-  const { params } = useRoute;
+  const { user, dispatch } = useContext(userContext);
 
-  const data = params;
+  const cleanObjectProps = (obj) => {
+    Object.keys(obj).forEach((item) => {
+      if (obj[item] === undefined) {
+        delete obj[item];
+      }
+
+      if (obj[item] === 'nao') {
+        obj[item] = false;
+      }
+      if (obj[item] === 'sim') {
+        obj[item] = true;
+      }
+    });
+  };
 
   useEffect(() => {
     async function postData() {
       try {
-        await api.post('/alunos', data);
+        const userClean = cleanObjectProps(user);
+        const student = await api.post('/alunos', userClean);
+        console.log(student);
         setLoading(false);
       } catch (error) {
+        console.log(error.message);
         setSnackBarVisible(true);
-        setErrorMessage(error);
+        setErrorMessage(error.message);
       }
     }
     postData();
-  }, [data]);
+  }, []);
 
   const onDismissSnackBar = () => setSnackBarVisible(false);
 

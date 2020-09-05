@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
 
@@ -11,14 +12,12 @@ import * as S from './styles';
 
 const Step7 = () => {
   const { handleSubmit, setValue, control, errors } = useForm();
+  const { user, dispatch } = useContext(userContext);
   const navigation = useNavigation();
-  const { params } = useRoute();
 
   function handleButtonNext(data) {
-    const obj = { ...params, ...data };
-    navigation.navigate('step-8', {
-      ...obj,
-    });
+    dispatch({ type: 'STUDENT:RU_RATING_PAGE_1', payload: data });
+    navigation.navigate('step-8');
   }
 
   function handleButtonPrev() {
@@ -84,7 +83,7 @@ const Step7 = () => {
         name="avaliacao_RU.aroma"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.avaliacao_RU.aroma}
       />
 
       <Controller
@@ -154,7 +153,7 @@ const Step7 = () => {
         name="avaliacao_RU.coloracao_cardapio"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.avaliacao_RU.coloracao_cardapio}
       />
 
       <S.ContainerButton>
