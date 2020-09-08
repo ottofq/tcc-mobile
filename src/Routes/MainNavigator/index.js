@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {
   createDrawerNavigator,
@@ -10,6 +10,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import userContext from '../../contexts/User';
 import { colors } from '../../styles';
 import FormNavigator from '../FormNavigator';
 import BottomNavigator from '../BottomNavigator';
@@ -34,6 +35,8 @@ function CustomDrawerContent(props) {
 }
 
 const Routes = () => {
+  const { user } = useContext(userContext);
+
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -45,28 +48,30 @@ const Routes = () => {
           backgroundColor: colors.primary,
           width: hp(35),
         }}
-        initialRouteName="Cardapio RU - CCA UFES"
       >
-        <Drawer.Screen
-          options={{
-            drawerLabel: () => <S.Title>Cardápio</S.Title>,
-            drawerIcon: () => (
-              <Icon name="restaurant-menu" size={24} color="#fff" />
-            ),
-          }}
-          name="Cardapio RU - CCA UFES"
-          component={BottomNavigator}
-        />
-        <Drawer.Screen
-          options={{
-            drawerLabel: () => <S.Title>Questionário</S.Title>,
-            drawerIcon: () => (
-              <Icon name="question-answer" size={24} color="#fff" />
-            ),
-          }}
-          name="Questionário"
-          component={FormNavigator}
-        />
+        {user.id ? (
+          <Drawer.Screen
+            options={{
+              drawerLabel: () => <S.Title>Cardápio</S.Title>,
+              drawerIcon: () => (
+                <Icon name="restaurant-menu" size={24} color="#fff" />
+              ),
+            }}
+            name="Cardapio RU - CCA UFES"
+            component={BottomNavigator}
+          />
+        ) : (
+          <Drawer.Screen
+            options={{
+              drawerLabel: () => <S.Title>Questionário</S.Title>,
+              drawerIcon: () => (
+                <Icon name="question-answer" size={24} color="#fff" />
+              ),
+            }}
+            name="Questionário"
+            component={FormNavigator}
+          />
+        )}
       </Drawer.Navigator>
     </NavigationContainer>
   );
