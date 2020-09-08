@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState, memo, useContext } from 'react';
 import Lottie from 'lottie-react-native';
 import { Snackbar } from 'react-native-paper';
@@ -12,32 +13,18 @@ const Done = () => {
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Error');
   const navigation = useNavigation();
-  const { user, dispatch } = useContext(userContext);
-
-  const cleanObjectProps = (obj) => {
-    Object.keys(obj).forEach((item) => {
-      if (obj[item] === undefined) {
-        delete obj[item];
-      }
-
-      if (obj[item] === 'nao') {
-        obj[item] = false;
-      }
-      if (obj[item] === 'sim') {
-        obj[item] = true;
-      }
-    });
-  };
+  const { user, dispatch, persistUser } = useContext(userContext);
 
   useEffect(() => {
     async function postData() {
       try {
-        const userClean = cleanObjectProps(user);
-        const student = await api.post('/alunos', userClean);
-        console.log(student);
+        dispatch({ type: 'STUDENT:CLEAN_PROPS' });
+        const response = await api.post('/alunos', user);
+        const student = response.data;
+        dispatch({ type: 'STUDENT:POST_API', payload: { id: student._id } });
         setLoading(false);
+        persistUser();
       } catch (error) {
-        console.log(error.message);
         setSnackBarVisible(true);
         setErrorMessage(error.message);
       }
