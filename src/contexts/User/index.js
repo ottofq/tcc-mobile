@@ -68,7 +68,9 @@ function userReducer(state, action) {
         draftState.id = action.payload.id;
       });
     }
-
+    case 'STUDENT:LOAD_TO_STORAGE': {
+      return { ...state, ...action.payload };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -77,11 +79,26 @@ function userReducer(state, action) {
 
 export const UserProvider = ({ children }) => {
   const [user, dispatch] = useReducer(userReducer, USER_INITIAL_STATE);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    async function verifyUser() {
+      const storageUser = await AsyncStorage.getItem('@APP_RU:user');
+
+      if (storageUser) {
+        const parseUser = JSON.parse(storageUser);
+        dispatch({ type: 'STUDENT:LOAD_TO_STORAGE', payload: parseUser });
+      }
+    }
+    verifyUser();
+  }, []);
+
+  async function persistUser() {
+    const userToString = JSON.stringify(user);
+    await AsyncStorage.setItem('@APP_RU:user', userToString);
+  }
 
   return (
-    <UserContext.Provider value={{ user, dispatch }}>
+    <UserContext.Provider value={{ user, dispatch, persistUser }}>
       {children}
     </UserContext.Provider>
   );
