@@ -10,7 +10,7 @@ import ProgressBar from '../../../components/ProgressBar';
 import * as S from './styles';
 
 const Step5 = () => {
-  const { handleSubmit, setValue, watch, control } = useForm();
+  const { handleSubmit, setValue, control } = useForm();
   const navigation = useNavigation();
   const { user, dispatch } = useContext(userContext);
 
@@ -20,8 +20,6 @@ const Step5 = () => {
   }
 
   const handleCheckboxStatus = (value) => {
-    if (watch('patologias.nao_tenho_patologias')) return 'indeterminate';
-
     if (value) return 'checked';
 
     return 'unchecked';
@@ -122,31 +120,8 @@ const Step5 = () => {
         />
 
         <Controller
-          render={({ value }) => (
-            <CheckBoxItem
-              label="Não possuo patologias"
-              status={value ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setValue('patologias.nao_tenho_patologias', !value);
-                setValue('patologias.doenca_cardiovascular', false);
-                setValue('patologias.hipertensao', false);
-                setValue('patologias.obesidade', false);
-                setValue('patologias.dislipidemias', false);
-                setValue('patologias.diabetes', false);
-                setValue('patologias.doenca_arterial_coronariana', false);
-                setValue('patologias.outras_patologias', '');
-              }}
-            />
-          )}
-          name="patologias.nao_tenho_patologias"
-          control={control}
-          defaultValue={false}
-        />
-
-        <Controller
           render={({ onChange, value }) => (
             <S.Input
-              disabled={watch('patologias.nao_tenho_patologias')}
               label="Outro"
               mode="outlined"
               value={value}
