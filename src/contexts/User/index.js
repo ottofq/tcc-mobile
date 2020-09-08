@@ -63,6 +63,10 @@ function userReducer(state, action) {
         });
       });
     }
+    case 'STUDENT:POST_API': {
+      return produce(state, (draftState) => {
+        draftState.id = action.payload.id;
+      });
     }
 
     default: {
