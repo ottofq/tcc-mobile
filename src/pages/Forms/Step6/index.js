@@ -11,7 +11,7 @@ import ProgressBar from '../../../components/ProgressBar';
 import * as S from './styles';
 
 const Step6 = () => {
-  const { handleSubmit, setValue, control, watch } = useForm();
+  const { handleSubmit, setValue, control } = useForm();
   const { user, dispatch } = useContext(userContext);
 
   const navigation = useNavigation();
@@ -22,9 +22,6 @@ const Step6 = () => {
   }
 
   const handleCheckboxStatus = (value) => {
-    if (watch('patologias_familia.nao_tenho_patologias'))
-      return 'indeterminate';
-
     if (value) return 'checked';
 
     return 'unchecked';
@@ -143,37 +140,8 @@ const Step6 = () => {
           />
 
           <Controller
-            render={({ value }) => (
-              <CheckBoxItem
-                label="Não possuo patologias na família"
-                status={value ? 'checked' : 'unchecked'}
-                onPress={() => {
-                  setValue('patologias_familia.nao_tenho_patologias', !value);
-                  setValue(
-                    'patologias_familia.fam_doenca_cardiovascular',
-                    false
-                  );
-                  setValue('patologias_familia.fam_hipertensao', false);
-                  setValue('patologias_familia.fam_obesidade', false);
-                  setValue('patologias_familia.fam_dislipidemias', false);
-                  setValue('patologias_familia.fam_diabetes', false);
-                  setValue(
-                    'patologias_familia.fam_doenca_arterial_coronariana',
-                    false
-                  );
-                  setValue('patologias_familia.patologias_familia_outras', '');
-                }}
-              />
-            )}
-            name="patologias_familia.nao_tenho_patologias"
-            control={control}
-            defaultValue={false}
-          />
-
-          <Controller
             render={({ onChange, value }) => (
               <S.Input
-                disabled={watch('patologias_familia.nao_tenho_patologias')}
                 label="Outro"
                 mode="outlined"
                 value={value}
