@@ -55,11 +55,14 @@ function userReducer(state, action) {
     }
 
     case 'STUDENT:CLEAN_PROPS': {
-      return produce(state, (draftState) => {});
+      return produce(state, (draftState) => {
+        Object.keys(draftState).forEach((item) => {
+          if (draftState[item] === undefined) {
+            delete draftState[item];
     }
-
-    case 'STUDENT:ADD_PROPS_COMPLETE': {
-      return state;
+        });
+      });
+    }
     }
 
     default: {
