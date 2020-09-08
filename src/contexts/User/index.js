@@ -16,7 +16,7 @@ const UserContext = createContext({
 function userReducer(state, action) {
   switch (action.type) {
     case 'STUDENT:ADD_PROPS': {
-      return Object.assign(state, action.payload);
+      return { ...state, ...action.payload };
     }
     case 'STUDENT:RU_RATING_PAGE_1': {
       return produce(state, (draftState) => {
