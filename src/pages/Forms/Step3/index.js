@@ -12,19 +12,29 @@ import ProgressBar from '../../../components/ProgressBar';
 import * as S from './styles';
 
 const Step3 = () => {
-  const { watch, handleSubmit, setValue, control, errors } = useForm();
+  const { handleSubmit, setValue, control, errors } = useForm();
   const { user, dispatch } = useContext(userContext);
 
   const navigation = useNavigation();
 
+  function StringToBoolean(obj) {
+    Object.keys(obj).forEach((item) => {
+      if (obj[item] === 'nao') {
+        obj[item] = false;
+      }
+      if (obj[item] === 'sim') {
+        obj[item] = true;
+      }
+    });
+  }
+
   function handleButtonNext(data) {
+    StringToBoolean(data);
     dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
     navigation.navigate('step-4');
   }
 
   const handleCheckboxStatus = (value) => {
-    if (watch('alergias.nao_tenho_alergias')) return 'indeterminate';
-
     if (value) return 'checked';
 
     return 'unchecked';
@@ -147,7 +157,8 @@ const Step3 = () => {
         />
 
         <S.TitleRadioGroup>
-          Você possui algum tipo de alergia ou intolerância alimentar?
+          Você possui algum tipo de alergia ou intolerância alimentar? Se sim
+          quais?
         </S.TitleRadioGroup>
 
         <Controller
@@ -190,28 +201,8 @@ const Step3 = () => {
         />
 
         <Controller
-          render={({ value }) => (
-            <CheckBoxItem
-              label="Não possuo alergias"
-              status={value ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setValue('alergias.nao_tenho_alergias', !value);
-                setValue('alergias.alergia_gluten', false);
-                setValue('alergias.intolerancia_lactose', false);
-                setValue('alergias.proteina_leite_vaca', false);
-                setValue('alergias.outras_alergias', '');
-              }}
-            />
-          )}
-          name="alergias.nao_tenho_alergias"
-          control={control}
-          defaultValue={false}
-        />
-
-        <Controller
           render={({ onChange, value }) => (
             <S.Input
-              disabled={watch('alergias.nao_tenho_alergias')}
               label="Outro"
               mode="outlined"
               value={value}
