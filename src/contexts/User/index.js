@@ -97,8 +97,20 @@ export const UserProvider = ({ children }) => {
     await AsyncStorage.setItem('@APP_RU:user', userToString);
   }
 
+  async function postStudent() {
+    try {
+      dispatch({ type: 'STUDENT:CLEAN_PROPS' });
+      const response = await api.post('/alunos', user);
+      const student = response.data;
+      dispatch({ type: 'STUDENT:ADD_ID', payload: { id: student._id } });
+      await persistUser();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
-    <UserContext.Provider value={{ user, dispatch, persistUser }}>
+    <UserContext.Provider value={{ user, dispatch, postStudent }}>
       {children}
     </UserContext.Provider>
   );
