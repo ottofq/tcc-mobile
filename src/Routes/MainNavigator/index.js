@@ -7,9 +7,9 @@ import {
 } from '@react-navigation/drawer';
 import { enableScreens } from 'react-native-screens';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import Login from '../../pages/Login';
 import userContext from '../../contexts/User';
 import { colors } from '../../styles';
 import FormNavigator from '../FormNavigator';
@@ -49,29 +49,28 @@ const Routes = () => {
           width: hp(35),
         }}
       >
-        {user.id ? (
-          <Drawer.Screen
-            options={{
-              drawerLabel: () => <S.Title>Cardápio</S.Title>,
-              drawerIcon: () => (
-                <Icon name="restaurant-menu" size={24} color="#fff" />
-              ),
-            }}
-            name="Cardapio RU - CCA UFES"
-            component={BottomNavigator}
-          />
-        ) : (
-          <Drawer.Screen
-            options={{
-              drawerLabel: () => <S.Title>Questionário</S.Title>,
-              drawerIcon: () => (
-                <Icon name="question-answer" size={24} color="#fff" />
-              ),
-            }}
-            name="Questionário"
-            component={FormNavigator}
-          />
-        )}
+        <Drawer.Screen
+          options={{
+            drawerLabel: () => <S.Title>Cardápio</S.Title>,
+            drawerIcon: () => (
+              <Icon name="restaurant-menu" size={24} color="#fff" />
+            ),
+          }}
+          name="Cardapio RU - CCA UFES"
+          component={BottomNavigator}
+        />
+        <Drawer.Screen
+          options={{
+            drawerLabel: () => <S.Title>Questionário</S.Title>,
+            drawerIcon: () => (
+              <Icon name="question-answer" size={24} color="#fff" />
+            ),
+          }}
+          name="Questionário"
+          component={FormNavigator}
+        />
+
+        <Drawer.Screen name="login" component={Login} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
