@@ -68,7 +68,7 @@ function userReducer(state, action) {
         draftState.id = action.payload.id;
       });
     }
-    case 'STUDENT:LOAD_TO_STORAGE': {
+    case 'STUDENT:LOAD_FROM_STORAGE': {
       return { ...state, ...action.payload };
     }
     default: {
@@ -81,15 +81,15 @@ export const UserProvider = ({ children }) => {
   const [user, dispatch] = useReducer(userReducer, USER_INITIAL_STATE);
 
   useEffect(() => {
-    async function verifyUser() {
+    async function loadUserFromStorage() {
       const storageUser = await AsyncStorage.getItem('@APP_RU:user');
 
       if (storageUser) {
         const parseUser = JSON.parse(storageUser);
-        dispatch({ type: 'STUDENT:LOAD_TO_STORAGE', payload: parseUser });
+        dispatch({ type: 'STUDENT:LOAD_FROM_STORAGE', payload: parseUser });
       }
     }
-    verifyUser();
+    loadUserFromStorage();
   }, []);
 
   async function persistUser() {
