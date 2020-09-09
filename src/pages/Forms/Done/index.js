@@ -9,21 +9,18 @@ import animation from '../../../../assets/done.json';
 import api from '../../../services/api';
 
 const Done = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Error');
   const navigation = useNavigation();
-  const { user, dispatch, persistUser } = useContext(userContext);
+  const { postStudent } = useContext(userContext);
 
   useEffect(() => {
     async function postData() {
       try {
-        dispatch({ type: 'STUDENT:CLEAN_PROPS' });
-        const response = await api.post('/alunos', user);
-        const student = response.data;
-        dispatch({ type: 'STUDENT:POST_API', payload: { id: student._id } });
+        setLoading(true);
+        await postStudent();
         setLoading(false);
-        persistUser();
       } catch (error) {
         setSnackBarVisible(true);
         setErrorMessage(error.message);
@@ -51,7 +48,7 @@ const Done = () => {
         duration={2000}
         visible={snackBarVisible}
       >
-        Error
+        {errorMessage}
       </Snackbar>
     </>
   );
