@@ -1,12 +1,15 @@
 /* eslint-disable camelcase */
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useContext } from 'react';
 import { Snackbar } from 'react-native-paper';
 import { AirbnbRating } from 'react-native-ratings';
 import { useForm, Controller } from 'react-hook-form';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
+import menuContext from '../../../contexts/menu';
 import animation from '../../../../assets/animation-rating.json';
+import { createRating } from '../../../services';
 
 import * as S from './styles';
 
@@ -15,30 +18,17 @@ const Rating = () => {
   const [showAnimation, setShowAnimation] = useState(false);
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const navigation = useNavigation();
+  const { user } = useContext(userContext);
+  const { menu } = useContext(menuContext);
 
   async function onSubmit(data) {
-    console.log(data);
-    setShowAnimation(true);
-
-    // try {
-    //   const { comentario } = data;
-    //   const user_id = Math.random() * 9;
-    //   const nome = 'TEST_APP_NAME';
-    //   const result = await api.get('cardapio/last');
-    //   const { _id } = result.data;
-    //   await api.post(`/cardapio/avaliar/${_id}`, {
-    //     nome,
-    //     comentario,
-    //     user_id,
-    //     nota,
-    //   });
-
-    //   Keyboard.dismiss();
-    //   setShowAnimation(true);
-    // } catch (error) {
-    //   setSnackBarVisible(true);
-    //   console.log(error);
-    // }
+    try {
+      const { comment, avaliacao } = data;
+      await createRating(menu.id, user.id, avaliacao, comment);
+      setShowAnimation(true);
+    } catch (error) {
+      setSnackBarVisible(true);
+    }
   }
 
   function finishAnimation() {
@@ -210,7 +200,7 @@ const Rating = () => {
               render={({ onChange }) => (
                 <S.Input onChangeText={(text) => onChange(text)} />
               )}
-              name="comentario"
+              name="comment"
               defaultValue=""
               control={control}
             />
