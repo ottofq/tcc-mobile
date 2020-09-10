@@ -33,3 +33,13 @@ export const createRating = async (menuId, studentId, rating, comment) => {
     throw new Error(error.message);
   }
 };
+
+export const getNews = async () => {
+  try {
+    const response = await api.get('/noticias?page=1');
+
+    return response.data.news;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
