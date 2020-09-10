@@ -19,3 +19,17 @@ export const getMenuRating = async (id) => {
     throw new Error(error.message);
   }
 };
+
+export const createRating = async (menuId, studentId, rating, comment) => {
+  try {
+    const response = await api.post(`/cardapio/avaliar/${menuId}`, {
+      student_id: studentId,
+      avaliacao: rating,
+      comentario: comment,
+    });
+
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
