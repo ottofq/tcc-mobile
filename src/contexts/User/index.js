@@ -1,16 +1,17 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
-import React, { createContext, useState, useReducer } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import produce from 'immer';
-
-import { createStudent } from '../../services';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import USER_INITIAL_STATE from './initialStateStudent';
+import api from '../../services/api';
 
 const UserContext = createContext({
-  user: {},
+  user: USER_INITIAL_STATE,
   dispatch: () => {},
+  postStudent: () => {},
 });
 
 function userReducer(state, action) {
@@ -59,11 +60,11 @@ function userReducer(state, action) {
         Object.keys(draftState).forEach((item) => {
           if (draftState[item] === undefined) {
             delete draftState[item];
-    }
+          }
         });
       });
     }
-    case 'STUDENT:POST_API': {
+    case 'STUDENT:ADD_ID': {
       return produce(state, (draftState) => {
         draftState.id = action.payload.id;
       });
@@ -92,8 +93,8 @@ export const UserProvider = ({ children }) => {
     loadUserFromStorage();
   }, []);
 
-  async function persistUser() {
-    const userToString = JSON.stringify(user);
+  async function persistUser(student) {
+    const userToString = JSON.stringify(student);
     await AsyncStorage.setItem('@APP_RU:user', userToString);
   }
 
@@ -102,8 +103,7 @@ export const UserProvider = ({ children }) => {
       dispatch({ type: 'STUDENT:CLEAN_PROPS' });
       const response = await api.post('/alunos', user);
       const student = response.data;
-      dispatch({ type: 'STUDENT:ADD_ID', payload: { id: student._id } });
-      await persistUser();
+      await persistUser(student);
     } catch (error) {
       console.log(error);
     }
