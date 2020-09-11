@@ -13,6 +13,7 @@ import userContext from '../../../contexts/User';
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
 import { courseItems } from './selectItem';
+import { verifyRegistration } from '../../../services';
 
 import * as S from './styles';
 
@@ -50,13 +51,23 @@ const Step1 = () => {
     sexo: yup.string().required('Campo obrigatório!'),
   });
 
-  const { handleSubmit, setValue, errors, control } = useForm({
+  const { handleSubmit, setValue, errors, control, setError } = useForm({
     resolver: yupResolver(schema),
   });
 
   const navigation = useNavigation();
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
+    const response = await verifyRegistration(data.matricula);
+
+    if (response.data.matricula) {
+      setError('matricula', {
+        type: 'manual',
+        message: 'Matricula já Existente!',
+      });
+      return;
+    }
+
     const date = format(data.data_nascimento, 'dd/MM/yyyy');
     const student = {
       ...data,
