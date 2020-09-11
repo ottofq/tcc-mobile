@@ -43,3 +43,13 @@ export const getNews = async () => {
     throw new Error(error.message);
   }
 };
+
+export const verifyRegistration = async (registration) => {
+  try {
+    const response = await api.get(`/alunos/${registration}`);
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
