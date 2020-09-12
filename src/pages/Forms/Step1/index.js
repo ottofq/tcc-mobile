@@ -58,12 +58,12 @@ const Step1 = () => {
   const navigation = useNavigation();
 
   async function onSubmit(data) {
-    const response = await verifyRegistration(data.matricula);
+    const existRegistration = await verifyRegistration(data.matricula);
 
-    if (response.data.matricula) {
+    if (existRegistration) {
       setError('matricula', {
         type: 'manual',
-        message: 'Matricula já Existente!',
+        message: 'Matricula já existente!',
       });
       return;
     }
@@ -129,7 +129,7 @@ const Step1 = () => {
                   />
                 )}
                 onChangeText={(text) => onChange(text)}
-                defaultValue={user.matricula}
+                defaultValue={String(user.matricula)}
               />
             )}
             name="matricula"
