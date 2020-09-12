@@ -54,6 +54,15 @@ export const verifyRegistration = async (registration) => {
   }
 };
 
+export const verifyEmailExists = async (email) => {
+  try {
+    const response = await api.get(`/alunos/findEmail/${email}`);
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
     return response.data;
   } catch (error) {
     throw new Error(error.message);
