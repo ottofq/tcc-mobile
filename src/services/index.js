@@ -74,6 +74,13 @@ export const createUser = async (user) => {
     throw new Error(error.message);
   }
 };
+
+export const singIn = async (email, password) => {
+  try {
+    const response = await api.post('/loginApp', { email, password });
+    const { student, auth } = response.data;
+
+    return { student, auth };
   } catch (error) {
     throw new Error(error.message);
   }
