@@ -10,6 +10,7 @@ import Routes from './Routes/MainNavigator';
 
 import { MenuProvider } from './contexts/menu';
 import { UserProvider } from './contexts/User';
+import { AuthProvider } from './contexts/auth';
 import { colors } from './styles';
 
 const fontConfig = {
@@ -48,7 +49,9 @@ const App = () => {
       <StatusBar content="light-content" backgroundColor={colors.secondary} />
       <MenuProvider>
         <UserProvider>
-          <Routes />
+          <AuthProvider>
+            <Routes />
+          </AuthProvider>
         </UserProvider>
       </MenuProvider>
     </PaperProvider>
