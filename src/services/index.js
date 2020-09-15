@@ -63,7 +63,17 @@ export const verifyEmailExists = async (email) => {
     throw new Error(error.message);
   }
 };
-    return response.data;
+
+export const createUser = async (user) => {
+  try {
+    const response = await api.post('/alunos', user);
+    const { student, auth } = response.data;
+
+    return { student, auth };
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
   } catch (error) {
     throw new Error(error.message);
   }
