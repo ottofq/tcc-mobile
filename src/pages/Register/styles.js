@@ -6,19 +6,22 @@ import {
 } from 'react-native-responsive-screen';
 import { colors, fonts } from '../../styles';
 
-export const Container = styled.View`
-  flex: 1;
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+})`
   background-color: ${colors.primary};
-  align-items: center;
-  justify-content: center;
 `;
 
 export const Form = styled.View`
   align-items: center;
   background-color: white;
-  justify-content: space-around;
-  width: ${wp(70)}px;
-  height: ${hp(70)}px;
+  justify-content: space-evenly;
+  width: ${wp(80)}px;
+  height: ${hp(45)}px;
   padding: ${hp(1)}px;
   border-radius: 4px;
 `;
@@ -28,6 +31,7 @@ export const Logo = styled.Image`
   width: 100%;
   resize-mode: contain;
   background-color: ${colors.primary};
+  margin-bottom: ${hp(2)}px;
 `;
 
 export const ContainerInputItem = styled.View`

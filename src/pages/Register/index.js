@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { HelperText } from 'react-native-paper';
 import { Controller, useForm } from 'react-hook-form';
@@ -11,6 +11,8 @@ import * as S from './styles';
 import logo from '../../../assets/images/logo.png';
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
+
   const schema = yup.object().shape({
     nome: yup
       .string()
@@ -31,6 +33,7 @@ const Register = () => {
   const navigation = useNavigation();
 
   async function onSubmit(data) {
+    setLoading(true);
     const existEmail = await verifyEmailExists(data.email);
 
     if (existEmail) {
@@ -38,18 +41,19 @@ const Register = () => {
         type: 'manual',
         message: 'Email já existente!',
       });
+      setLoading(false);
       return;
     }
 
     dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
-    navigation.navigate('intro');
+    setLoading(false);
+    navigation.navigate('form-register');
   }
 
   return (
     <S.Container>
+      <S.Logo source={logo} />
       <S.Form>
-        <S.Logo source={logo} />
-
         <S.ContainerInputItem>
           {errors.nome && (
             <HelperText padding="none" type="error">
@@ -83,6 +87,8 @@ const Register = () => {
             control={control}
             render={({ onChange }) => (
               <S.Input
+                autoCompleteType="email"
+                keyboardType="email-address"
                 label="Email"
                 mode="outlined"
                 error={errors.email}
@@ -122,8 +128,13 @@ const Register = () => {
           />
         </S.ContainerInputItem>
 
-        <S.Button mode="contained" onPress={handleSubmit(onSubmit)}>
-          Avançar
+        <S.Button
+          disabled={loading}
+          loading={loading}
+          mode="contained"
+          onPress={handleSubmit(onSubmit)}
+        >
+          {loading === false ? 'Avançar' : ''}
         </S.Button>
       </S.Form>
     </S.Container>
