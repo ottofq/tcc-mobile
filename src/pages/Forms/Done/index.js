@@ -5,21 +5,27 @@ import { Snackbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 import userContext from '../../../contexts/User';
+import authContext from '../../../contexts/auth';
 import animation from '../../../../assets/done.json';
-import api from '../../../services/api';
+import { createUser } from '../../../services';
 
 const Done = () => {
   const [loading, setLoading] = useState(false);
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Error');
   const navigation = useNavigation();
-  const { postStudent } = useContext(userContext);
+  const { user, dispatch, persistUser } = useContext(userContext);
+  const { persistAuth } = useContext(authContext);
 
   useEffect(() => {
     async function postData() {
       try {
         setLoading(true);
-        await postStudent();
+        dispatch({ type: 'STUDENT:CLEAN_PROPS' });
+        const { student, auth } = await createUser(user);
+        await persistUser(student);
+        await persistAuth(auth);
+
         setLoading(false);
       } catch (error) {
         setSnackBarVisible(true);
