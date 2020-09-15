@@ -6,7 +6,6 @@ import produce from 'immer';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import USER_INITIAL_STATE from './initialStateStudent';
-import api from '../../services/api';
 
 const UserContext = createContext({
   user: USER_INITIAL_STATE,
@@ -71,6 +70,9 @@ function userReducer(state, action) {
     }
     case 'STUDENT:LOAD_FROM_STORAGE': {
       return { ...state, ...action.payload };
+    }
+    case 'STUDENT:LOGOUT': {
+      return USER_INITIAL_STATE;
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
