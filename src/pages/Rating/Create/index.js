@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 import React, { useState, memo, useContext } from 'react';
 import { Snackbar } from 'react-native-paper';
@@ -24,7 +25,7 @@ const Rating = () => {
   async function onSubmit(data) {
     try {
       const { comment, avaliacao } = data;
-      await createRating(menu.id, user.id, avaliacao, comment);
+      await createRating(menu.id, user._id, avaliacao, comment);
       setShowAnimation(true);
     } catch (error) {
       setSnackBarVisible(true);
