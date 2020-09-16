@@ -40,8 +40,6 @@ const Login = () => {
       setLoading(true);
       const { email, password } = data;
       await login(email, password);
-      setLoading(false);
-      navigation.navigate('Cardapio RU - CCA UFES');
     } catch (error) {
       setLoading(false);
       console.log(error.message);
@@ -108,8 +106,8 @@ const Login = () => {
         </S.ContainerInputItem>
 
         <S.Button
-          disabled={loading}
           loading={loading}
+          disabled={loading}
           mode="contained"
           onPress={handleSubmit(onSubmit)}
         >
