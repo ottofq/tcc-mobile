@@ -1,27 +1,26 @@
 import React, { useContext, useEffect } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 
+import Loading from '../../components/Loading';
 import AuthContext from '../../contexts/auth';
-import UserContext from '../../contexts/User';
-
-import { colors } from '../../styles';
 
 const Logout = () => {
   const { signOut } = useContext(AuthContext);
-  const { dispatch } = useContext(UserContext);
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function logout() {
       await signOut();
-      dispatch({ type: 'STUDENT:LOGOUT' });
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'home' }],
+        })
+      );
     }
     logout();
   }, []);
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ActivityIndicator size="large" color={colors.primary} />
-    </View>
-  );
+  return <Loading />;
 };
 
 export default Logout;
