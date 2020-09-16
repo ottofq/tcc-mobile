@@ -47,7 +47,7 @@ const Register = () => {
 
     dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
     setLoading(false);
-    navigation.navigate('form-register');
+    navigation.navigate('forms');
   }
 
   return (
