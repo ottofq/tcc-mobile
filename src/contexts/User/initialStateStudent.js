@@ -1,5 +1,6 @@
 const USER_INITIAL_STATE = {
   nome: '',
+  email: '',
   matricula: '',
   data_nascimento: '',
   curso: '',
