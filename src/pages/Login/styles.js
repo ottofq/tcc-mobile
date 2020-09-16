@@ -41,15 +41,12 @@ export const ContainerInputItem = styled.View`
 export const Input = styled(TextInput)``;
 
 export const Button = styled(PaperButton).attrs({
-  color: '#fff',
   contentStyle: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.primary,
   },
   labelStyle: {
     fontSize: fonts.big,
-    color: '#fff',
   },
 })`
   align-self: stretch;

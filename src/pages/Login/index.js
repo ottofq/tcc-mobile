@@ -114,7 +114,7 @@ const Login = () => {
           {loading === false ? 'Login' : ''}
         </S.Button>
 
-        <S.Button mode="contained" onPress={() => handleRegister()}>
+        <S.Button mode="outlined" onPress={() => handleRegister()}>
           Cadastrar
         </S.Button>
       </S.Form>
