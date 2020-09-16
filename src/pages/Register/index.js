@@ -112,7 +112,7 @@ const Register = () => {
             control={control}
             render={({ onChange }) => (
               <S.Input
-                label="Password"
+                label="Senha"
                 mode="outlined"
                 autoCompleteType="password"
                 secureTextEntry
