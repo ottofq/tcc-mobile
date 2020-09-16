@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { getMenu } from '../services';
@@ -20,13 +20,11 @@ const MenuContext = createContext({
   menu: MENU_INITIAL_STATE,
   loading: true,
   loadMenu: () => {},
-  loadingRating: false,
   error: false,
 });
 
 export const MenuProvider = ({ children }) => {
   const [menu, setMenu] = useState(MENU_INITIAL_STATE);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -42,10 +40,6 @@ export const MenuProvider = ({ children }) => {
       setError(true);
     }
   }
-
-  useEffect(() => {
-    loadMenu();
-  }, []);
 
   return (
     <MenuContext.Provider value={{ menu, loading, loadMenu, error }}>
