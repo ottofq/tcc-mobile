@@ -10,13 +10,13 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, ActivityIndicator } from 'react-native';
 
 import authContext from '../../contexts/auth';
 
 import FormNavigator from '../FormNavigator';
 import BottomNavigator from '../BottomNavigator';
 
+import Loading from '../../components/Loading';
 import Login from '../../pages/Login';
 import Register from '../../pages/Register';
 import Logout from '../../pages/Logout';
@@ -47,11 +47,7 @@ const Routes = () => {
   const { auth, loading } = useContext(authContext);
 
   if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color={colors.primary} />
-      </View>
-    );
+    return <Loading loading={loading} />;
   }
 
   return (
@@ -66,6 +62,7 @@ const Routes = () => {
             backgroundColor: colors.primary,
             width: hp(35),
           }}
+          initialRouteName="home"
         >
           <Drawer.Screen
             options={{
@@ -74,7 +71,7 @@ const Routes = () => {
                 <Icon name="restaurant-menu" size={24} color="#fff" />
               ),
             }}
-            name="Cardapio RU - CCA UFES"
+            name="home"
             component={BottomNavigator}
           />
           <Drawer.Screen
