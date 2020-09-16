@@ -23,22 +23,24 @@ const Done = () => {
         setLoading(true);
         dispatch({ type: 'STUDENT:CLEAN_PROPS' });
         const { student, auth } = await createUser(user);
-        await persistUser(student);
         await persistAuth(auth);
-
-        setLoading(false);
+        await persistUser(student);
       } catch (error) {
         setSnackBarVisible(true);
         setErrorMessage(error.message);
       }
     }
     postData();
+
+    return function cleanup() {
+      setLoading(false);
+    };
   }, []);
 
   const onDismissSnackBar = () => setSnackBarVisible(false);
 
   function finish() {
-    navigation.navigate('Cardapio RU - CCA UFES');
+    navigation.navigate('login');
   }
 
   return (
