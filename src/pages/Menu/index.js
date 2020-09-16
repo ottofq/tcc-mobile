@@ -1,4 +1,4 @@
-import React, { useCallback, memo, useContext } from 'react';
+import React, { useCallback, memo, useContext, useEffect } from 'react';
 import { RefreshControl } from 'react-native';
 
 import MenuItem from '../../components/MenuItem';
@@ -17,6 +17,10 @@ import MenuContext from '../../contexts/menu';
 
 const Menu = () => {
   const { menu, loading, loadMenu } = useContext(MenuContext);
+
+  useEffect(() => {
+    loadMenu();
+  }, []);
 
   const onRefresh = useCallback(() => {
     loadMenu();
