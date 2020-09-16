@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import { useForm, Controller } from 'react-hook-form';
@@ -19,6 +19,7 @@ import * as S from './styles';
 
 const Step1 = () => {
   const { user, dispatch } = useContext(userContext);
+  const [loading, setLoading] = useState(false);
 
   function parseDateString(value, originalValue) {
     const parsedDate = parse(originalValue, 'dd/MM/yyyy', new Date());
@@ -58,6 +59,7 @@ const Step1 = () => {
   const navigation = useNavigation();
 
   async function onSubmit(data) {
+    setLoading(true);
     const existRegistration = await verifyRegistration(data.matricula);
 
     if (existRegistration) {
@@ -65,6 +67,7 @@ const Step1 = () => {
         type: 'manual',
         message: 'Matricula já existente!',
       });
+      setLoading(false);
       return;
     }
 
@@ -73,6 +76,7 @@ const Step1 = () => {
       ...data,
       data_nascimento: date,
     };
+    setLoading(false);
     dispatch({ type: 'STUDENT:ADD_PROPS', payload: student });
     navigation.navigate('step-2');
   }
@@ -117,7 +121,7 @@ const Step1 = () => {
               <S.Input
                 label="Matrícula"
                 mode="outlined"
-                keyboardType="number-pad"
+                keyboardType="phone-pad"
                 error={errors.matricula}
                 render={(props) => (
                   <TextInputMask
@@ -151,7 +155,7 @@ const Step1 = () => {
               <S.Input
                 label="Data de Nascimento"
                 mode="outlined"
-                keyboardType="numeric"
+                keyboardType="phone-pad"
                 error={errors.data_nascimento}
                 render={(props) => (
                   <TextInputMask
@@ -222,7 +226,7 @@ const Step1 = () => {
               <S.Input
                 label="Ano de ingresso"
                 mode="outlined"
-                keyboardType="numeric"
+                keyboardType="phone-pad"
                 error={errors.ano_ingresso}
                 render={(props) => (
                   <TextInputMask
@@ -281,11 +285,13 @@ const Step1 = () => {
       </S.ContainerInput>
 
       <Button
+        loading={loading}
+        disabled={loading}
         style={{ marginBottom: 5 }}
         mode="contained"
         onPress={handleSubmit(onSubmit)}
       >
-        Próximo
+        {loading === false ? 'Próximo' : ''}
       </Button>
     </S.Container>
   );
