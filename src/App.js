@@ -8,6 +8,9 @@ import {
 } from 'react-native-paper';
 import Routes from './Routes/MainNavigator';
 
+import Snackbar from './components/Snackbar';
+
+import { SnackbarProvider } from './contexts/Snackbar';
 import { MenuProvider } from './contexts/menu';
 import { UserProvider } from './contexts/User';
 import { AuthProvider } from './contexts/auth';
@@ -47,13 +50,18 @@ const App = () => {
   return (
     <PaperProvider theme={theme}>
       <StatusBar content="light-content" backgroundColor={colors.secondary} />
-      <MenuProvider>
-        <UserProvider>
-          <AuthProvider>
-            <Routes />
-          </AuthProvider>
-        </UserProvider>
-      </MenuProvider>
+      <SnackbarProvider>
+        <MenuProvider>
+          <UserProvider>
+            <AuthProvider>
+              <>
+                <Routes />
+                <Snackbar />
+              </>
+            </AuthProvider>
+          </UserProvider>
+        </MenuProvider>
+      </SnackbarProvider>
     </PaperProvider>
   );
 };
