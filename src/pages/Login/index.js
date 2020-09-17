@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
 
+import SnackbarContext from '../../contexts/Snackbar';
 import UserContext from '../../contexts/User';
 import AuthContext from '../../contexts/auth';
 import * as S from './styles';
@@ -14,6 +15,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useContext(UserContext);
   const { login } = useContext(AuthContext);
+  const { dispatch } = useContext(SnackbarContext);
 
   const navigation = useNavigation();
 
@@ -41,8 +43,8 @@ const Login = () => {
       const { email, password } = data;
       await login(email, password);
     } catch (error) {
+      dispatch({ type: 'SNACKBAR:VISIBLE', payload: error.message });
       setLoading(false);
-      console.log(error.message);
     }
   }
 
