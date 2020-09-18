@@ -1,13 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 import React, { useState, memo, useContext } from 'react';
-import { Snackbar } from 'react-native-paper';
 import { AirbnbRating } from 'react-native-ratings';
 import { useForm, Controller } from 'react-hook-form';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
 import userContext from '../../../contexts/User';
+import snackbarContext from '../../../contexts/Snackbar';
 import menuContext from '../../../contexts/menu';
 import animation from '../../../../assets/animation-rating.json';
 import { createRating } from '../../../services';
@@ -15,20 +15,33 @@ import { createRating } from '../../../services';
 import * as S from './styles';
 
 const Rating = () => {
-  const { handleSubmit, reset, control } = useForm();
   const [showAnimation, setShowAnimation] = useState(false);
-  const [snackBarVisible, setSnackBarVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const navigation = useNavigation();
   const { user } = useContext(userContext);
   const { menu } = useContext(menuContext);
+  const { dispatch } = useContext(snackbarContext);
 
+  const { handleSubmit, reset, control } = useForm();
   async function onSubmit(data) {
     try {
+      setLoading(true);
       const { comment, avaliacao } = data;
+
+      if (!comment) {
+        await createRating(menu.id, user._id, avaliacao);
+        setLoading(false);
+        setShowAnimation(true);
+        return;
+      }
+
       await createRating(menu.id, user._id, avaliacao, comment);
+
       setShowAnimation(true);
     } catch (error) {
-      setSnackBarVisible(true);
+      dispatch({ type: 'SNACKBAR:VISIBLE', payload: error.message });
+      setLoading(false);
     }
   }
 
@@ -37,8 +50,6 @@ const Rating = () => {
     setShowAnimation(false);
     navigation.goBack();
   }
-
-  const onDismissSnackBar = () => setSnackBarVisible(false);
 
   return (
     <S.Container>
@@ -206,17 +217,15 @@ const Rating = () => {
               control={control}
             />
 
-            <S.Button mode="contained" onPress={handleSubmit(onSubmit)}>
-              Enviar avaliação
+            <S.Button
+              disabled={loading}
+              loading={loading}
+              mode="contained"
+              onPress={handleSubmit(onSubmit)}
+            >
+              {loading ? '' : 'Enviar avaliação'}
             </S.Button>
           </S.SubmitContainer>
-          <Snackbar
-            onDismiss={onDismissSnackBar}
-            duration={2000}
-            visible={snackBarVisible}
-          >
-            Erro ao enviar avaliação
-          </Snackbar>
         </S.RatingContainer>
       ) : (
         <S.Animation
