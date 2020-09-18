@@ -1,12 +1,20 @@
 import api from './api';
 
+const errorHandling = (error) => {
+  if (error.response) {
+    const httpErrorMessage = error.response.data.message;
+    throw new Error(httpErrorMessage);
+  }
+  throw new Error('Error verifique sua conexão!');
+};
+
 export const getMenu = async () => {
   try {
     const menu = await api.get('/cardapio/last');
 
     return menu;
   } catch (error) {
-    throw new Error(error.message);
+    return errorHandling(error);
   }
 };
 
@@ -16,7 +24,7 @@ export const getMenuRating = async (id) => {
 
     return menuRating;
   } catch (error) {
-    throw new Error(error.message);
+    return errorHandling(error);
   }
 };
 
@@ -30,7 +38,11 @@ export const createRating = async (menuId, studentId, rating, comment) => {
 
     return response;
   } catch (error) {
-    throw new Error(error.message);
+    if (error.response) {
+      const errorMessage = error.response.data.error;
+      throw Error(errorMessage);
+    }
+    throw Error('error');
   }
 };
 
@@ -40,7 +52,7 @@ export const getNews = async () => {
 
     return response.data.news;
   } catch (error) {
-    throw new Error(error.message);
+    return errorHandling(error);
   }
 };
 
@@ -50,7 +62,7 @@ export const verifyRegistration = async (registration) => {
 
     return response.data;
   } catch (error) {
-    throw new Error(error.message);
+    return errorHandling(error);
   }
 };
 
@@ -60,7 +72,7 @@ export const verifyEmailExists = async (email) => {
 
     return response.data;
   } catch (error) {
-    throw new Error(error.message);
+    return errorHandling(error);
   }
 };
 
@@ -71,7 +83,7 @@ export const createUser = async (user) => {
 
     return { student, auth };
   } catch (error) {
-    throw new Error(error.message);
+    return errorHandling(error);
   }
 };
 
@@ -82,6 +94,6 @@ export const singIn = async (email, password) => {
 
     return { student, auth };
   } catch (error) {
-    throw new Error(error.message);
+    return errorHandling(error);
   }
 };
