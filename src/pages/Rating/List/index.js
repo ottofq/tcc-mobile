@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import RatingCard from '../../../components/RatingCard';
 
 import * as S from './styles';
+
+import snackbarContext from '../../../contexts/Snackbar';
 import MenuContext from '../../../contexts/menu';
 import { getMenuRating } from '../../../services';
 
@@ -21,8 +23,10 @@ const Rating = () => {
       sobremesa: 0,
     },
   });
+
   const [loading, setLoading] = useState(false);
   const { menu } = useContext(MenuContext);
+  const { dispatch } = useContext(snackbarContext);
 
   const navigation = useNavigation();
 
@@ -34,8 +38,8 @@ const Rating = () => {
         setRating(ratingRespose.data);
         setLoading(false);
       } catch (error) {
+        dispatch({ type: 'SNACKBAR:VISIBLE', payload: error.message });
         setLoading(false);
-        console.log(error);
       }
     }
     loadRating();
