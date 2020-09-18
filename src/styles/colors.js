@@ -8,5 +8,5 @@ export default {
   grayDark: '#4a4a4a',
 
   black: '#111111',
-  error: '#B00020',
+  error: '#f44',
 };
