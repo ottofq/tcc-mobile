@@ -1,7 +1,8 @@
 /* eslint-disable no-underscore-dangle */
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
+import snackbarContext from './Snackbar';
 import { getMenu } from '../services';
 
 const MENU_INITIAL_STATE = {
@@ -26,7 +27,7 @@ const MenuContext = createContext({
 export const MenuProvider = ({ children }) => {
   const [menu, setMenu] = useState(MENU_INITIAL_STATE);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const { dispatch } = useContext(snackbarContext);
 
   async function loadMenu() {
     try {
@@ -35,14 +36,14 @@ export const MenuProvider = ({ children }) => {
 
       setMenu({ ...response.data, id: response.data._id });
       setLoading(false);
-    } catch (err) {
+    } catch (error) {
+      dispatch({ type: 'SNACKBAR:VISIBLE', payload: error.message });
       setLoading(false);
-      setError(true);
     }
   }
 
   return (
-    <MenuContext.Provider value={{ menu, loading, loadMenu, error }}>
+    <MenuContext.Provider value={{ menu, loading, loadMenu }}>
       {children}
     </MenuContext.Provider>
   );
