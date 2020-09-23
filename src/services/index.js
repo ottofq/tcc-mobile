@@ -97,3 +97,15 @@ export const singIn = async (email, password) => {
     return errorHandling(error);
   }
 };
+
+export const update = async (student) => {
+  try {
+    const response = await api.put('/alunos', student);
+
+    const { student: studentUpdated } = response.data;
+
+    return { student: studentUpdated };
+  } catch (error) {
+    return errorHandling(error);
+  }
+};
