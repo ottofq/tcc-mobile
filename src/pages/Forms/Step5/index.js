@@ -49,7 +49,7 @@ const Step5 = () => {
           )}
           name="patologias.doenca_cardiovascular"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.doenca_cardiovascular}
         />
 
         <Controller
@@ -57,10 +57,12 @@ const Step5 = () => {
             <CheckBoxItem
               label="Hipertensão arterial"
               status={handleCheckboxStatus(value)}
-              onPress={() => setValue('patologias.hipertensao', !value)}
+              onPress={() =>
+                setValue('patologias.hipertensao_arterial', !value)
+              }
             />
           )}
-          name="patologias.hipertensao"
+          name="patologias.hipertensao_arterial"
           control={control}
           defaultValue={user.patologias.hipertensao_arterial}
         />
