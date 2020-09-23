@@ -59,16 +59,18 @@ const Step1 = () => {
   const navigation = useNavigation();
 
   async function onSubmit(data) {
-    setLoading(true);
-    const existRegistration = await verifyRegistration(data.matricula);
+    if (!user.matricula) {
+      setLoading(true);
+      const existRegistration = await verifyRegistration(data.matricula);
 
-    if (existRegistration) {
-      setError('matricula', {
-        type: 'manual',
-        message: 'Matricula já existente!',
-      });
-      setLoading(false);
-      return;
+      if (existRegistration) {
+        setError('matricula', {
+          type: 'manual',
+          message: 'Matricula já existente!',
+        });
+        setLoading(false);
+        return;
+      }
     }
 
     const date = format(data.data_nascimento, 'dd/MM/yyyy');
@@ -119,6 +121,7 @@ const Step1 = () => {
             control={control}
             render={({ onChange }) => (
               <S.Input
+                disabled={user.matricula}
                 label="Matrícula"
                 mode="outlined"
                 keyboardType="phone-pad"
