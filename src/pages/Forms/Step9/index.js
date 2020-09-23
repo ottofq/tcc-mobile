@@ -201,7 +201,7 @@ const Step9 = () => {
             )}
             name="melhorias_RU.melhoria_outros"
             control={control}
-            defaultValue={user.melhorias_RU.melhoria_outros}
+            defaultValue={'' || user.melhorias_RU.melhoria_outros}
           />
         </View>
 
