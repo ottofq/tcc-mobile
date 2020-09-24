@@ -76,7 +76,7 @@ const Routes = () => {
           />
           <Drawer.Screen
             options={{
-              drawerLabel: () => <S.Title>Questionário</S.Title>,
+              drawerLabel: () => <S.Title>Editar Questionário</S.Title>,
               drawerIcon: () => (
                 <Icon name="question-answer" size={24} color="#fff" />
               ),
