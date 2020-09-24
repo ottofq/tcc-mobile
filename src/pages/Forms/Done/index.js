@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import userContext from '../../../contexts/User';
 import authContext from '../../../contexts/auth';
 import animation from '../../../../assets/done.json';
-import { createUser } from '../../../services';
+import { createUser, update } from '../../../services';
 
 const Done = () => {
   const [loading, setLoading] = useState(false);
@@ -17,18 +17,40 @@ const Done = () => {
   const { user, dispatch, persistUser } = useContext(userContext);
   const { persistAuth } = useContext(authContext);
 
+  async function updateData() {
+    try {
+      setLoading(true);
+      dispatch({ type: 'STUDENT:CLEAN_PROPS' });
+      const { student } = await update(user);
+      await persistUser(student);
+      navigation.navigate('home');
+      setLoading(false);
+    } catch (error) {
+      setSnackBarVisible(true);
+      setErrorMessage(error.message);
+    }
+  }
+
+  async function postData() {
+    try {
+      setLoading(true);
+      dispatch({ type: 'STUDENT:CLEAN_PROPS' });
+      const { student, auth } = await createUser(user);
+      await persistAuth(auth);
+      await persistUser(student);
+      navigation.navigate('login');
+    } catch (error) {
+      setSnackBarVisible(true);
+      setErrorMessage(error.message);
+    }
+  }
+
   useEffect(() => {
-    async function postData() {
-      try {
-        setLoading(true);
-        dispatch({ type: 'STUDENT:CLEAN_PROPS' });
-        const { student, auth } = await createUser(user);
-        await persistAuth(auth);
-        await persistUser(student);
-      } catch (error) {
-        setSnackBarVisible(true);
-        setErrorMessage(error.message);
-      }
+    if (user._id) {
+      updateData();
+      return function cleanup() {
+        setLoading(false);
+      };
     }
     postData();
 
@@ -39,18 +61,9 @@ const Done = () => {
 
   const onDismissSnackBar = () => setSnackBarVisible(false);
 
-  function finish() {
-    navigation.navigate('login');
-  }
-
   return (
     <>
-      <Lottie
-        onAnimationFinish={finish}
-        autoPlay
-        loop={loading}
-        source={animation}
-      />
+      <Lottie autoPlay loop={loading} source={animation} />
       <Snackbar
         onDismiss={onDismissSnackBar}
         duration={2000}
