@@ -1,30 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button } from 'react-native-paper';
 import { KeyboardAvoidingView } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
 import CheckBoxItem from '../../../components/Checkbox';
 import ProgressBar from '../../../components/ProgressBar';
 
 import * as S from './styles';
 
 const Step6 = () => {
-  const { handleSubmit, setValue, control, watch } = useForm();
+  const { handleSubmit, setValue, control } = useForm();
+  const { user, dispatch } = useContext(userContext);
+
   const navigation = useNavigation();
-  const { params } = useRoute();
 
   function handleButtonNext(data) {
-    const obj = { ...params, ...data };
-    navigation.navigate('step-7', {
-      ...obj,
-    });
+    dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
+    navigation.navigate('step-7');
   }
 
   const handleCheckboxStatus = (value) => {
-    if (watch('patologias_familia.nao_tenho_patologias'))
-      return 'indeterminate';
-
     if (value) return 'checked';
 
     return 'unchecked';
@@ -59,7 +56,7 @@ const Step6 = () => {
             )}
             name="patologias_familia.fam_doenca_cardiovascular"
             control={control}
-            defaultValue={false}
+            defaultValue={user.patologias_familia.fam_doenca_cardiovascular}
           />
 
           <Controller
@@ -74,7 +71,7 @@ const Step6 = () => {
             )}
             name="patologias_familia.fam_hipertensao"
             control={control}
-            defaultValue={false}
+            defaultValue={user.patologias_familia.fam_hipertensao}
           />
 
           <Controller
@@ -89,7 +86,7 @@ const Step6 = () => {
             )}
             name="patologias_familia.fam_obesidade"
             control={control}
-            defaultValue={false}
+            defaultValue={user.patologias_familia.fam_obesidade}
           />
 
           <Controller
@@ -104,7 +101,7 @@ const Step6 = () => {
             )}
             name="patologias_familia.fam_dislipidemias"
             control={control}
-            defaultValue={false}
+            defaultValue={user.patologias_familia.fam_dislipidemias}
           />
 
           <Controller
@@ -119,7 +116,7 @@ const Step6 = () => {
             )}
             name="patologias_familia.fam_diabetes"
             control={control}
-            defaultValue={false}
+            defaultValue={user.patologias_familia.fam_diabetes}
           />
 
           <Controller
@@ -137,41 +134,14 @@ const Step6 = () => {
             )}
             name="patologias_familia.fam_doenca_arterial_coronariana"
             control={control}
-            defaultValue={false}
-          />
-
-          <Controller
-            render={({ value }) => (
-              <CheckBoxItem
-                label="Não possuo patologias na família"
-                status={value ? 'checked' : 'unchecked'}
-                onPress={() => {
-                  setValue('patologias_familia.nao_tenho_patologias', !value);
-                  setValue(
-                    'patologias_familia.fam_doenca_cardiovascular',
-                    false
-                  );
-                  setValue('patologias_familia.fam_hipertensao', false);
-                  setValue('patologias_familia.fam_obesidade', false);
-                  setValue('patologias_familia.fam_dislipidemias', false);
-                  setValue('patologias_familia.fam_diabetes', false);
-                  setValue(
-                    'patologias_familia.fam_doenca_arterial_coronariana',
-                    false
-                  );
-                  setValue('patologias_familia.patologias_familia_outras', '');
-                }}
-              />
-            )}
-            name="patologias_familia.nao_tenho_patologias"
-            control={control}
-            defaultValue={false}
+            defaultValue={
+              user.patologias_familia.fam_doenca_arterial_coronariana
+            }
           />
 
           <Controller
             render={({ onChange, value }) => (
               <S.Input
-                disabled={watch('patologias_familia.nao_tenho_patologias')}
                 label="Outro"
                 mode="outlined"
                 value={value}
@@ -180,7 +150,9 @@ const Step6 = () => {
             )}
             name="patologias_familia.patologias_familia_outras"
             control={control}
-            defaultValue=""
+            defaultValue={
+              '' || user.patologias_familia.patologias_familia_outras
+            }
           />
 
           <S.TitleInput>
@@ -198,7 +170,7 @@ const Step6 = () => {
             )}
             name="medicamento_continuo"
             control={control}
-            defaultValue=""
+            defaultValue={'' || user.medicamento_continuo}
           />
         </S.ContainerCheckbox>
 

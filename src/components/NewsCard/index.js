@@ -46,11 +46,15 @@ const NewsCard = ({ loading, title, date, onPress }) => {
   );
 };
 
+NewsCard.defaultProps = {
+  onPress: () => {},
+};
+
 NewsCard.propTypes = {
   loading: PropTypes.bool.isRequired,
   date: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
 };
 
 export default NewsCard;

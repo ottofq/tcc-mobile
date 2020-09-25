@@ -6,19 +6,19 @@ import { useNavigation } from '@react-navigation/native';
 import NewsCard from '../../../components/NewsCard';
 
 import * as S from './styles';
-import api from '../../../services/api';
+import { getNews } from '../../../services';
 
 const List = () => {
-  const [avisos, setAvisos] = useState([]);
+  const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const navigator = useNavigation();
 
-  async function loadAvisos() {
+  async function loadNews() {
     try {
-      const result = await api.get('/informacoes?page=1');
+      const response = await getNews();
 
-      setAvisos(result.data.result);
+      setNews(response);
       setLoading(false);
       setRefreshing(false);
     } catch (error) {
@@ -29,11 +29,11 @@ const List = () => {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setLoading(true);
-    loadAvisos();
+    loadNews();
   }, []);
 
   useEffect(() => {
-    loadAvisos();
+    loadNews();
   }, []);
 
   const handlePress = (data) => {
@@ -57,7 +57,7 @@ const List = () => {
           <NewsCard loading={loading} title="..." date="..." />
         </>
       ) : (
-        avisos.map((aviso) => (
+        news.map((aviso) => (
           <NewsCard
             onPress={() => handlePress(aviso)}
             loading={loading}

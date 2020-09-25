@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
 import { KeyboardAvoidingView } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
 import RadioButtonItem from '../../../components/RadioButton';
 import CheckBoxItem from '../../../components/Checkbox';
 import ProgressBar from '../../../components/ProgressBar';
@@ -11,21 +12,29 @@ import ProgressBar from '../../../components/ProgressBar';
 import * as S from './styles';
 
 const Step3 = () => {
-  const { watch, handleSubmit, setValue, control, errors } = useForm();
+  const { handleSubmit, setValue, control, errors } = useForm();
+  const { user, dispatch } = useContext(userContext);
 
   const navigation = useNavigation();
-  const { params } = useRoute();
 
-  function handleButtonNext(data) {
-    const obj = { ...params, ...data };
-    navigation.navigate('step-4', {
-      ...obj,
+  function StringToBoolean(obj) {
+    Object.keys(obj).forEach((item) => {
+      if (obj[item] === 'nao') {
+        obj[item] = false;
+      }
+      if (obj[item] === 'sim') {
+        obj[item] = true;
+      }
     });
   }
 
-  const handleCheckboxStatus = (value) => {
-    if (watch('alergias.nao_tenho_alergias')) return 'indeterminate';
+  function handleButtonNext(data) {
+    StringToBoolean(data);
+    dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
+    navigation.navigate('step-4');
+  }
 
+  const handleCheckboxStatus = (value) => {
     if (value) return 'checked';
 
     return 'unchecked';
@@ -74,7 +83,7 @@ const Step3 = () => {
           name="peso_ideal"
           control={control}
           rules={{ required: true }}
-          defaultValue=""
+          defaultValue={user.peso_ideal}
         />
 
         <Controller
@@ -144,11 +153,12 @@ const Step3 = () => {
           name="vegano_vegetariano"
           control={control}
           rules={{ required: true }}
-          defaultValue=""
+          defaultValue={user.vegano_vegetariano}
         />
 
         <S.TitleRadioGroup>
-          Você possui algum tipo de alergia ou intolerância alimentar?
+          Você possui algum tipo de alergia ou intolerância alimentar? Se sim
+          quais?
         </S.TitleRadioGroup>
 
         <Controller
@@ -161,7 +171,7 @@ const Step3 = () => {
           )}
           name="alergias.alergia_gluten"
           control={control}
-          defaultValue={false}
+          defaultValue={user.alergias.alergia_gluten}
         />
 
         <Controller
@@ -174,7 +184,7 @@ const Step3 = () => {
           )}
           name="alergias.intolerancia_lactose"
           control={control}
-          defaultValue={false}
+          defaultValue={user.alergias.intolerancia_lactose}
         />
 
         <Controller
@@ -187,32 +197,12 @@ const Step3 = () => {
           )}
           name="alergias.proteina_leite_vaca"
           control={control}
-          defaultValue={false}
-        />
-
-        <Controller
-          render={({ value }) => (
-            <CheckBoxItem
-              label="Não possuo alergias"
-              status={value ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setValue('alergias.nao_tenho_alergias', !value);
-                setValue('alergias.alergia_gluten', false);
-                setValue('alergias.intolerancia_lactose', false);
-                setValue('alergias.proteina_leite_vaca', false);
-                setValue('alergias.outras_alergias', '');
-              }}
-            />
-          )}
-          name="alergias.nao_tenho_alergias"
-          control={control}
-          defaultValue={false}
+          defaultValue={user.alergias.proteina_leite_vaca}
         />
 
         <Controller
           render={({ onChange, value }) => (
             <S.Input
-              disabled={watch('alergias.nao_tenho_alergias')}
               label="Outro"
               mode="outlined"
               value={value}
@@ -221,7 +211,7 @@ const Step3 = () => {
           )}
           name="alergias.outras_alergias"
           control={control}
-          defaultValue=""
+          defaultValue={'' || user.alergias.outras_alergias}
         />
 
         <S.ContainerButton>

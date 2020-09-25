@@ -1,53 +1,75 @@
-import React, { useEffect, useState, memo } from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { useEffect, useState, memo, useContext } from 'react';
 import Lottie from 'lottie-react-native';
 import { Snackbar } from 'react-native-paper';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
+import authContext from '../../../contexts/auth';
 import animation from '../../../../assets/done.json';
-import api from '../../../services/api';
+import { createUser, update } from '../../../services';
 
 const Done = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Error');
   const navigation = useNavigation();
-  const { params } = useRoute;
+  const { user, dispatch, persistUser } = useContext(userContext);
+  const { persistAuth } = useContext(authContext);
 
-  const data = params;
+  async function updateData() {
+    try {
+      setLoading(true);
+      dispatch({ type: 'STUDENT:CLEAN_PROPS' });
+      const { student } = await update(user);
+      await persistUser(student);
+      navigation.navigate('home');
+      setLoading(false);
+    } catch (error) {
+      setSnackBarVisible(true);
+      setErrorMessage(error.message);
+    }
+  }
+
+  async function postData() {
+    try {
+      setLoading(true);
+      dispatch({ type: 'STUDENT:CLEAN_PROPS' });
+      const { student, auth } = await createUser(user);
+      await persistAuth(auth);
+      await persistUser(student);
+      navigation.navigate('login');
+    } catch (error) {
+      setSnackBarVisible(true);
+      setErrorMessage(error.message);
+    }
+  }
 
   useEffect(() => {
-    async function postData() {
-      try {
-        await api.post('/alunos', data);
+    if (user._id) {
+      updateData();
+      return function cleanup() {
         setLoading(false);
-      } catch (error) {
-        setSnackBarVisible(true);
-        setErrorMessage(error);
-      }
+      };
     }
     postData();
-  }, [data]);
+
+    return function cleanup() {
+      setLoading(false);
+    };
+  }, []);
 
   const onDismissSnackBar = () => setSnackBarVisible(false);
 
-  function finish() {
-    navigation.navigate('Cardapio RU - CCA UFES');
-  }
-
   return (
     <>
-      <Lottie
-        onAnimationFinish={finish}
-        autoPlay
-        loop={loading}
-        source={animation}
-      />
+      <Lottie autoPlay loop={loading} source={animation} />
       <Snackbar
         onDismiss={onDismissSnackBar}
         duration={2000}
         visible={snackBarVisible}
       >
-        Error
+        {errorMessage}
       </Snackbar>
     </>
   );

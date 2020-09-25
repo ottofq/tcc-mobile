@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
 import { KeyboardAvoidingView, View } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
 import CheckBoxItem from '../../../components/Checkbox';
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
@@ -13,16 +14,13 @@ import * as S from './styles';
 
 const Step9 = () => {
   const { handleSubmit, setValue, errors, control } = useForm();
+  const { user, dispatch } = useContext(userContext);
 
   const navigation = useNavigation();
-  const { params } = useRoute();
 
   function handleButtonNext(data) {
-    const obj = { ...params, ...data };
-
-    navigation.navigate('done', {
-      ...obj,
-    });
+    dispatch({ type: 'STUDENT:LAST_STEP_FORM', payload: data });
+    navigation.navigate('done');
   }
 
   function handleButtonPrev() {
@@ -100,7 +98,7 @@ const Step9 = () => {
             name="avaliacao_RU.avaliacao_geral"
             control={control}
             rules={{ required: true }}
-            defaultValue=""
+            defaultValue={user.avaliacao_RU.avaliacao_geral}
           />
 
           <S.ContainerCheckbox>
@@ -118,7 +116,7 @@ const Step9 = () => {
               )}
               name="melhorias_RU.cardapio"
               control={control}
-              defaultValue={false}
+              defaultValue={user.melhorias_RU.cardapio}
             />
 
             <Controller
@@ -133,7 +131,7 @@ const Step9 = () => {
               )}
               name="melhorias_RU.melhoria_sabor_preparacao"
               control={control}
-              defaultValue={false}
+              defaultValue={user.melhorias_RU.melhoria_sabor_preparacao}
             />
 
             <Controller
@@ -148,7 +146,7 @@ const Step9 = () => {
               )}
               name="melhorias_RU.opcao_vegetariana"
               control={control}
-              defaultValue={false}
+              defaultValue={user.melhorias_RU.opcao_vegetariana}
             />
 
             <Controller
@@ -163,7 +161,7 @@ const Step9 = () => {
               )}
               name="melhorias_RU.estrutura_fisica"
               control={control}
-              defaultValue={false}
+              defaultValue={user.melhorias_RU.estrutura_fisica}
             />
 
             <Controller
@@ -176,7 +174,7 @@ const Step9 = () => {
               )}
               name="melhorias_RU.tempo_fila"
               control={control}
-              defaultValue={false}
+              defaultValue={user.melhorias_RU.tempo_fila}
             />
 
             <Controller
@@ -189,7 +187,7 @@ const Step9 = () => {
               )}
               name="melhorias_RU.preco_ticket"
               control={control}
-              defaultValue={false}
+              defaultValue={user.melhorias_RU.preco_ticket}
             />
           </S.ContainerCheckbox>
 
@@ -203,7 +201,7 @@ const Step9 = () => {
             )}
             name="melhorias_RU.melhoria_outros"
             control={control}
-            defaultValue=""
+            defaultValue={'' || user.melhorias_RU.melhoria_outros}
           />
         </View>
 

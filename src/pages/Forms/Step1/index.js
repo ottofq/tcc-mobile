@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import { useForm, Controller } from 'react-hook-form';
 import { TextInputMask } from 'react-native-masked-text';
 import { useNavigation } from '@react-navigation/native';
 import { yupResolver } from '@hookform/resolvers';
+import { parse, format } from 'date-fns';
+
 import * as yup from 'yup';
+import userContext from '../../../contexts/User';
 
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
 import { courseItems } from './selectItem';
+import { verifyRegistration } from '../../../services';
 
 import * as S from './styles';
 
 const Step1 = () => {
+  const { user, dispatch } = useContext(userContext);
+  const [loading, setLoading] = useState(false);
+
+  function parseDateString(value, originalValue) {
+    const parsedDate = parse(originalValue, 'dd/MM/yyyy', new Date());
+
+    return parsedDate;
+  }
+
   const schema = yup.object().shape({
     nome: yup
       .string()
@@ -26,8 +39,8 @@ const Step1 = () => {
     data_nascimento: yup
       .date()
       .required('Campo data de nascimento é obrigatório!')
-      .min('1940-01-01T00:00:00.000Z', 'Data de nascimento inválida!')
-      .max('2004-12-31T00:00:00.000Z', 'Data de nascimento inválida!')
+      .transform(parseDateString)
+      .max('31/12/2004', 'Data de nascimento inválida')
       .nullable()
       .default(undefined)
       .typeError('Data de nascimento inválida!'),
@@ -39,16 +52,35 @@ const Step1 = () => {
     sexo: yup.string().required('Campo obrigatório!'),
   });
 
-  const { handleSubmit, setValue, errors, control } = useForm({
+  const { handleSubmit, setValue, errors, control, setError } = useForm({
     resolver: yupResolver(schema),
   });
 
   const navigation = useNavigation();
 
-  function onSubmit(data) {
-    navigation.navigate('step-2', {
-      params: { data },
-    });
+  async function onSubmit(data) {
+    if (!user.matricula) {
+      setLoading(true);
+      const existRegistration = await verifyRegistration(data.matricula);
+
+      if (existRegistration) {
+        setError('matricula', {
+          type: 'manual',
+          message: 'Matricula já existente!',
+        });
+        setLoading(false);
+        return;
+      }
+    }
+
+    const date = format(data.data_nascimento, 'dd/MM/yyyy');
+    const student = {
+      ...data,
+      data_nascimento: date,
+    };
+    setLoading(false);
+    dispatch({ type: 'STUDENT:ADD_PROPS', payload: student });
+    navigation.navigate('step-2');
   }
 
   return (
@@ -69,11 +101,12 @@ const Step1 = () => {
                 mode="outlined"
                 error={errors.nome}
                 onChangeText={(text) => onChange(text)}
+                defaultValue={user.nome}
               />
             )}
             name="nome"
             rules={{ required: true }}
-            defaultValue=""
+            defaultValue={user.nome}
           />
         </S.ContainerInputItem>
 
@@ -88,9 +121,10 @@ const Step1 = () => {
             control={control}
             render={({ onChange }) => (
               <S.Input
+                disabled={user.matricula}
                 label="Matrícula"
                 mode="outlined"
-                keyboardType="numeric"
+                keyboardType="phone-pad"
                 error={errors.matricula}
                 render={(props) => (
                   <TextInputMask
@@ -102,11 +136,12 @@ const Step1 = () => {
                   />
                 )}
                 onChangeText={(text) => onChange(text)}
+                defaultValue={String(user.matricula)}
               />
             )}
             name="matricula"
             rules={{ required: true }}
-            defaultValue=""
+            defaultValue={user.matricula}
           />
         </S.ContainerInputItem>
 
@@ -123,7 +158,7 @@ const Step1 = () => {
               <S.Input
                 label="Data de Nascimento"
                 mode="outlined"
-                keyboardType="numeric"
+                keyboardType="phone-pad"
                 error={errors.data_nascimento}
                 render={(props) => (
                   <TextInputMask
@@ -135,11 +170,12 @@ const Step1 = () => {
                   />
                 )}
                 onChangeText={(text) => onChange(text)}
+                defaultValue={user.data_nascimento}
               />
             )}
             name="data_nascimento"
             rules={{ required: true }}
-            defaultValue={null}
+            defaultValue={user.data_nascimento}
           />
         </S.ContainerInputItem>
 
@@ -169,13 +205,14 @@ const Step1 = () => {
                     onValueChange={(text) => onChange(text)}
                     style={S.pickerSelectStyles}
                     items={courseItems}
+                    value={value}
                   />
                 )}
               />
             )}
             name="curso"
             rules={{ required: true }}
-            defaultValue=""
+            defaultValue={user.curso}
           />
         </S.ContainerInputItem>
 
@@ -192,7 +229,7 @@ const Step1 = () => {
               <S.Input
                 label="Ano de ingresso"
                 mode="outlined"
-                keyboardType="numeric"
+                keyboardType="phone-pad"
                 error={errors.ano_ingresso}
                 render={(props) => (
                   <TextInputMask
@@ -204,11 +241,12 @@ const Step1 = () => {
                   />
                 )}
                 onChangeText={(text) => onChange(text)}
+                defaultValue={user.ano_ingresso}
               />
             )}
             name="ano_ingresso"
             rules={{ required: true }}
-            defaultValue=""
+            defaultValue={user.ano_ingresso}
           />
         </S.ContainerInputItem>
 
@@ -245,16 +283,18 @@ const Step1 = () => {
           name="sexo"
           control={control}
           rules={{ required: true }}
-          defaultValue=""
+          defaultValue={user.sexo}
         />
       </S.ContainerInput>
 
       <Button
+        loading={loading}
+        disabled={loading}
         style={{ marginBottom: 5 }}
         mode="contained"
         onPress={handleSubmit(onSubmit)}
       >
-        Próximo
+        {loading === false ? 'Próximo' : ''}
       </Button>
     </S.Container>
   );

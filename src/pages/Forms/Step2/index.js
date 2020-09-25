@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, RadioButton, HelperText } from 'react-native-paper';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import RadioButtonItem from '../../../components/RadioButton';
 import ProgressBar from '../../../components/ProgressBar';
+import userContext from '../../../contexts/User';
 
 import * as S from './styles';
 
 const Step2 = () => {
   const { handleSubmit, setValue, control, errors } = useForm();
   const navigation = useNavigation();
-  const { params } = useRoute();
+  const { user, dispatch } = useContext(userContext);
 
   function handleButtonNext(data) {
-    const obj = { ...params.data, ...data };
-    navigation.navigate('step-3', {
-      params: obj,
-    });
+    dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
+    navigation.navigate('step-3');
   }
   function handleButtonPrev() {
     navigation.goBack();
@@ -64,7 +63,7 @@ const Step2 = () => {
         name="bolsista"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.bolsista}
       />
       <Controller
         render={({ onChange, value }) => (
@@ -125,7 +124,7 @@ const Step2 = () => {
         name="frequencia_RU"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.frequencia_RU}
       />
 
       <Controller
@@ -170,7 +169,7 @@ const Step2 = () => {
         name="tipo_refeicao_RU"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.tipo_refeicao_RU}
       />
 
       <Controller
@@ -221,7 +220,7 @@ const Step2 = () => {
         name="nivel_fisico"
         control={control}
         rules={{ required: true }}
-        defaultValue=""
+        defaultValue={user.nivel_fisico}
       />
 
       <S.ContainerButton>

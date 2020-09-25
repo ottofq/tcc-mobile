@@ -1,29 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button } from 'react-native-paper';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
+import userContext from '../../../contexts/User';
 import CheckBoxItem from '../../../components/Checkbox';
 import ProgressBar from '../../../components/ProgressBar';
 
 import * as S from './styles';
 
 const Step5 = () => {
-  const { handleSubmit, setValue, watch, control } = useForm();
-
+  const { handleSubmit, setValue, control } = useForm();
   const navigation = useNavigation();
-  const { params } = useRoute();
+  const { user, dispatch } = useContext(userContext);
 
   function handleButtonNext(data) {
-    const obj = { ...params, ...data };
-    navigation.navigate('step-6', {
-      ...obj,
-    });
+    dispatch({ type: 'STUDENT:ADD_PROPS', payload: data });
+    navigation.navigate('step-6');
   }
 
   const handleCheckboxStatus = (value) => {
-    if (watch('patologias.nao_tenho_patologias')) return 'indeterminate';
-
     if (value) return 'checked';
 
     return 'unchecked';
@@ -53,7 +49,7 @@ const Step5 = () => {
           )}
           name="patologias.doenca_cardiovascular"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.doenca_cardiovascular}
         />
 
         <Controller
@@ -61,12 +57,14 @@ const Step5 = () => {
             <CheckBoxItem
               label="Hipertensão arterial"
               status={handleCheckboxStatus(value)}
-              onPress={() => setValue('patologias.hipertensao', !value)}
+              onPress={() =>
+                setValue('patologias.hipertensao_arterial', !value)
+              }
             />
           )}
-          name="patologias.hipertensao"
+          name="patologias.hipertensao_arterial"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.hipertensao_arterial}
         />
 
         <Controller
@@ -79,7 +77,7 @@ const Step5 = () => {
           )}
           name="patologias.obesidade"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.obesidade}
         />
 
         <Controller
@@ -92,7 +90,7 @@ const Step5 = () => {
           )}
           name="patologias.dislipidemias"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.dislipidemias}
         />
 
         <Controller
@@ -105,7 +103,7 @@ const Step5 = () => {
           )}
           name="patologias.diabetes"
           control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.diabetes}
         />
 
         <Controller
@@ -120,35 +118,12 @@ const Step5 = () => {
           )}
           name="patologias.doenca_arterial_coronariana"
           control={control}
-          defaultValue={false}
-        />
-
-        <Controller
-          render={({ value }) => (
-            <CheckBoxItem
-              label="Não possuo patologias"
-              status={value ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setValue('patologias.nao_tenho_patologias', !value);
-                setValue('patologias.doenca_cardiovascular', false);
-                setValue('patologias.hipertensao', false);
-                setValue('patologias.obesidade', false);
-                setValue('patologias.dislipidemias', false);
-                setValue('patologias.diabetes', false);
-                setValue('patologias.doenca_arterial_coronariana', false);
-                setValue('patologias.outras_patologias', '');
-              }}
-            />
-          )}
-          name="patologias.nao_tenho_patologias"
-          control={control}
-          defaultValue={false}
+          defaultValue={user.patologias.doenca_arterial_coronariana}
         />
 
         <Controller
           render={({ onChange, value }) => (
             <S.Input
-              disabled={watch('patologias.nao_tenho_patologias')}
               label="Outro"
               mode="outlined"
               value={value}
@@ -157,7 +132,7 @@ const Step5 = () => {
           )}
           name="patologias.outras_patologias"
           control={control}
-          defaultValue=""
+          defaultValue={'' || user.patologias.outras_patologias}
         />
       </S.ContainerCheckbox>
 
