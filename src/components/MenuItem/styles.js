@@ -34,7 +34,7 @@ export const TextContainer = styled.View`
 export const Description = styled.Text`
   font-family: 'PTSans-Bold';
   align-self: flex-start;
-  font-size: ${fonts.bigger}px;
+  font-size: ${fonts.regular}px;
   color: ${colors.black};
 `;
 
