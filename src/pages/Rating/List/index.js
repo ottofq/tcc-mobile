@@ -1,7 +1,14 @@
 /* eslint-disable camelcase */
-import React, { memo, useEffect, useState, useContext } from 'react';
+import React, {
+  memo,
+  useEffect,
+  useCallback,
+  useState,
+  useContext,
+} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import { RefreshControl } from 'react-native';
 
 import RatingCard from '../../../components/RatingCard';
 
@@ -25,24 +32,32 @@ const Rating = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [loadingRefresh, setLoadingRefresh] = useState(false);
   const { menu } = useContext(MenuContext);
   const { dispatch } = useContext(snackbarContext);
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    async function loadRating() {
-      try {
-        setLoading(true);
-        const ratingRespose = await getMenuRating(menu.id);
-        setRating(ratingRespose.data);
-        setLoading(false);
-      } catch (error) {
-        dispatch({ type: 'SNACKBAR:VISIBLE', payload: error.message });
-        setLoading(false);
-      }
+  async function loadRating() {
+    try {
+      setLoading(true);
+      const ratingRespose = await getMenuRating(menu.id);
+      setRating(ratingRespose.data);
+      setLoading(false);
+    } catch (error) {
+      dispatch({ type: 'SNACKBAR:VISIBLE', payload: error.message });
+      setLoading(false);
     }
+  }
+
+  useEffect(() => {
     loadRating();
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setLoadingRefresh(true);
+    loadRating();
+    setLoadingRefresh(false);
   }, []);
 
   const handleButton = () => {
@@ -50,7 +65,11 @@ const Rating = () => {
   };
 
   return (
-    <S.Container>
+    <S.Container
+      refreshControl={
+        <RefreshControl refreshing={loadingRefresh} onRefresh={onRefresh} />
+      }
+    >
       <S.TitleContainer>
         <S.Title>Total de avaliações: </S.Title>
         <Icon name="star" size={32} color="#f1c40f" />

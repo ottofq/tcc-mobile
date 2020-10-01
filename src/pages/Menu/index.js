@@ -1,4 +1,10 @@
-import React, { useCallback, memo, useContext, useEffect } from 'react';
+import React, {
+  useCallback,
+  memo,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { RefreshControl } from 'react-native';
 
 import MenuItem from '../../components/MenuItem';
@@ -16,6 +22,7 @@ import sobremesa from '../../../assets/images/sobremesa.png';
 import MenuContext from '../../contexts/menu';
 
 const Menu = () => {
+  const [loadingRefresh, setLoadingRefresh] = useState(false);
   const { menu, loading, loadMenu } = useContext(MenuContext);
 
   useEffect(() => {
@@ -23,13 +30,15 @@ const Menu = () => {
   }, []);
 
   const onRefresh = useCallback(() => {
+    setLoadingRefresh(true);
     loadMenu();
+    setLoadingRefresh(false);
   }, []);
 
   return (
     <S.Container
       refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={onRefresh} />
+        <RefreshControl refreshing={loadingRefresh} onRefresh={onRefresh} />
       }
     >
       <MenuDate loading={loading} title={menu.tipo} date={menu.data} />
