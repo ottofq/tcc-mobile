@@ -59,6 +59,7 @@ const List = () => {
       ) : (
         news.map((aviso) => (
           <NewsCard
+            style={{marginVertical: 5}}
             onPress={() => handlePress(aviso)}
             loading={loading}
             key={aviso._id}
