@@ -25,7 +25,7 @@
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-hook-form": "^6.2.0",
-    "react-native": "0.63.1",
+    "react-native": "0.64.1",
     "react-native-dotenv": "^0.2.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-htmlview": "^0.15.0",
