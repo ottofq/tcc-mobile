@@ -3,7 +3,7 @@
 import React, { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import USER_INITIAL_STATE from './initialStateStudent';
 import reducer from './reducer';
