@@ -1,17 +1,19 @@
 {
-  "name": "CardapioRU",
+  "name": "cardapio-ru",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "android": "adb reverse tcp:5000 tcp:5000 && react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "cache-reset": "react-native start --reset-cache",
     "check-dependencies": "rnx-dep-check",
     "fix-dependencies": "rnx-dep-check --write",
     "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^4",
     "@hookform/resolvers": "^0.1.0",
     "@react-native-async-storage/async-storage": "^1.15.8",
     "@react-native-masked-view/masked-view": "^0.2.6",
@@ -33,7 +35,6 @@
     "react-native-htmlview": "^0.15.0",
     "react-native-masked-text": "^1.13.0",
     "react-native-paper": "^4.0.0",
-    "react-native-picker-select": "^7.0.0",
     "react-native-ratings": "^7.2.0",
     "react-native-reanimated": "^2.2.3",
     "react-native-responsive-screen": "^1.4.1",
