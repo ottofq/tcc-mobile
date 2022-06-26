@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 
 import userContext from './User';

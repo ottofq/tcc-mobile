@@ -58,7 +58,7 @@ const Rating = () => {
           <S.Title>Avalie o cardápio</S.Title>
 
           <S.RattingWrapper style={S.styles.shadow}>
-            <S.Description>Repolho Branco, Duo de Batatas</S.Description>
+            <S.Description>{menu.entrada}</S.Description>
             <Controller
               render={({ onChange }) => (
                 <AirbnbRating
@@ -83,7 +83,7 @@ const Rating = () => {
           </S.RattingWrapper>
 
           <S.RattingWrapper style={S.styles.shadow}>
-            <S.Description>Sobrecoxa Assada</S.Description>
+            <S.Description>{menu.prato_proteico}</S.Description>
             <Controller
               render={({ onChange }) => (
                 <AirbnbRating
@@ -108,7 +108,7 @@ const Rating = () => {
           </S.RattingWrapper>
 
           <S.RattingWrapper style={S.styles.shadow}>
-            <S.Description>Ovo Frito</S.Description>
+            <S.Description>{menu.opcao}</S.Description>
             <Controller
               render={({ onChange }) => (
                 <AirbnbRating
@@ -133,7 +133,7 @@ const Rating = () => {
           </S.RattingWrapper>
 
           <S.RattingWrapper style={S.styles.shadow}>
-            <S.Description>Arroz, Feijão</S.Description>
+            <S.Description>{menu.acompanhamento}</S.Description>
             <Controller
               render={({ onChange }) => (
                 <AirbnbRating
@@ -158,7 +158,7 @@ const Rating = () => {
           </S.RattingWrapper>
 
           <S.RattingWrapper style={S.styles.shadow}>
-            <S.Description>Macarrão Gravatinha ao Alho e Óleo</S.Description>
+            <S.Description>{menu.guarnicao}</S.Description>
             <Controller
               render={({ onChange }) => (
                 <AirbnbRating
@@ -183,7 +183,7 @@ const Rating = () => {
           </S.RattingWrapper>
 
           <S.RattingWrapper style={S.styles.shadow}>
-            <S.Description>Melão</S.Description>
+            <S.Description>{menu.sobremesa}</S.Description>
             <Controller
               render={({ onChange }) => (
                 <AirbnbRating
